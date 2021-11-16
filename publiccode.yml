@@ -1,0 +1,77 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+applicationSuite: e-procurement GT-SUAM
+categories:
+  - procurement
+dependsOn:
+  open:
+    - name: Java
+      optional: false
+      version: OpenJDK-11.0.12
+      versionMax: '11'
+      versionMin: '1.8'
+    - name: Postgresql
+      optional: false
+      version: ''
+      versionMax: '11'
+      versionMin: '9.6'
+    - name: Tomcat
+      optional: false
+      version: 9.0.54
+      versionMax: '9'
+      versionMin: '8'
+description:
+  it:
+    features:
+      - Import da SIMOG anagrafica gara e lotto
+      - Gestione fasi di esecuzione del contratto
+      - Gestione controllo coerenza dati
+      - Invio dati a SIMOG
+      - Gestione feedback invio dati
+    genericName: e-procurement platform
+    longDescription: |
+      Modulo di intermediazione verso SIMOG. 
+      Il modulo è in grado di supportare la predisposizione delle comunicazioni richieste dall’ANAC (Autorità Nazionale Anticorruzione) per le trasmissioni al SIMOG dei dati relativi ai contratti di lavori, forniture e servizi aggiudicati o affidati dal 1° gennaio 2008       (Comunicato del Presidente AVCP del 04/04/2008 – G.U. del 21/04/2008).
+      A partire dall'anagrafica gara e lotto, per ogni CIG è possibile compilare e trasmettere i dati di tutte le fasi di esecuzione del contratto (aggiudicazione, inizio, avanzamento, sospensioni, modifiche al contratto, collaudo, ecc.).
+      Si evidenzia che è richiesta l’autorizzazione dell’ANAC all’Amministrazione per l’invio al SIMOG dei dati mediante cooperazione applicativa.
+    shortDescription: Comunicazioni di eventi di contratti a SIMOG
+usedBy:
+  - Regione Marche
+developmentStatus: stable
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: true
+    pagopa: false
+    spid: true
+  riuso:
+    codiceIPA: r_marche
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Maggioli S.p.A.
+  repoOwner: Regione Marche
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contractors:
+    - name: MAGGIOLI SPA
+      until: '2021-12-31'
+      website: 'https://www.maggioli.com'
+  type: contract
+name: VigilanzaComunicazioni
+platforms:
+  - web
+releaseDate: '2021-10-15'
+softwareType: standalone/web
+url: 'https://github.com/regione-marche/e-procurement-VigilanzaComunicazioni.git'
