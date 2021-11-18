@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="uploadFileForm" type="it.eldasoft.gene.commons.web.struts.UploadFileForm"/>
+		
+		<form-bean name="uploadMultiploForm" type="it.eldasoft.sil.pt.web.struts.UploadMultiploForm" />
+	</form-beans>
+
+	<global-forwards>
+	</global-forwards>
+
+	<action-mappings>
+
+		<action path="/Scheda" name="uploadMultiploForm" type="it.eldasoft.gene.web.struts.tags.SchedaAction" scope="request" validate="false" parameter="metodo" >
+			<!-- Se si verificano errori ritorna alla trova -->
+			<forward name="errore" path="/ApriPagina.do" module="/" />
+		</action >
+	
+		<action path="/VisualizzaAllegato" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/VisualizzaAllegatoNuovaNormativa" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+		</action>
+	
+		<action path="/CopiaIntervento" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=piani/piatri/piatri-popup.jsp"/>
+		</action>
+		
+		<action path="/IncollaIntervento" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+			<forward name="success" module="/" path="/piani/AggiornaImportiProgramma.do"/>
+			<forward name="failed" module="/"  path="/ApriPagina.do?href=piani/piatri/piatri-popuperror.jsp"/>
+		</action>
+		
+		<action path="/ErrorGenerator" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/piani/AggiornaImportiProgramma.do"/>
+		</action>	
+		
+		<action path="/AggiornaImportiProgramma" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=piani/piatri/piatri-popup.jsp"/>
+		</action>
+	
+		<action path="/AnnullaPubblicazione" type="it.eldasoft.sil.pt.web.struts.AnnullaPubblicazioneAction" scope="request"
+			validate="false" parameter="metodo">
+			<!-- Se si verificano errori ritorna alla trova -->
+			<forward name="error" path="/ApriPagina.do" />
+		</action>
+		
+		<action path="/CopiaPubblicazione" type="it.eldasoft.sil.pt.web.struts.CopiaPubblicazioneAction" scope="request"
+			validate="false" parameter="metodo">
+			<!-- Se si verificano errori ritorna alla trova -->
+			<forward name="error" path="/ApriPagina.do" />
+		</action>
+
+		<action path="/CreateXMLProgrammiTriennali" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+		
+		<action path="/ImportHiProg3" name="uploadFileForm"
+			type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+			<forward name="error" path="/WEB-INF/pages/piani/piatri/piatri-import-hiprog3.jsp" module="/" />
+			<forward name="success" path="/WEB-INF/pages/piani/piatri/piatri-import-hiprog3.jsp" module="/" />
+		</action>
+		
+		<action path="/CambiaRUP" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=piani/piatri/piatri-popup.jsp"/>
+			<forward name="error" module="/"  path="/ApriPagina.do?href=piani/piatri/piatri-popuperror.jsp"/>
+		</action>
+		
+		<action path="/AggiornaSequenzaInterventi" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+		
+		<action path="/VerificaAnnualitaRiferimento" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+		
+		<action path="/CalcolaCUIIMM" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+		
+		<action path="/GetDatiInterventi" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+
+		<action path="/IsCodiceInterventoUnico" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+
+		<action path="/GetListaInterventiDaProgrammaPrecedente" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward name="success" module="/" path="/WEB-INF/pages/piani/piatri/popup-listaInterventiPrecedenti.jsp"/>
+		</action>
+		
+		<action path="/RiportaInterventi" parameter="metodo" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward module="/" name="success" path="/WEB-INF/pages/piani/piatri/popup-esitoRiportoInterventi.jsp"/>
+			<forward module="/" name="errorRiportaInterventi" path="/WEB-INF/pages/piani/piatri/popup-esitoRiportoInterventi.jsp"/>
+		</action>
+
+		<action path="/GetReportAcquistiSoggettoAggregatore" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+		</action>
+				
+		<action path="/ContrassegnaFabbisogno" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=piani/fabbisogni/fabbisogni-popup.jsp"/>
+		</action>
+		
+		<action path="/GetListaFabbisogni" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward name="success" module="/" path="/WEB-INF/pages/piani/fabbisogni/popup-importa-fabbisogni.jsp"/>
+			<forward name="inserisciInProgrammazione" module="/" path="/WEB-INF/pages/piani/piatri/piatri-popup-inserisciInProgrammazione.jsp"/>
+		</action>
+		
+		<action path="/GetILFSListaLavori" type="org.springframework.web.struts.DelegatingActionProxy"
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/SetILFSCodlav" type="org.springframework.web.struts.DelegatingActionProxy"
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/ImportaAcquistiInterventi" name="uploadFileForm"
+			type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+			<forward name="error" path="/WEB-INF/pages/piani/commons/importaAcquistiInterventi.jsp" module="/" />
+			<forward name="success" path="/WEB-INF/pages/piani/commons/importaAcquistiInterventi.jsp" module="/" />
+		</action>
+	
+		<action path="/GetListaOpereDaProgrammaPrecedente" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward name="success" module="/" path="/WEB-INF/pages/piani/piatri/popup-listaOperePrecedenti.jsp"/>
+		</action>
+		
+		<action path="/RiportaOpere" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false">
+			<forward module="/" name="success" path="/WEB-INF/pages/piani/piatri/popup-esitoRiportoOpere.jsp"/>
+			<forward module="/" name="errorRiportaInterventi" path="/WEB-INF/pages/piani/piatri/popup-esitoRiportoOpere.jsp"/>
+		</action>
+		
+	</action-mappings>
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin" >
+		<set-property property="definitions-config"	value="/WEB-INF/xml/tiles/tiles-defs-gene-common.xml" />
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+	
+</struts-config>

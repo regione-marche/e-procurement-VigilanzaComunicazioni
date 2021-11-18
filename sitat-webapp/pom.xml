@@ -1,0 +1,373 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.toscana.regione.sitat</groupId>
+		<artifactId>sitat-pom</artifactId>
+		<version>5.6.4</version>
+	</parent>
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<artifactId>sitat-webapp</artifactId>
+	<!-- CONFIGURA QUA IL TIPO DI PACKAGING-->
+	<packaging>pom</packaging>
+	
+	<modules>
+		<!--module>sitatsa-webapp</module-->
+		<!--module>sitatort-webapp</module-->
+		<module>vigilanza-webapp</module>
+	</modules>
+	
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<name>POM per il build delle Web application Sitat</name>
+	<url>http://oscat.rete.toscana.it/projects/sitat</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>it.toscana.regione.sitat</groupId>
+			<artifactId>sitat-core-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>	
+
+	<profiles>
+        <profile>
+            <id>env-dev</id>
+            <activation>
+                <property>
+					<!-- Activate: mvn -Denv=dev <phase> -->
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+				<filter.fileName>sviluppo</filter.fileName>
+				<custom.resourceDir>resources-dev</custom.resourceDir>
+				<filter.resources>true</filter.resources>
+            </properties>
+		</profile>
+        <profile>
+            <id>env-prod</id>
+            <activation>
+				<activeByDefault>true</activeByDefault>
+                <property>
+					<!-- Activate: mvn -Denv=prod <phase> -->
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+				<filter.fileName>rilascio</filter.fileName>
+				<custom.resourceDir>resources-dev</custom.resourceDir>
+				<filter.resources>true</filter.resources>
+            </properties>
+		</profile>
+
+        <profile>
+            <id>env-nofilter</id>
+            <activation>
+                <property>
+					<!-- Activate: mvn -Denv=dev -->
+                    <name>env</name>
+                    <value>nofilter</value>
+                </property>
+            </activation>
+            <properties>
+				<filter.fileName>empty</filter.fileName>
+				<custom.resourceDir>resources-dev</custom.resourceDir>
+				<filter.resources>false</filter.resources>
+            </properties>
+		</profile>
+		
+	</profiles>
+
+	<build>
+		<!-- filtri prima sul file definito con il profilo in uso, e poi usando il default-filter -->
+		<filters>
+			<filter>${project.build.directory}/dependencies-unpacked/sitat/configuration/default-filter.properties</filter>
+			<filter>src/main/filters/${filter.fileName}.properties</filter>
+			<filter>custom-filter.properties</filter>
+		</filters>
+
+        <!-- application.properties non va copiata come risorsa in quanto viene fusa nel global.properties -->
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+				<excludes>
+					<exclude>application.properties</exclude>
+					<exclude>tasks-add.properties</exclude>
+				</excludes>
+				<filtering>${filter.resources}</filtering>
+            </resource>
+        </resources>
+
+		<pluginManagement>
+
+		<plugins>
+
+			<plugin>
+				<!-- espande in una cartella di appoggio alcuni file presenti nelle dipendenze per le successive elaborazioni -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>unpack-utils-dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies-unpacked/sitat</outputDirectory>
+							<verbose>true</verbose>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<appendOutput>true</appendOutput>
+							<includeGroupIds>it.toscana.regione.sitat</includeGroupIds>
+							<includeArtifactIds>sitat-core-webapp</includeArtifactIds>
+							<includes>configuration/*,WEB-INF/jboss-web.xml,WEB-INF/classes/*.properties,WEB-INF/xml/spring/tasks.xml</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<!-- effettua l'iniezione dei global forward nei file di struts -->
+				<groupId>com.google.code.maven-config-processor-plugin</groupId>
+				<artifactId>maven-config-processor-plugin</artifactId>
+				<version>2.0</version>			
+				<executions>
+					<execution>
+						<id>xml-spring-task</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>${project.build.directory}/war/work/xml-spring</outputDirectory>
+							<transformations>
+								<transformation>
+									<input>${project.build.directory}/dependencies-unpacked/sitat/WEB-INF/xml/spring/tasks.xml</input>
+									<output>tasks.xml</output>
+									<config>${project.build.directory}/dependencies-unpacked/sitat/configuration/spring-tasks-transformation.xml</config>
+								</transformation>
+							</transformations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<!-- copia i file di sitat per i quali si richiede il filtraggio con le sostituzioni 
+						nella cartella dei resources di appoggio-->
+						<id>copy-standard-resources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/war/work/resources</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>${project.build.directory}/dependencies-unpacked/sitat/WEB-INF</directory>
+									<excludes>
+										<exclude>**/log4j*</exclude>
+										<exclude>**/tasks*.xml</exclude>
+									</excludes>
+									<filtering>${filter.resources}</filtering>
+								</resource>
+							</resources>              
+						</configuration>            
+					</execution>
+					<execution>
+						<!-- copia il file con le configurazioni specifiche, applicando il filtraggio, 
+						nella cartella dei resources di appoggio -->
+						<id>copy-application-resources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/war/work/resources/classes</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>application.properties</include>
+										<include>tasks-add.properties</include>
+									</includes>
+									<filtering>${filter.resources}</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<!-- copia il log4j di default nella cartella per lo sviluppo applicando il filtraggio -->
+						<id>copy-log4j-std-resources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/war/work/resources-dev</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>${project.build.directory}/dependencies-unpacked/sitat/WEB-INF</directory>
+									<includes>
+										<include>**/log4j.properties</include>
+									</includes>
+									<filtering>${filter.resources}</filtering>
+								</resource>
+							</resources>
+						</configuration>            
+					</execution>
+					<execution>
+						<!-- copia il log4j da usare in Regione Toscana nella cartella per la produzione applicando il filtraggio -->
+						<id>copy-log4j-rt-resources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/war/work/resources-prod</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>${project.build.directory}/dependencies-unpacked/sitat/WEB-INF</directory>
+									<includes>
+										<include>**/log4j-prod.properties</include>
+									</includes>
+									<filtering>${filter.resources}</filtering>
+								</resource>
+							</resources>              
+						</configuration>            
+					</execution>
+
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<!-- task di fusione dei file di properties e rename del file log4j di regione toscana -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>                   	   
+					<execution>
+						<id>merge-properties-antrun</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+							<!-- da rimuover
+								<echo>Merging properties</echo>
+								<concat destfile="${project.build.directory}/war/work/resources/classes/tasks.properties" append="true">
+									<fileset dir="${project.build.directory}/war/work/resources/classes" includes="tasks-add.properties" />
+								</concat> -->
+								<echo>Renaming log4j.properties Regione Toscana</echo>
+								<copy file="${project.build.directory}/war/work/resources-prod/classes/log4j-prod.properties" tofile="${project.build.directory}/war/work/resources-prod/classes/log4j.properties"/>
+							</target>
+						</configuration>
+					</execution>                    
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- build con file filtrati corretti, ed eliminazione di alcune parti inutili -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<overlays>
+						<overlay>
+							<groupId>it.toscana.regione.sitat</groupId>
+							<artifactId>sitat-core-webapp</artifactId>
+							<excludes>
+								<exclude>configuration/**</exclude>
+								<exclude>WEB-INF/web.xml</exclude>
+								<exclude>WEB-INF/jboss-web.xml</exclude>
+								<exclude>WEB-INF/xml/ibatis/add.xml</exclude>
+								<exclude>WEB-INF/xml/spring/tasks-add.xml</exclude>
+								<exclude>WEB-INF/xml/spring/tasks.xml</exclude>
+								<exclude>WEB-INF/xml/struts/gene-forward.xml</exclude>
+								<exclude>WEB-INF/classes/log4j-*.properties</exclude>
+							
+								<!--exclude>WEB-INF/lib/activation*.jar</exclude-->
+								<exclude>WEB-INF/lib/ojdbc*.jar</exclude>
+								<exclude>WEB-INF/lib/postgresql*.jar</exclude>
+								<exclude>WEB-INF/lib/sqljdbc*.jar</exclude>
+							</excludes>
+						</overlay>
+					</overlays>
+					<warSourceExcludes>WEB-INF/xml/ibatis/add.xml,WEB-INF/xml/spring/tasks-add.xml</warSourceExcludes>
+					<webResources>
+						<resource>
+							<!-- "touch" del web.xml inserito nell'artefatto -->
+							<directory>src/main/webapp/WEB-INF</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>web.xml</include>
+							</includes>
+							<filtering>${filter.resources}</filtering>
+						</resource>
+						<resource>
+							<!-- risorse filtrate derivate dalla webapp sitat-webapp -->
+							<directory>${project.build.directory}/war/work/resources</directory>
+							<targetPath>WEB-INF</targetPath>
+							<excludes>
+								<exclude>**/application.properties</exclude>
+								<exclude>**/tasks-add.properties</exclude>
+							</excludes>
+						</resource>
+						<resource>
+							<!-- log4j.properties corretto per l'ambiente di build -->
+							<directory>${project.build.directory}/war/work/${custom.resourceDir}</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/log4j.properties</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${project.build.directory}/war/work/xml-spring</directory>
+							<targetPath>WEB-INF/xml/spring</targetPath>
+							<includes>
+								<include>tasks.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<!-- crea le distribuzioni in formato zip e tar.gz -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/dep.xml</descriptor>
+					</descriptors>
+				</configuration>			
+				<executions> 
+					<execution> 
+						<id>make-assembly</id>
+						<phase>package</phase> 
+						<goals> 
+							<goal>single</goal> 
+						</goals>
+					</execution> 
+				</executions>			
+			</plugin>
+			
+		</plugins>
+
+		</pluginManagement>
+	</build>
+
+</project>

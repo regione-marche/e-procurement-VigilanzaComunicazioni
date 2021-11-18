@@ -1,0 +1,26 @@
+/*
+ * XML Type:  FlagTCType
+ * Namespace: https://appaltiliguria.regione.liguria.it/pubblica/webservices/types
+ * Java type: it.maggioli.w9.pubblica.webservices.AppaltiLiguriaWebService2.types.FlagTCType
+ *
+ * Automatically generated - do not modify.
+ */
+package it.maggioli.w9.pubblica.webservices.AppaltiLiguriaWebService2.types.impl;
+/**
+ * An XML FlagTCType(@https://appaltiliguria.regione.liguria.it/pubblica/webservices/types).
+ *
+ * This is an atomic type that is a restriction of it.maggioli.w9.pubblica.webservices.AppaltiLiguriaWebService2.types.FlagTCType.
+ */
+public class FlagTCTypeImpl extends org.apache.xmlbeans.impl.values.JavaStringEnumerationHolderEx implements it.maggioli.w9.pubblica.webservices.AppaltiLiguriaWebService2.types.FlagTCType
+{
+    
+    public FlagTCTypeImpl(org.apache.xmlbeans.SchemaType sType)
+    {
+        super(sType, false);
+    }
+    
+    protected FlagTCTypeImpl(org.apache.xmlbeans.SchemaType sType, boolean b)
+    {
+        super(sType, b);
+    }
+}

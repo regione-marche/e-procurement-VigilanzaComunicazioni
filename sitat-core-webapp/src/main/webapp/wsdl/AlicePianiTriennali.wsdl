@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.pt.sil.eldasoft.it/AliceProgrammi/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AliceProgrammi" targetNamespace="http://ws.pt.sil.eldasoft.it/AliceProgrammi/">
+  <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.pt.sil.eldasoft.it/AliceProgrammi/">
+        	
+        	<xsd:element name="getListaInterventi">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="contri" type="xsd:int"></xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+        	<xsd:element name="getListaInterventiResponse">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="out" type="xsd:string"></xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+        	<xsd:element name="getSchedaIntervento">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="contri" type="xsd:int"></xsd:element>
+        				<xsd:element name="conint"
+        					type="xsd:int">
+        				</xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+        	<xsd:element name="getSchedaInterventoResponse">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="out" type="xsd:string"></xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+
+			<xsd:element name="getListaProgrammi">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="id" type="xsd:string">
+        				</xsd:element>
+        				<xsd:element name="anno" type="xsd:int" default="-1">
+        				</xsd:element>
+        				<xsd:element name="tipo"
+        					type="xsd:int" default="-1">
+        				</xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+        	
+        	<xsd:element name="getListaProgrammiResponse">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="out" type="xsd:string"></xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+
+        	<xsd:element name="setSchedaIntervento">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="in" type="xsd:string"></xsd:element>
+        				<xsd:element name="contri"
+        					type="xsd:int">
+        				</xsd:element>
+        			</xsd:sequence>
+        			
+        		</xsd:complexType>
+        	</xsd:element>
+        	<xsd:element name="setSchedaInterventoResponse">
+        		<xsd:complexType>
+        			<xsd:sequence>
+
+        				<xsd:element name="out" type="xsd:string"></xsd:element>
+        				<xsd:element name="result"
+        					type="xsd:boolean">
+        				</xsd:element>
+        			</xsd:sequence>
+        		</xsd:complexType>
+        	</xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+ 
+  <wsdl:message name="getListaInterventiRequest">
+  	<wsdl:part name="parameters" element="tns:getListaInterventi"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListaInterventiResponse">
+  	<wsdl:part name="parameters" element="tns:getListaInterventiResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSchedaInterventoRequest">
+  	<wsdl:part name="parameters" element="tns:getSchedaIntervento"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSchedaInterventoResponse">
+  	<wsdl:part name="parameters" element="tns:getSchedaInterventoResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListaProgrammiRequest">	<wsdl:part name="parameters" element="tns:getListaProgrammi"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListaProgrammiResponse">
+  	<wsdl:part name="parameters" element="tns:getListaProgrammiResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setSchedaInterventoRequest">
+  	<wsdl:part name="parameters" element="tns:setSchedaIntervento"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setSchedaInterventoResponse">
+  	<wsdl:part name="parameters" element="tns:setSchedaInterventoResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AliceProgrammi">
+    <wsdl:operation name="getListaInterventi">
+    	<wsdl:input message="tns:getListaInterventiRequest"></wsdl:input>
+    	<wsdl:output message="tns:getListaInterventiResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchedaIntervento">
+    	<wsdl:input message="tns:getSchedaInterventoRequest"></wsdl:input>
+    	<wsdl:output message="tns:getSchedaInterventoResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListaProgrammi">
+    	<wsdl:input message="tns:getListaProgrammiRequest"></wsdl:input>
+    	<wsdl:output message="tns:getListaProgrammiResponse"></wsdl:output>
+        </wsdl:operation>
+    <wsdl:operation name="setSchedaIntervento">
+    	<wsdl:input message="tns:setSchedaInterventoRequest"></wsdl:input>
+    	<wsdl:output message="tns:setSchedaInterventoResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AliceProgrammiSOAP" type="tns:AliceProgrammi">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+   <wsdl:operation name="getListaProgrammi">
+      <soap:operation soapAction="http://www.example.org/AliceProgrammi/getListaProgrammi"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListaInterventi">
+      <soap:operation soapAction="http://www.example.org/AliceProgrammi/getListaInterventi"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchedaIntervento">
+      <soap:operation soapAction="http://www.example.org/AliceProgrammi/getSchedaIntervento"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setSchedaIntervento">
+      <soap:operation soapAction="http://www.example.org/AliceProgrammi/setSchedaIntervento"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AliceProgrammi">
+    <wsdl:port binding="tns:AliceProgrammiSOAP" name="AliceProgrammiSOAP">
+      <soap:address location="http://localhost:8080/AliceProgrammi/services/AliceProgrammiSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

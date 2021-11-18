@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="tabControlli">
+
+	<resultMap id="resultControllo" class="it.eldasoft.commons.beans.ControlloBean">
+		<result property="codapp" column="codapp" columnIndex="1" />
+		<result property="codFunzione" column="CODFUNZIONE" columnIndex="2" />
+		<result property="num" column="num" columnIndex="3" />
+		<result property="entita" column="ENTITA" columnIndex="4" />
+		<result property="sezione" column="SEZIONE" columnIndex="5" />
+		<result property="titolo" column="TITOLO" columnIndex="6" />
+		<result property="condizione" column="CONDIZIONE" columnIndex="7" />
+		<result property="messaggio" column="MSG" columnIndex="8" />
+		<result property="tipo" column="TIPO" columnIndex="9" />
+	</resultMap>
+
+	<select id="selectListaControlliEntita" resultMap="resultControllo" parameterClass="java.util.HashMap" >
+		select CODAPP, CODFUNZIONE, NUM, ENTITA, SEZIONE, TITOLO, CONDIZIONE, MSG, TIPO
+		  from TAB_CONTROLLI
+		 where CODAPP = #codapp:VARCHAR# and ENTITA = #entita:VARCHAR# 
+		   and CODFUNZIONE=#codFunzione:VARCHAR# and TIPO in ('E', 'W', 'T')
+	order by NUM asc
+	</select>
+	
+	<select id="getControllo" resultClass="java.lang.Long" parameterClass="java.util.HashMap" >
+		select count(*) from $entita$ T where ($condizione$) and ($condizioneCampiChiave$)
+	</select>
+	
+</sqlMap>

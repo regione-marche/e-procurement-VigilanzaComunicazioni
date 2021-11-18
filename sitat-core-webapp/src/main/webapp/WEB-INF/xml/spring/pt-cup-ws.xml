@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- ========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS ========================= -->
+
+	<!-- ========================= DAO DEFINITIONS: JDBC IMPLEMENTATIONS ========================= -->
+
+	<!-- ========================= BEAN DEFINITIONS ========================= -->
+	
+	<bean id="controlliValidazioneCUPManager"
+		class="it.eldasoft.sil.pt.bl.ControlliValidazioneCUPManager">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean id="gestioneXMLCUPManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="dettaglioGenerazioneCUPXML">PROPAGATION_REQUIRED</prop>
+				<prop key="richiestaGenerazioneCUPXML">PROPAGATION_REQUIRED</prop>
+				<prop key="richiestaChiusuraRevocaCUPXML">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="gestioneXMLCUPManager" parent="gestioneXMLCUPManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.GestioneXMLCUPManager" >
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="gestioneServiziCUPManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="richiestaGenerazioneCUP">PROPAGATION_REQUIRED</prop>
+				<prop key="richiestaListaCUP">PROPAGATION_REQUIRED</prop>
+				<prop key="richiestaChiusuraRevocaCUP">PROPAGATION_REQUIRED</prop>
+				<prop key="gestioneCUPWSUserPass">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="gestioneServiziCUPManager" parent="gestioneServiziCUPManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.GestioneServiziCUPManager" >
+				<property name="gestioneXMLCUPManager" ref="gestioneXMLCUPManager" />
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="eldasoftCUPWSTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="inserisci*">PROPAGATION_REQUIRED,-java.lang.Throwable</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="eldasoftCUPWSManager" parent="eldasoftCUPWSTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.EldasoftCUPWSManager" >
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="genChiaviManager" ref="genChiaviManager" /> 
+				<property name="loginManager" ref="loginManager" />
+				<property name="ldapManager" ref="ldapManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- ========================= STRUTS ACTION DEFINITIONS ========================= -->
+	
+	<bean name="/piani/AvviaRichiestaCUP" class="it.eldasoft.sil.pt.web.struts.AvviaRichiestaCUPAction">
+		<property name="controlliValidazioneCUPManager" ref="controlliValidazioneCUPManager" />
+	</bean>
+	
+	<bean name="/piani/RichiestaGenerazioneCUP" class="it.eldasoft.sil.pt.web.struts.RichiestaGenerazioneCUPAction">
+		<property name="gestioneServiziCUPManager" ref="gestioneServiziCUPManager" />
+	</bean>
+	
+	<bean name="/piani/RichiestaListaCUP" class="it.eldasoft.sil.pt.web.struts.RichiestaListaCUPAction">
+		<property name="gestioneServiziCUPManager" ref="gestioneServiziCUPManager" />
+	</bean>
+	
+	<bean name="/piani/RedirectCUP" 
+		class="it.eldasoft.sil.pt.web.struts.RedirectCUPAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/RichiestaChiusuraRevocaCUP" class="it.eldasoft.sil.pt.web.struts.RichiestaChiusuraRevocaCUPAction">
+		<property name="gestioneServiziCUPManager" ref="gestioneServiziCUPManager" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="w4File">
+
+	<resultMap id="resultW9File" class="it.eldasoft.gene.db.domain.BlobFile">
+		<result property="stream" column="FILE_ALLEGATO" columnIndex="1" jdbcType="BYTEA"/>
+	</resultMap>
+
+	<resultMap id="resultW9LOTTComunicazioneEsito" class="it.eldasoft.gene.db.domain.BlobFile">
+		<result property="stream" column="FILE_ESITO" columnIndex="1" jdbcType="BYTEA"/>
+	</resultMap>
+
+	<resultMap id="resultDocBando" class="it.eldasoft.w9.dao.vo.DocumentoBando" >
+		<result property="titolo" column="TITOLO" columnIndex="1" />
+		<result property="stream" column="FILE_ALLEGATO" columnIndex="2" jdbcType="BYTEA"/>
+	</resultMap>
+
+	<resultMap id="resultW_DOCDIG" class="it.eldasoft.gene.db.domain.BlobFile">
+		<result property="stream" column="DIGOGG" columnIndex="1" jdbcType="BINARY"/>
+	</resultMap>
+	
+	<select id="getFileAllegatoGARA" parameterClass="java.util.HashMap" resultMap="resultW9File">
+		SELECT FILE_ALLEGATO FROM W9DOCGARA WHERE codgara = #codGara# and numdoc = #numdoc# and num_pubb = #num_pubb#
+	</select>
+
+	<select id="getFileAllegatoESITO" parameterClass="java.util.HashMap" resultMap="resultW9File">
+		SELECT FILE_ALLEGATO FROM W9ESITO WHERE CODGARA = #codGara# and CODLOTT = #codLotto#
+	</select>
+	
+	<select id="getFileAllegatoW9LOTT_ENTINAZ" parameterClass="java.util.HashMap" resultMap="resultW9File">
+		SELECT FILE_ALLEGATO FROM W9LOTT_ENTINAZ WHERE CODGARA = #codGara# and CODLOTT = #codLotto#
+	</select>
+	
+	<select id="getFileAllegatoFASE" parameterClass="java.util.HashMap" resultMap="resultW9File">
+		SELECT FILE_ALLEGATO FROM W9DOCFASE WHERE CODGARA = #codGara# and CODLOTT = #codLotto# and FASE_ESECUZIONE = #fase_esecuzione#	and NUM_FASE = #num_fase# and NUMDOC = #numdoc#
+	</select>	
+
+	<select id="getFileAllegatoAVVISO" parameterClass="java.util.HashMap" resultMap="resultW9File">
+		SELECT FILE_ALLEGATO FROM W9DOCAVVISO WHERE idavviso = #idavviso# AND codein = #codein# AND codsistema = #codsistema#
+	</select>
+
+	<select id="getDocumentiBando" parameterClass="java.lang.Long" resultMap="resultDocBando">
+		SELECT TITOLO, FILE_ALLEGATO FROM W9DOCGARA WHERE CODGARA = #codiceGara# order by NUMDOC asc
+	</select>
+
+	<select id="getFileAllegatoW_COOPUSR" parameterClass="java.util.HashMap" resultMap="resultW_DOCDIG">
+		SELECT DIGOGG FROM W_DOCDIG WHERE IDPRG='W9' and digent='W_COOPUSR' and DIGKEY1 = #id_richiesta#
+	</select>
+</sqlMap>

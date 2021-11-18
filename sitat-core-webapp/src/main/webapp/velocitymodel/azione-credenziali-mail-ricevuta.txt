@@ -1,0 +1,28 @@
+Spett. Amministrazione,
+la richiesta per l'abilitazione al servizio di cooperazione applicativa e interoperatibilita' a #if ($NOMEMITT)$NOMEMITT#end e' stata #if ($AZIONE)$AZIONE#end,
+#if ($CLIENT_ID)
+di seguito riportiamo le credenziali
+
+ClientId:    $CLIENT_ID
+ClientKey:   $CLIENT_KEY
+
+Username:    $USERNAME
+Password:    $PASSWORD
+
+Potete accedere all'interfaccia web con Username e Password all'indirizzo:
+https://www.serviziocontrattipubblici.it/SCPPubbCollaudo/
+quindi dopo il primo accesso provvedere al cambio password (che dovra' essere effettuato ogni 6 mesi).
+Potrete utilizzare questa interfaccia anche per controllare i dati trasmessi.
+
+Per l'accesso ai servizi di cooperazione si rimanda alla documentazione di cui alla pagina "https://www.serviziocontrattipubblici.it/SPInApp/it/doc_tecnica_a_supporto.page" del sito SCP.
+In particolare si consiglia di testare la raggiungibilità del servizio di login a questo indirizzo:
+https://www.serviziocontrattipubblici.it/WSLoginCollaudo/rest/application.wadl
+#end
+
+Cogliamo l'occasione per porgere distinti saluti.
+
+#if ($NOMEMITT)$NOMEMITT#end
+
+
+-------
+La presente comunicazione e' inviata da un sistema automatico, si prega di non rispondere.

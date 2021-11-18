@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.toscana.regione.sitat</groupId>
+		<artifactId>sitat-pom</artifactId>
+		<version>5.6.4</version>
+	</parent>
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<artifactId>sitat-core-engine</artifactId>
+	<!-- CONFIGURA QUA IL TIPO DI PACKAGING-->
+	<packaging>jar</packaging>
+
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<name>Core engine applicativi web Sitat</name>
+	<url>http://oscat.rete.toscana.it/projects/sitat</url>
+</project>

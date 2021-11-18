@@ -1,0 +1,11 @@
+	<Resource name="jdbc/SitatSA" 
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.ibm.db2.jcc.DB2Driver"
+		url="jdbc:db2://localhost:50000/DEV"
+		autocommit="false"
+		username="myuser-sa"
+		password="mypassword-sa"
+		maxActive="20"
+		maxIdle="10"
+		maxWait="-1"/> 

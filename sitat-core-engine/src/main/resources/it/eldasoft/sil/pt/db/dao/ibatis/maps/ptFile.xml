@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="w4File">
+
+	<resultMap id="resultptFile" class="it.eldasoft.gene.db.domain.BlobFile">
+		<result property="stream" column="FILE_ALLEGATO" columnIndex="1" jdbcType="BINARY"/>
+	</resultMap>
+
+	
+
+	<select id="getFileAllegatoPIATRI" parameterClass="java.util.HashMap" resultMap="resultptFile">
+		SELECT FILE_ALLEGATO FROM PIATRI WHERE contri = #contri#
+	</select>
+	
+	<select id="getFileAllegatoPTFLUSSI" parameterClass="java.util.HashMap" resultMap="resultptFile">
+		SELECT FILE_ALLEGATO FROM PTFLUSSI WHERE idflusso = #idFlusso#
+	</select>
+	
+</sqlMap>

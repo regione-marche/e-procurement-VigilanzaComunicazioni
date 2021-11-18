@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+
+<!--
+     This is a blank Tiles definition file with a commented example.
+-->
+
+<tiles-definitions>
+
+    <!-- sample tiles definitions
+    <definition name=".mainLayout" path="/common/layouts/classicLayout.jsp">
+        <put name="title"  value="Sample Page Title" />
+        <put name="header" value="/common/header.jsp" />
+        <put name="menu"   value=".mainMenu" />
+        <put name="footer" value="/common/footer.jsp" />
+        <put name="body"   value=".portal.body" />
+    </definition>
+
+    <definition name=".mainMenu" path="/common/layouts/vboxLayout.jsp" >
+        <putList name="list" >
+            <add value=".menu.links" />
+            <add value=".menu.taglib.references" />
+            <add value=".menu.printer.friendly" />
+            <add value=".menu.old.documents" />
+      </putList>
+    </definition>
+
+    <definition name="aPage" extends=".mainLayout">
+        <put name="title"  value="Another Title" />
+        <put name="body"   value=".aPage.body" />
+    </definition>
+
+    end samples -->
+
+	<!-- Definizione della pagina 'Nuova gara' -->
+  <definition name="formConsultaGaraSIMOG" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"    value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/consultaGara/headFormConsultaGaraSIMOG.jsp" />
+		<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();richiestaConferma();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/consultaGara/azioniFormConsultaGaraSIMOG.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/consultaGara/titoloConsultaGaraSIMOG.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/consultaGara/formConsultaGaraSIMOG.jsp" />
+  </definition>
+
+  <definition name="resultConsultaGaraSIMOG" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"    value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/consultaGara/headResultConsultaGaraSIMOG.jsp" />
+		<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/consultaGara/azioniResultConsultaGaraSIMOG.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/consultaGara/titoloConsultaGaraSIMOG.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/consultaGara/resultConsultaGaraSIMOG.jsp" />
+  </definition>
+
+  <definition name="resultPresaInCaricoGara" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"    value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/consultaGara/headResultConsultaGaraSIMOG.jsp" />
+		<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/consultaGara/azioniResultConsultaGaraSIMOG.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/consultaGara/titoloConsultaGaraSIMOG.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/consultaGara/resultPresaInCaricoGara.jsp" />
+  </definition>
+
+	<definition name="confermaPresaInCaricoGaraDelegata" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"    value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/consultaGara/headPresaInCaricoGaraDelegata.jsp" />
+		<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/consultaGara/azioniPresaInCaricoGaraDelegata.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/consultaGara/titoloConsultaGaraSIMOG.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/consultaGara/formPresaInCaricoGaraDelegata.jsp" />
+  </definition>
+
+  <definition name="formGaraCigImportDatiDaOR" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"    value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/importaDaOR/headFormImportaDatiDaOR1.jsp" />
+	<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();richiestaConferma();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/importaDaOR/azioniFormImportaDatiDaOR1.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/importaDaOR/titoloImportaDatiDaOR.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/importaDaOR/formImportaDatiDaOR1.jsp" />
+  </definition>
+
+  <definition name="formFasiImportDatiDaOR" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune"   value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/importaDaOR/headFormImportaDatiDaOR2.jsp"/>
+	<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();richiestaConferma();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/importaDaOR/azioniFormImportaDatiDaOR2.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/importaDaOR/titoloImportaDatiDaOR.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/importaDaOR/formImportaDatiDaOR2.jsp" />
+  </definition>
+
+  <definition name="resultImportaDatiDaOR" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune" value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/importaDaOR/headFormImportaDatiDaOR.jsp" />
+	<put name="eventiDiPagina" value="onload='setVariables();checkLocation();initPage();richiestaConferma();'"/>
+    <put name="testata"        value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico"  value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune"     value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/importaDaOR/azioniFormImportaDatiDaOR.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/importaDaOR/titoloImportaDatiDaOR.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/importaDaOR/formImportaDatiDaOR.jsp" />
+  </definition>
+
+  <definition name="formMigrazioneSA" path="/WEB-INF/pages/templates/dettaglioNoTab.jsp">
+    <put name="linkJSSubMenuSpecifico" value="/WEB-INF/pages/commons/jsSubMenuSpecifico.jsp"/>
+    <put name="linkJSSubMenuComune" value="/WEB-INF/pages/commons/jsSubMenuComune.jsp"/>
+    <put name="head"           value="/WEB-INF/pages/w9/commons/migrazionesa/headFormMigrazioneSa.jsp" />
+		<put name="eventiDiPagina" value="onload='setVariables();checkLocation();'"/>
+    <put name="testata" value="/WEB-INF/pages/commons/testata.jsp"/>
+    <put name="menuSpecifico" value="/WEB-INF/pages/commons/menuSpecifico.jsp"/>
+    <put name="menuComune" value="/WEB-INF/pages/commons/menuComune.jsp"/>
+    <put name="azioniContesto" value="/WEB-INF/pages/w9/commons/migrazionesa/azioniFormMigrazioneSa.jsp" />
+    <put name="titoloMaschera" value="/WEB-INF/pages/w9/commons/migrazionesa/titoloMigrazioneSa.jsp" />
+    <put name="dettaglio"      value="/WEB-INF/pages/w9/commons/migrazionesa/formMigrazioneSa.jsp" />
+  </definition>
+
+</tiles-definitions>

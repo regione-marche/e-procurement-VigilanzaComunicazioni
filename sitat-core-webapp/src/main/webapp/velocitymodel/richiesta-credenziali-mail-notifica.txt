@@ -1,0 +1,11 @@
+Gent.le Amministratore,
+e' stata inoltrata una richiesta per l'abilitazione al servizio di cooperazione applicativa e interoperatibilita' a #if ($NOMEMITT)$NOMEMITT#end,
+dal dirigente #if ($NOME)$NOME#end per l'ente #if ($ENTE)$ENTE#end con codice fiscale #if ($CFENTE)$CFENTE#end.
+L'id richiesta generato e' #if ($ID_RICHIESTA)$ID_RICHIESTA#end.
+In allegato il modello di abilitazione ai servizi di cooperazione applicativa.
+
+#if ($NOMEMITT)$NOMEMITT#end
+
+
+-------
+La presente comunicazione e' inviata da un sistema automatico, si prega di non rispondere.

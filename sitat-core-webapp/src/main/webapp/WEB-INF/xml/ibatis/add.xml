@@ -1,0 +1,8 @@
+<sqlMapConfig>
+	<!-- File specifici dell'applicazione corrente -->
+	<sqlMap resource="it/eldasoft/w9/db/dao/ibatis/maps/W9File.xml" />
+	<sqlMap resource="it/eldasoft/w9/db/dao/ibatis/maps/TabControlli.xml"/>
+	<sqlMap resource="it/eldasoft/sil/pt/db/dao/ibatis/maps/ptFile.xml" />
+	<sqlMap resource="it/eldasoft/sil/w3/db/dao/ibatis/maps/Attachment.xml" />
+	<sqlMap resource="it/eldasoft/sil/w3/db/dao/ibatis/maps/DocumentoAllegato.xml" />
+</sqlMapConfig>

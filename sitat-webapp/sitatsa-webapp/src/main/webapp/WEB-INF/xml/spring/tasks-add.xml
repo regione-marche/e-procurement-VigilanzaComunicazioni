@@ -1,0 +1,9 @@
+<list>
+	<!-- Template per trigger specifici dell'applicazione -->
+	<!--<ref bean="exampleTrigger"/>-->
+
+	<ref bean="esportazioneXMLSIMOGManagerTrigger" />
+	<ref bean="allineamentoRichiesteCancellazioneTrigger"/>
+		
+</list>
+

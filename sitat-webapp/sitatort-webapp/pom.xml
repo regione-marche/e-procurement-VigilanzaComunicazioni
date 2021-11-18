@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.toscana.regione.sitat</groupId>
+		<artifactId>sitat-webapp</artifactId>
+		<version>5.6.4</version>
+	</parent>
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<artifactId>sitatort-webapp</artifactId>
+	<!-- CONFIGURA QUA IL TIPO DI PACKAGING-->
+	<packaging>war</packaging>
+
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<name>Web application Sitat per l'Osservatorio Regionale Toscana</name>
+	<url>http://oscat.rete.toscana.it/projects/sitat</url>
+	
+	<properties>
+		<!-- si definiscono quali sono gli artefatti effettivamente da includere -->
+		<integration_manager.scope>compile</integration_manager.scope>
+		<proxy-sitat-client.scope>provided</proxy-sitat-client.scope>
+		<wsidgaracig-data.scope>compile</wsidgaracig-data.scope>
+		<cup-ws.scope>compile</cup-ws.scope>
+		<simog-datatypes.scope>compile</simog-datatypes.scope>
+		<!--simog-pdd-client.scope>compile</simog-pdd-client.scope-->
+		<simog-wspdd-client.scope>provided</simog-wspdd-client.scope>
+		<!--simog-consgara-datatypes.scope>compile</simog-consgara-datatypes.scope-->
+		<wssimap-client.scope>provided</wssimap-client.scope>
+		<wssimap-datatypes.scope>provided</wssimap-datatypes.scope>
+	</properties>
+
+	<build>
+		<finalName>SitatORT</finalName>
+		
+		<plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-config-processor-plugin</groupId>
+				<artifactId>maven-config-processor-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

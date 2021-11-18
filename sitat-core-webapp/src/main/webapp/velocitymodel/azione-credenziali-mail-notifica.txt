@@ -1,0 +1,9 @@
+Spett. MIT e ITACA,
+con la presente comunichiamo che la richiesta per le credenziali di accesso al servizio di cooperazione applicativa e interoperatibilita' a #if ($NOMEMITT)$NOMEMITT#end 
+ e' stata #if ($AZIONE)$AZIONE#end per l'ente #if ($ENTE)$ENTE#end con codice fiscale #if ($CFENTE)$CFENTE#end.
+
+#if ($NOMEMITT)$NOMEMITT#end
+
+
+-------
+La presente comunicazione e' inviata da un sistema automatico, si prega di non rispondere.

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="esportazioneXMLSIMOGManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="esportazioneXMLSIMOGManager" parent="esportazioneXMLSIMOGManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.EsportazioneXMLSIMOGManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="ticketSimogManager" ref="ticketSimogManager" />
+				<property name="w9Manager" ref="w9Manager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="esportazioneXMLSIMOGManagerJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="esportazioneXMLSIMOGManager" />
+		<property name="targetMethod" value="generaSchedeSimog" />
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="esportazioneXMLSIMOGManagerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="esportazioneXMLSIMOGManagerJob" />
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ? 2099</value>
+		</property>
+	</bean>
+	
+</beans>

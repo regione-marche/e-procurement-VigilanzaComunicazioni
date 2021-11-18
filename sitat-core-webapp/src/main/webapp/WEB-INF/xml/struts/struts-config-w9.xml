@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="uploadFileForm" type="it.eldasoft.gene.commons.web.struts.UploadFileForm"/>
+		<form-bean name="uploadMultiploForm" type="it.eldasoft.w9.web.struts.UploadMultiploForm" />
+	</form-beans>
+
+	<global-forwards>
+	</global-forwards>
+
+	<action-mappings>
+	
+	<action path="/CopiaValoriProgramma" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=w9/w9lott/lista_programmiPopup.jsp"/>
+	</action>
+	
+	<action path="/SelezionaNuovaFase" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=w9/w9fasi/w9fasi-scheda.jsp?modo=NUOVO"/>
+	</action>
+	
+	<action path="/RedirectNuovaFase" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/ApriPagina.do?href=w9/w9fasi/w9fasi-scheda.jsp"/>
+			<forward name="987" module="/" path="/ApriPagina.do?href=w9/w9appa/w9appa-scheda-a04.jsp?modo=NUOVO"/>
+			<forward name="1" module="/" path="/ApriPagina.do?href=w9/w9appa/w9appa-scheda-a05.jsp?modo=NUOVO"/>
+			<forward name="986" module="/" path="/ApriPagina.do?href=w9/w9iniz/w9iniz-scheda-a07.jsp?modo=NUOVO"/>
+			<forward name="2" module="/" path="/ApriPagina.do?href=w9/w9iniz/w9iniz-scheda-a06.jsp?modo=NUOVO"/>
+			<forward name="4" module="/" path="/ApriPagina.do?href=w9/w9conc/w9conc-scheda-a09.jsp?modo=NUOVO"/>
+			<forward name="985" module="/" path="/ApriPagina.do?href=w9/w9conc/w9conc-scheda-a10.jsp?modo=NUOVO"/>
+			<forward name="5" module="/" path="/ApriPagina.do?href=w9/w9coll/w9coll-scheda.jsp?modo=NUOVO"/>
+			<forward name="7" module="/" path="/ApriPagina.do?href=w9/w9vari/w9vari-scheda.jsp?modo=NUOVO"/>
+			<forward name="3" module="/" path="/ApriPagina.do?href=w9/w9avan/w9avan-scheda.jsp?modo=NUOVO"/>
+			<forward name="6" module="/" path="/ApriPagina.do?href=w9/w9sosp/w9sosp-scheda.jsp?modo=NUOVO"/>
+			<forward name="8" module="/" path="/ApriPagina.do?href=w9/w9acco/w9acco-scheda.jsp?modo=NUOVO"/>
+			<forward name="9" module="/" path="/ApriPagina.do?href=w9/w9suba/w9suba-scheda.jsp?modo=NUOVO"/>
+			<forward name="10" module="/" path="/ApriPagina.do?href=w9/w9rita/w9rita-scheda.jsp?modo=NUOVO"/>
+			<forward name="11" module="/" path="/ApriPagina.do?href=w9/w9iniz/w9iniz-scheda-a20.jsp?modo=NUOVO"/>
+			<forward name="12" module="/" path="/ApriPagina.do?href=w9/w9appa/w9appa-scheda-a21.jsp?modo=NUOVO"/>
+			<!--forward name="993" module="/" path="/ApriPagina.do?href=w9/w9missic/w9missic-scheda.jsp?modo=NUOVO"/-->
+			<forward name="994" module="/" path="/ApriPagina.do?href=w9/w9infor/w9infor-scheda.jsp?modo=NUOVO"/>
+			<forward name="995" module="/" path="/ApriPagina.do?href=w9/w9inasic/w9inasic-scheda.jsp?modo=NUOVO"/>
+			<forward name="996" module="/" path="/ApriPagina.do?href=w9/w9regcon/w9regcon-scheda.jsp?modo=NUOVO"/>
+			<forward name="997" module="/" path="/ApriPagina.do?href=w9/w9tecpro/w9tecpro-scheda.jsp?modo=NUOVO"/>
+			<forward name="998" module="/" path="/ApriPagina.do?href=w9/w9cant/w9cant-scheda.jsp?modo=NUOVO"/>
+			<forward name="984" module="/" path="/ApriPagina.do?href=w9/w9esito/w9esito-scheda.jsp?modo=NUOVO"/>
+			<forward name="101" module="/" path="/w9/ListaW9Imprese.do?metodo=visualizza"/>
+			<forward name="102" module="/" path="/ApriPagina.do?href=w9/w9avan/w9avan-scheda-a25.jsp?modo=NUOVO"/>
+	</action>
+
+	<action path="/Scheda" name="uploadMultiploForm" type="it.eldasoft.gene.web.struts.tags.SchedaAction" scope="request" validate="false" parameter="metodo" >
+		<!-- Se si verificano errori ritorna alla trova -->
+		<forward name="errore" path="/ApriPagina.do" module="/" />
+	</action >
+	
+	<action path="/VisualizzaAllegato" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+	</action>
+	
+	<action path="/EseguiImportazioneOrt" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/History.do?metodo=reload" />
+	</action>
+	
+	<action path="/EseguiInvioSchedaSimog" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/History.do?metodo=reload" />
+	</action>
+	
+	<action path="/ConsultaGara" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false" parameter="metodo">
+		<forward name="successInizializza" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="successVerificaDati" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="chiediInterventoUtente" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="erroreNoCIG" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="erroreRup" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="successAggiornaLotto" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="successAggiornaGara" path="resultConsultaGaraSIMOG" module="/" />
+		<forward name="erroreAggiornaGara" path="formConsultaGaraSIMOG" module="/" />
+		<forward name="successRiallineaSIMOG" path="/WEB-INF/pages/w9/w9lott/riallineaSimogPopup.jsp" module="/" />
+		<forward name="erroreRiallineaSIMOG"  path="/WEB-INF/pages/w9/w9lott/riallineaSimogPopup.jsp" module="/" />
+		<forward name="successRiallineaGaraSIMOG" path="/WEB-INF/pages/w9/w9gara/riallineaSimogPopup.jsp" module="/" />
+		<forward name="erroreRiallineaGaraSIMOG"  path="/WEB-INF/pages/w9/w9gara/riallineaSimogPopup.jsp" module="/" />
+		<forward name="successAggiornaDaAQ" path="/WEB-INF/pages/w9/w9appa/aggiornaDaAccordoQuadroPopup.jsp" module="/" />
+		<forward name="erroreAggiornaDaAQ"  path="/WEB-INF/pages/w9/w9appa/aggiornaDaAccordoQuadroPopup.jsp" module="/" />
+		<forward name="sceltaTecnicoGaraDelegata" path="confermaPresaInCaricoGaraDelegata" module="/" />
+		<forward name="sceltaCentroCostoGaraDelegata" path="confermaPresaInCaricoGaraDelegata" module="/" />
+		<forward name="confermaPresaInCaricoGaraDelegata" path="confermaPresaInCaricoGaraDelegata" module="/" />
+		<forward name="successPrendiInCarico" path="resultPresaInCaricoGara" module="/" />
+	</action>
+	
+	<action path="/InviaBandoAvvisoSimap"
+		type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false" >
+		<forward name="inviabandoavvisosimapsuccess" path="/WEB-INF/pages/w9/commons/popup-invia-bando-avviso-simap-success.jsp" module="/" />
+		<forward name="inviabandoavvisosimaperror" path="/WEB-INF/pages/w9/commons/popup-invia-bando-avviso-simap.jsp" module="/" />
+	</action>
+
+	<action path="/GetDescrizioneEnte" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+
+	<action path="/IsLoginEsistente" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+
+	<action path="/IsCodiceControlloCorretto" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+
+	<action path="/GetListaComuni" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+	
+	<action path="/GetListaCIGPubblicati" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+	
+	<action path="/RegistrazioneUtente" type="it.eldasoft.gene.commons.web.struts.ForwardAction"
+		scope="request" parameter="/registrazione-utente-w9.jsp?modo=NUOVO">
+    </action>
+	
+	<action path="/InvioXMLAVCP" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+	
+	<action path="/ImportFileT2" name="uploadFileForm"
+		type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+		<forward name="error" path="/WEB-INF/pages/w9/commons/t2-import.jsp" module="/" />
+		<forward name="success" path="/WEB-INF/pages/w9/commons/t2-import.jsp" module="/" />
+	</action>
+	
+	<action path="/SceltaTipoScheda" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false" parameter="metodo">
+		<forward name="anagrafica-lotto" path="/ApriPagina.do?href=w9/w9lott/modifica-anagrafica-lotto.jsp?modo=NUOVO" module="/" />
+		<forward name="comunicazione-esito"  path="/WEB-INF/pages/w9/w9lott/modifica-fase-comunicazione-esito.jsp?modo=NUOVO" module="/" />
+		<forward name="aggiudicazione"  path="/WEB-INF/pages/w9/w9lott/modifica-fase-aggiudicazione.jsp?modo=NUOVO" module="/" />
+		<forward name="fase-iniziale"  path="/WEB-INF/pages/w9/w9lott/modifica-fase-iniziale.jsp?modo=NUOVO" module="/" />
+	</action>
+	
+	<action path="/ListaW9Imprese" parameter="metodo" scope="request" type="org.springframework.web.struts.DelegatingActionProxy" validate="false" >
+		<forward name="successLista" path="/WEB-INF/pages/w9/w9imprese/w9imprese-lista.jsp" module="/" />
+		<forward name="successDelete" path="/w9/ListaW9Imprese.do?metodo=visualizza" module="/" />
+	</action>
+	
+	<action path="/ListaW9SelezionePartecipanti" parameter="metodo" scope="request" type="org.springframework.web.struts.DelegatingActionProxy" validate="false" >
+		<forward name="successLista" path="/WEB-INF/pages/w9/w9appa/w9appa-pg-imprese-partecipanti-selezione.jsp" module="/" />
+		<forward name="successInsert" path="/w9/ListaW9SelezionePartecipanti.do?metodo=visualizza" module="/" />
+	</action>
+	
+	<action path="/AttribuisciModello" 
+		type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+		<forward name="success" path="/History.do?metodo=reload" module="/" />
+	</action>
+	
+	<action path="/CancellaModello" 
+		type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+		<forward name="success" path="/History.do?metodo=reload" module="/" />
+	</action>
+	
+	<action path="/IdmRasLoginResponseAction" scope="request" type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+		<forward name="register" path="/registrazione-utente-w9.jsp?modo=NUOVO" module="/" />
+	  <forward name="success" path="/WEB-INF/pages/gene/login/fwLogin.jsp" module="/" />
+	</action>
+
+	<action path="/ArchiviaGara" type="it.eldasoft.w9.web.struts.ArchiviaGaraAction" scope="request" parameter="metodo"
+			validate="false">
+	</action>
+	
+	<action path="/GetDeleghe" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false" />
+	
+	<action path="/SchedaANAS" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false" parameter="metodo">
+			<!-- Se si verificano errori ritorna alla trova -->
+			<forward name="errore" path="/ApriPagina.do" />
+	</action>
+	
+	<action path="/GetScadenzeFasiGare" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false" />
+	
+	<action path="/LeggiNotifica" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="false"/>
+
+	<action path="/ImportXMLRLO" name="uploadFileForm"
+		type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+		<forward name="error" path="/WEB-INF/pages/w9/commons/create-import-xmlrlo.jsp" module="/" />
+		<forward name="success" path="/WEB-INF/pages/w9/commons/create-import-xmlrlo.jsp" module="/" />
+	</action>
+	
+	<action parameter="metodo" path="/ImportaDatiDaOR" scope="request"
+	    type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+		<forward name="successInizializza" path="formGaraCigImportDatiDaOR" module="/" />
+	  <forward name="successIdgaraCIG" path="formFasiImportDatiDaOR" module="/" />
+		<forward name="successSelezionaFasi" path="resultImportaDatiDaOR" module="/" />
+		<forward name="successImportDati" path="resultImportDatiDaOR" module="/" />
+		<forward module="/" name="successAnnulla" path="/Home.do"/>
+	</action>
+	
+	<action path="/CancellaPubblicazione" 
+			type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" validate="false">
+		<forward name="success" path="/History.do?metodo=vaiIndietroDi&amp;numero=1&amp;numeroPopUp=0" module="/" />
+	</action>
+	
+	<action path="/MigraSA" parameter="metodo" validate="false"
+			type="org.springframework.web.struts.DelegatingActionProxy"	scope="request" >
+		<forward name="successMigrazione" path="formMigrazioneSA" module="/" />
+		<forward name="errorInterrompi" path="formMigrazioneSA" module="/" />
+		<forward name="successAnnulla" path="/History.do?metodo=vaiIndietroDi&amp;numero=1&amp;numeroPopUp=0" module="/" />
+	</action>
+	
+	<action path="/ResetTicket" scope="request" validate="false" 
+			type="org.springframework.web.struts.DelegatingActionProxy">
+		<forward name="success" path="/InitLogin.do" module="/" />
+	</action>
+
+	<action path="/InviaDatiLottoAL"  scope="request" validate="false" parameter="metodo"
+					type="org.springframework.web.struts.DelegatingActionProxy">
+		<forward name="success_inizio" path="/WEB-INF/pages/w9/commons/inviaDatiLottoAL.jsp" module="/" />
+		<forward name="success_controlli" path="/WEB-INF/pages/w9/commons/popup-validazioneDatiLottoAL.jsp" module="/" />
+		<forward name="error_controlli" path="/WEB-INF/pages/w9/commons/popup-validazioneDatiLottoAL.jsp" module="/" />
+		<forward name="success_invio" path="/WEB-INF/pages/w9/commons/esitoInvioDatiLottoAL.jsp" module="/" />
+		<forward name="error_invio" path="/WEB-INF/pages/w9/commons/esitoInvioDatiLottoAL.jsp" module="/" />
+	</action>
+	
+	<action path="/ImportGara" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+		<forward name="success" path="/WEB-INF/pages/commons/importGara.jsp" module="/" />
+	</action>
+	
+	<action path="/ExportGara" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+		<forward name="success" path="/WEB-INF/pages/commons/exportGara.jsp" module="/" />
+	</action>
+	
+	<action path="/GetListaCIGEsiti" type="org.springframework.web.struts.DelegatingActionProxy"
+		scope="request" validate="false">
+	</action>
+	
+	<action path="/PubblicaServiziRest" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="error" path="/WEB-INF/pages/w9/commons/popup-pubblicazione-scp.jsp" module="/" />
+			<forward name="success" path="/WEB-INF/pages/w9/commons/popup-pubblicazione-scp.jsp" module="/" />
+	</action>
+	
+	<action path="/TrasferisciAppalti" type="org.springframework.web.struts.DelegatingActionProxy" 
+		scope="request" validate="false">
+		<forward name="error" path="/WEB-INF/pages/w9/commons/trasferisci-appalto.jsp" module="/" />
+		<forward name="success" path="/History.do?metodo=vaiIndietroDi&amp;numero=1&amp;numeroPopUp=0" module="/" />
+	</action>
+
+	<action path="/GetCig" type="org.springframework.web.struts.DelegatingActionProxy" parameter="metodo" 
+		scope="request" validate="false">
+		<forward name="error" path="/richiestaConsultaGara.jsp" module="/" />
+		<forward name="success" path="/richiestaConsultaGara.jsp" module="/" />
+	</action>
+
+	<action path="/GetIndicatori" type="org.springframework.web.struts.DelegatingActionProxy" parameter="metodo" 
+		scope="request" validate="false">
+	</action>
+
+	<action path="/AllineaIndici" type="org.springframework.web.struts.DelegatingActionProxy" parameter="metodo" 
+		scope="request" validate="false">
+		<forward name="successRiallineaIndiciSIMOG" path="/WEB-INF/pages/w9/w9lott/riallineaIndiciSimogPopup.jsp" module="/" />
+		<forward name="errorRiallineaIndiciSIMOG"  path="/WEB-INF/pages/w9/w9lott/riallineaIndiciSimogPopup.jsp" module="/" />
+	</action>
+
+	<action path="/EseguiReinvioComunicazioneSCP" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/History.do?metodo=reload" />
+	</action>
+	
+	<action path="/TrasferisciDatiSubentro" type="org.springframework.web.struts.DelegatingActionProxy" 
+		scope="request" validate="false">
+		<forward name="error" path="/WEB-INF/pages/w9/commons/subentro.jsp" module="/" />
+		<forward name="success" path="/History.do?metodo=vaiIndietroDi&amp;numero=1&amp;numeroPopUp=0" module="/" />
+	</action>
+	
+	<action path="/GestioneAlberoNUTS" type="org.springframework.web.struts.DelegatingActionProxy" 
+		scope="request" validate="false">
+	</action>
+
+	<action path="/Multilotto" parameter="metodo" scope="request" type="org.springframework.web.struts.DelegatingActionProxy" validate="false" >
+		<forward name="successInizializza" path="/WEB-INF/pages/w9/w9gara/multilotto.jsp" module="/" />
+		<forward name="successValidazione" path="/WEB-INF/pages/w9/w9gara/validazione-multilotto.jsp" module="/" />
+		<forward name="successAvviaMonitoraggio" path="/WEB-INF/pages/w9/w9gara/validazione-multilotto.jsp" module="/" />
+	</action>
+	
+	<action path="/GestioneRichiesteCredenziali" type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request" validate="false">
+			<forward name="success" module="/" path="/History.do?metodo=reload" />
+	</action>
+	
+	</action-mappings>
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin" >
+		<set-property property="definitions-config"	value="/WEB-INF/xml/tiles/tiles-defs-gene-common.xml, /WEB-INF/xml/tiles/tiles-defs-w9.xml" />
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+
+</struts-config>

@@ -1,0 +1,4 @@
+<sqlMapConfig>
+	<!-- File specifici dell'applicazione corrente -->
+	<sqlMap resource="it/eldasoft/w9/db/dao/ibatis/maps/W9File-pos.xml" />
+</sqlMapConfig>

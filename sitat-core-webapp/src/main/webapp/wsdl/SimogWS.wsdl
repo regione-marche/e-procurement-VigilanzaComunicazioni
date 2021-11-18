@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://beans.ws.simog.avlp.it" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://beans.ws.simog.avlp.it" xmlns:intf="http://beans.ws.simog.avlp.it" xmlns:tns1="http://beans.common.simog.avlp.it" xmlns:tns2="http://beans.simog.avlp.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans.ws.simog.avlp.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans.simog.avlp.it"/>
+   <import namespace="http://beans.common.simog.avlp.it"/>
+   <element name="login">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginResponse">
+    <complexType>
+     <sequence>
+      <element name="loginReturn" type="tns1:ResponseCheckLogin"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns2_Collaborazione">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns2:Collaborazione"/>
+    </sequence>
+   </complexType>
+   <element name="inserisciGara">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="datiGara" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="inserisciGaraResponse">
+    <complexType>
+     <sequence>
+      <element name="inserisciGaraReturn" type="tns1:ResponseInserisciGara"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancellaGara">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="id_gara" type="xsd:string"/>
+      <element name="id_motivazione" type="xsd:string"/>
+      <element name="note_canc" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancellaGaraResponse">
+    <complexType>
+     <sequence>
+      <element name="cancellaGaraReturn" type="tns1:ResponseCancellaGara"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns2_CodiciCup">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns2:CodiciCup"/>
+    </sequence>
+   </complexType>
+   <element name="inviaRequisiti">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="datiGara" type="xsd:string"/>
+      <element name="id_gara" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="inviaRequisitiResponse">
+    <complexType>
+     <sequence>
+      <element name="inviaRequisitiReturn" type="tns1:ResponseInviaRequisiti"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificaGara">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="id_gara" type="xsd:string"/>
+      <element name="datiGara" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificaGaraResponse">
+    <complexType>
+     <sequence>
+      <element name="modificaGaraReturn" type="tns1:ResponseModificaGara"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="perfezionaLotto">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="dataPubblicazione" type="xsd:string"/>
+      <element name="dataScadenzaPagamenti" type="xsd:string"/>
+      <element name="cig" type="xsd:string"/>
+      <element name="oraScadenza" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="perfezionaLottoResponse">
+    <complexType>
+     <sequence>
+      <element name="perfezionaLottoReturn" type="tns1:ResponsePerfezionaLotto"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="consultaGara">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="CIG" type="xsd:string"/>
+      <element name="schede" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="consultaGaraResponse">
+    <complexType>
+     <sequence>
+      <element name="consultaGaraReturn" type="tns1:ResponseConsultaGara"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="perfezionaGara">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="id_gara" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="perfezionaGaraResponse">
+    <complexType>
+     <sequence>
+      <element name="perfezionaGaraReturn" type="tns1:ResponsePerfezionaGara"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificaLotto">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="datiGara" type="xsd:string"/>
+      <element name="cig" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificaLottoResponse">
+    <complexType>
+     <sequence>
+      <element name="modificaLottoReturn" type="tns1:ResponseModificaLotto"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="inserisciLotto">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="datiGara" type="xsd:string"/>
+      <element name="id_gara" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="inserisciLottoResponse">
+    <complexType>
+     <sequence>
+      <element name="inserisciLottoReturn" type="tns1:ResponseInserisciLotto"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="chiudiSessione">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="chiudiSessioneResponse">
+    <complexType>
+     <sequence>
+      <element name="chiudiSessioneReturn" type="tns1:ResponseChiudiSession"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="presaInCarico">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="garaOcig" type="xsd:string"/>
+      <element name="estremiProvv" type="xsd:string"/>
+      <element name="flagDatiComuni" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="presaInCaricoResponse">
+    <complexType>
+     <sequence>
+      <element name="presaInCaricoReturn" type="tns1:ResponsePresaCarico"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="integraCUP">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="cig" type="xsd:string"/>
+      <element name="flagCUP" type="xsd:string"/>
+      <element name="TIPIAPPALTOL" type="tns2:TIPIAPPALTO"/>
+      <element name="TIPIAPPALTOFS" type="tns2:TIPIAPPALTO"/>
+      <element name="CUPLOTTO" type="tns2:CUPLOTTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="integraCUPResponse">
+    <complexType>
+     <sequence>
+      <element name="integraCUPReturn" type="tns1:ResponseIntegraCUP"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="pubblica">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="dataPubblicazione" type="xsd:string"/>
+      <element name="dataScadenzaPagamenti" type="xsd:string"/>
+      <element name="cig" type="xsd:string"/>
+      <element name="progCui" type="xsd:string"/>
+      <element name="datiPubblicazione" type="xsd:string"/>
+      <element name="tipoOperazione" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="allegato" type="tns2:AllegatoType"/>
+      <element name="oraScadenza" type="xsd:string"/>
+      <element name="dataScadenzaRichiestaInvito" type="xsd:string"/>
+      <element name="dataLetteraInvito" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="CUPLOTTO" type="tns2:CUPLOTTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="pubblicaResponse">
+    <complexType>
+     <sequence>
+      <element name="pubblicaReturn" type="tns1:ResponsePubblicazioneBando"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns2_CUPLOTTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns2:CUPLOTTO"/>
+    </sequence>
+   </complexType>
+   <element name="cancellaLotto">
+    <complexType>
+     <sequence>
+      <element name="ticket" type="xsd:string"/>
+      <element name="indexCollaborazione" type="xsd:string"/>
+      <element name="id_motivazione" type="xsd:string"/>
+      <element name="note_canc" type="xsd:string"/>
+      <element name="cig" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancellaLottoResponse">
+    <complexType>
+     <sequence>
+      <element name="cancellaLottoReturn" type="tns1:ResponseCancellaLotto"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans.common.simog.avlp.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans.simog.avlp.it"/>
+   <import namespace="http://beans.ws.simog.avlp.it"/>
+   <complexType name="Response">
+    <sequence>
+     <element name="error" nillable="true" type="xsd:string"/>
+     <element name="success" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ResponseCheckLogin">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="coll" nillable="true" type="tns2:Collaborazioni"/>
+       <element name="ticket" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseInserisciGara">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="id_gara" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseModificaLotto">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="CUPLOTTO" nillable="true" type="tns2:CUPLOTTO"/>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseCancellaGara">
+    <complexContent>
+     <extension base="tns1:ResponseModificaLotto">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseInviaRequisiti">
+    <complexContent>
+     <extension base="tns1:ResponseModificaLotto">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseModificaGara">
+    <complexContent>
+     <extension base="tns1:ResponseModificaLotto">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponsePerfezionaLotto">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseConsultaGara">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="garaXML" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponsePerfezionaGara">
+    <complexContent>
+     <extension base="tns1:ResponseModificaLotto">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseInserisciLotto">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="CUPLOTTO" nillable="true" type="tns2:CUPLOTTO"/>
+       <element name="cig" nillable="true" type="tns2:CIGBean"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseChiudiSession">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponsePresaCarico">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseIntegraCUP">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="CUPLOTTO" nillable="true" type="tns2:CUPLOTTO"/>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponsePubblicazioneBando">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="CUPLOTTO" nillable="true" type="impl:ArrayOf_tns2_CUPLOTTO"/>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ResponseCancellaLotto">
+    <complexContent>
+     <extension base="tns1:Response">
+      <sequence>
+       <element name="messaggio" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans.simog.avlp.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans.common.simog.avlp.it"/>
+   <import namespace="http://beans.ws.simog.avlp.it"/>
+   <complexType name="Collaborazione">
+    <sequence>
+     <element name="azienda_codiceFiscale" nillable="true" type="xsd:string"/>
+     <element name="azienda_denominazione" nillable="true" type="xsd:string"/>
+     <element name="idOsservatorio" nillable="true" type="xsd:string"/>
+     <element name="index" nillable="true" type="xsd:string"/>
+     <element name="ufficio_denominazione" nillable="true" type="xsd:string"/>
+     <element name="ufficio_id" nillable="true" type="xsd:string"/>
+     <element name="ufficio_profilo" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Collaborazioni">
+    <sequence>
+     <element name="collaborazioni" nillable="true" type="impl:ArrayOf_tns2_Collaborazione"/>
+    </sequence>
+   </complexType>
+   <complexType name="CodiciCup">
+    <sequence>
+     <element name="CUP" nillable="true" type="xsd:string"/>
+     <element name="DATI_DIPE" nillable="true" type="xsd:string"/>
+     <element name="ID_RICHIESTA" nillable="true" type="xsd:string"/>
+     <element name="OK_UTENTE" nillable="true" type="xsd:string"/>
+     <element name="VALIDO" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="CUPLOTTO">
+    <sequence>
+     <element name="CIG" nillable="true" type="xsd:string"/>
+     <element name="CODICICUP" nillable="true" type="impl:ArrayOf_tns2_CodiciCup"/>
+    </sequence>
+   </complexType>
+   <complexType name="CIGBean">
+    <sequence>
+     <element name="applicazione" nillable="true" type="xsd:string"/>
+     <element name="cfAmministrazione" nillable="true" type="xsd:string"/>
+     <element name="cfStazione" nillable="true" type="xsd:string"/>
+     <element name="cfUtente" nillable="true" type="xsd:string"/>
+     <element name="cig" nillable="true" type="xsd:string"/>
+     <element name="cigCicle" type="xsd:int"/>
+     <element name="cigKKK" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="TIPIAPPALTO">
+    <sequence>
+     <element name="TIPOAPPALTO" nillable="true" type="impl:ArrayOf_xsd_string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AllegatoType">
+    <sequence>
+     <element name="documento" nillable="true" type="xsd:base64Binary"/>
+     <element name="nomeFile" nillable="true" type="xsd:string"/>
+     <element name="note" nillable="true" type="xsd:string"/>
+     <element name="tipoDocumento" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="presaInCaricoResponse">
+
+      <wsdl:part element="impl:presaInCaricoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="integraCUPRequest">
+
+      <wsdl:part element="impl:integraCUP" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="perfezionaGaraRequest">
+
+      <wsdl:part element="impl:perfezionaGara" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inserisciLottoRequest">
+
+      <wsdl:part element="impl:inserisciLotto" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviaRequisitiResponse">
+
+      <wsdl:part element="impl:inviaRequisitiResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="consultaGaraRequest">
+
+      <wsdl:part element="impl:consultaGara" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inserisciGaraRequest">
+
+      <wsdl:part element="impl:inserisciGara" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part element="impl:loginResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="cancellaLottoRequest">
+
+      <wsdl:part element="impl:cancellaLotto" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="cancellaLottoResponse">
+
+      <wsdl:part element="impl:cancellaLottoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="pubblicaRequest">
+
+      <wsdl:part element="impl:pubblica" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificaGaraResponse">
+
+      <wsdl:part element="impl:modificaGaraResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="consultaGaraResponse">
+
+      <wsdl:part element="impl:consultaGaraResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="cancellaGaraResponse">
+
+      <wsdl:part element="impl:cancellaGaraResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inserisciLottoResponse">
+
+      <wsdl:part element="impl:inserisciLottoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="pubblicaResponse">
+
+      <wsdl:part element="impl:pubblicaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="chiudiSessioneResponse">
+
+      <wsdl:part element="impl:chiudiSessioneResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificaLottoRequest">
+
+      <wsdl:part element="impl:modificaLotto" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="cancellaGaraRequest">
+
+      <wsdl:part element="impl:cancellaGara" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+
+      <wsdl:part element="impl:login" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="perfezionaGaraResponse">
+
+      <wsdl:part element="impl:perfezionaGaraResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inserisciGaraResponse">
+
+      <wsdl:part element="impl:inserisciGaraResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificaGaraRequest">
+
+      <wsdl:part element="impl:modificaGara" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="chiudiSessioneRequest">
+
+      <wsdl:part element="impl:chiudiSessione" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="presaInCaricoRequest">
+
+      <wsdl:part element="impl:presaInCarico" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviaRequisitiRequest">
+
+      <wsdl:part element="impl:inviaRequisiti" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="perfezionaLottoRequest">
+
+      <wsdl:part element="impl:perfezionaLotto" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="perfezionaLottoResponse">
+
+      <wsdl:part element="impl:perfezionaLottoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificaLottoResponse">
+
+      <wsdl:part element="impl:modificaLottoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="integraCUPResponse">
+
+      <wsdl:part element="impl:integraCUPResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="SimogWS">
+
+      <wsdl:operation name="login">
+
+         <wsdl:input message="impl:loginRequest" name="loginRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:loginResponse" name="loginResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inserisciGara">
+
+         <wsdl:input message="impl:inserisciGaraRequest" name="inserisciGaraRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:inserisciGaraResponse" name="inserisciGaraResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancellaGara">
+
+         <wsdl:input message="impl:cancellaGaraRequest" name="cancellaGaraRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:cancellaGaraResponse" name="cancellaGaraResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviaRequisiti">
+
+         <wsdl:input message="impl:inviaRequisitiRequest" name="inviaRequisitiRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:inviaRequisitiResponse" name="inviaRequisitiResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificaGara">
+
+         <wsdl:input message="impl:modificaGaraRequest" name="modificaGaraRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modificaGaraResponse" name="modificaGaraResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="perfezionaLotto">
+
+         <wsdl:input message="impl:perfezionaLottoRequest" name="perfezionaLottoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:perfezionaLottoResponse" name="perfezionaLottoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="consultaGara">
+
+         <wsdl:input message="impl:consultaGaraRequest" name="consultaGaraRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:consultaGaraResponse" name="consultaGaraResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="perfezionaGara">
+
+         <wsdl:input message="impl:perfezionaGaraRequest" name="perfezionaGaraRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:perfezionaGaraResponse" name="perfezionaGaraResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificaLotto">
+
+         <wsdl:input message="impl:modificaLottoRequest" name="modificaLottoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modificaLottoResponse" name="modificaLottoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inserisciLotto">
+
+         <wsdl:input message="impl:inserisciLottoRequest" name="inserisciLottoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:inserisciLottoResponse" name="inserisciLottoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="chiudiSessione">
+
+         <wsdl:input message="impl:chiudiSessioneRequest" name="chiudiSessioneRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:chiudiSessioneResponse" name="chiudiSessioneResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="presaInCarico">
+
+         <wsdl:input message="impl:presaInCaricoRequest" name="presaInCaricoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:presaInCaricoResponse" name="presaInCaricoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="integraCUP">
+
+         <wsdl:input message="impl:integraCUPRequest" name="integraCUPRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:integraCUPResponse" name="integraCUPResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="pubblica">
+
+         <wsdl:input message="impl:pubblicaRequest" name="pubblicaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:pubblicaResponse" name="pubblicaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancellaLotto">
+
+         <wsdl:input message="impl:cancellaLottoRequest" name="cancellaLottoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:cancellaLottoResponse" name="cancellaLottoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="SimogWSSoapBinding" type="impl:SimogWS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="login">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inserisciGara">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inserisciGaraRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inserisciGaraResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancellaGara">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="cancellaGaraRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="cancellaGaraResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviaRequisiti">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inviaRequisitiRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inviaRequisitiResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificaGara">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modificaGaraRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modificaGaraResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="perfezionaLotto">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="perfezionaLottoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="perfezionaLottoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="consultaGara">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="consultaGaraRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="consultaGaraResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="perfezionaGara">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="perfezionaGaraRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="perfezionaGaraResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificaLotto">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modificaLottoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modificaLottoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inserisciLotto">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inserisciLottoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inserisciLottoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="chiudiSessione">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="chiudiSessioneRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="chiudiSessioneResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="presaInCarico">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="presaInCaricoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="presaInCaricoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="integraCUP">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="integraCUPRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="integraCUPResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="pubblica">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="pubblicaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="pubblicaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="cancellaLotto">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="cancellaLottoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="cancellaLottoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="SimogWSService">
+
+      <wsdl:port binding="impl:SimogWSSoapBinding" name="SimogWS">
+
+         <wsdlsoap:address location="http://localhost:8080/SimogWS/services/SimogWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

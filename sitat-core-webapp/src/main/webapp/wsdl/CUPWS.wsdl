@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:impl="http://ws.cup.eldasoft.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CUPWS" targetNamespace="http://ws.cup.eldasoft.it/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ws.cup.eldasoft.it/">
+            
+            <xsd:element name="inserisciCUP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="login" type="xsd:string"/>
+						<xsd:element maxOccurs="1" minOccurs="1" name="password" type="xsd:string"/>
+						<xsd:element maxOccurs="1" minOccurs="1" name="codein" type="impl:_16stringType"/>
+						<xsd:element maxOccurs="1" minOccurs="1" name="datiCUP" type="impl:datiCUP"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="consultaCUP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="uuid" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="listaStazioniAppaltanti">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="inserisciCUPResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="esito" type="impl:esitoInserisciCUP"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="consultaCUPResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="esito" type="impl:esitoConsultaCUP"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="listaStazioniAppaltantiResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="stazioniAppaltanti" type="impl:stazioneAppaltanteType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="esitoInserisciCUP">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="esito" type="xsd:boolean"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="messaggio" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoOperazione" type="impl:operazioneType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="esitoConsultaCUP">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="esito" type="xsd:boolean"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="messaggio" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="cup" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:simpleType name="operazioneType">
+				<xsd:annotation>
+					<xsd:documentation>Tipo di operazione effettuata
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="INS">
+						<xsd:annotation>
+							<xsd:documentation>
+								Inserimento
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="UPD">
+						<xsd:annotation>
+							<xsd:documentation>
+								Aggiornamento
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="datiCUP">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="uuid" type="impl:_UUIDType"/>
+					<xsd:element maxOccurs="1" minOccurs="1" name="descrizione_intervento" type="impl:_100stringType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="anno_decisione" type="impl:_4integerType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="natura" type="impl:naturaType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipologia" type="impl:tipologiaType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="settore" type="impl:settoreType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="sottosettore" type="impl:sottosettoreType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="categoria" type="impl:categoriaType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="cpv" type="impl:cpvType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="cup_master" type="impl:cupType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="sponsorizzazione" type="impl:sponsorizzazioneType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="finanza_progetto" type="impl:finanza_progettoType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="costo" type="impl:importoType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="finanziamento" type="impl:importoType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="_UUIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="40"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="_100stringType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="100"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="_5stringType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="5"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="_10stringType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="_16stringType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="_254stringType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="254"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="_4integerType">
+				<xsd:restriction base="xsd:integer">
+					<xsd:totalDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="cpvType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="importoType">
+				<xsd:restriction base="xsd:double">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="999999999999.999"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="cupType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"/>
+					<xsd:maxLength value="15"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="naturaType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="01">
+						<xsd:annotation>
+							<xsd:documentation>
+								ACQUISTO DI BENI
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="02">
+						<xsd:annotation>
+							<xsd:documentation>
+								REALIZZAZIONE E ACQUISTO DI SERVIZI
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="03">
+						<xsd:annotation>
+							<xsd:documentation>
+								REALIZZAZIONE DI LAVORI PUBBLICI (OPERE
+								ED IMPIANTISTICA)
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="06">
+						<xsd:annotation>
+							<xsd:documentation>
+								CONCESSIONI DI CONTRIBUTI AD ALTRI
+								SOGGETTI (DIVERSI DA UNITA PRODUTTIVE)
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="07">
+						<xsd:annotation>
+							<xsd:documentation>
+								CONCESSIONI DI INCENTIVI AD UNITA
+								PRODUTTIVE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="08">
+						<xsd:annotation>
+							<xsd:documentation>
+								ACQUISTO DI PARTECIPAZIONI AZIONARIE E
+								CONFERIMENTI DI CAPITALE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="tipologiaType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="00"/>
+					<xsd:enumeration value="01"/>
+					<xsd:enumeration value="02"/>
+					<xsd:enumeration value="03"/>
+					<xsd:enumeration value="04"/>
+					<xsd:enumeration value="05"/>
+					<xsd:enumeration value="06"/>
+					<xsd:enumeration value="07"/>
+					<xsd:enumeration value="08"/>
+					<xsd:enumeration value="09"/>
+					<xsd:enumeration value="10"/>
+					<xsd:enumeration value="11"/>
+					<xsd:enumeration value="12"/>
+					<xsd:enumeration value="13"/>
+					<xsd:enumeration value="14"/>
+					<xsd:enumeration value="15"/>
+					<xsd:enumeration value="16"/>
+					<xsd:enumeration value="17"/>
+					<xsd:enumeration value="18"/>
+					<xsd:enumeration value="19"/>
+					<xsd:enumeration value="20"/>
+					<xsd:enumeration value="21"/>
+					<xsd:enumeration value="51"/>
+					<xsd:enumeration value="52"/>
+					<xsd:enumeration value="53"/>
+					<xsd:enumeration value="54"/>
+					<xsd:enumeration value="55"/>
+					<xsd:enumeration value="56"/>
+					<xsd:enumeration value="57"/>
+					<xsd:enumeration value="58"/>
+					<xsd:enumeration value="99"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="settoreType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="11">
+						<xsd:annotation>
+							<xsd:documentation>
+								FORMAZIONE E SOSTEGNI PER IL MERCATO DEL
+								LAVORO
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="01">
+						<xsd:annotation>
+							<xsd:documentation>
+								INFRASTRUTTURE DI TRASPORTO
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="02">
+						<xsd:annotation>
+							<xsd:documentation>
+								INFRASTRUTTURE AMBIENTALI E RISORSE
+								IDRICHE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="03">
+						<xsd:annotation>
+							<xsd:documentation>
+								INFRASTRUTTURE DEL SETTORE ENERGETICO
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="04">
+						<xsd:annotation>
+							<xsd:documentation>
+								INFRASTRUTTURE PER L'ATTREZZATURA DI
+								AREE PRODUTTIVE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="05">
+						<xsd:annotation>
+							<xsd:documentation>
+								OPERE E INFRASTRUTTURE SOCIALI
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="06">
+						<xsd:annotation>
+							<xsd:documentation>
+								OPERE, IMPIANTI ED ATTREZZATURE PER
+								ATTIVITA' PRODUTTIVE E LA RICERCA
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="07">
+						<xsd:annotation>
+							<xsd:documentation>
+								INFRASTRUTTURE PER TELECOMUNICAZIONI E
+								TECNOLOGIE INFORMATICHE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="08">
+						<xsd:annotation>
+							<xsd:documentation>
+								RICERCA SVILUPPO TECNOLOGICO ED
+								INNOVAZIONE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="09">
+						<xsd:annotation>
+							<xsd:documentation>
+								SERVIZI ALLE IMPRESE
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="10">
+						<xsd:annotation>
+							<xsd:documentation>
+								SERVIZI PER LA P.A. E PER LA
+								COLLETTIVITA'
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="sottosettoreType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="01"/>      
+					<xsd:enumeration value="02"/>      
+					<xsd:enumeration value="03"/>      
+					<xsd:enumeration value="04"/>      
+					<xsd:enumeration value="05"/>      
+					<xsd:enumeration value="06"/>      
+					<xsd:enumeration value="08"/>      
+					<xsd:enumeration value="10"/>      
+					<xsd:enumeration value="11"/>      
+					<xsd:enumeration value="12"/>      
+					<xsd:enumeration value="13"/>      
+					<xsd:enumeration value="14"/>      
+					<xsd:enumeration value="15"/>      
+					<xsd:enumeration value="16"/>      
+					<xsd:enumeration value="17"/>      
+					<xsd:enumeration value="18"/>      
+					<xsd:enumeration value="20"/>      
+					<xsd:enumeration value="21"/>      
+					<xsd:enumeration value="22"/>      
+					<xsd:enumeration value="23"/>      
+					<xsd:enumeration value="25"/>      
+					<xsd:enumeration value="30"/>      
+					<xsd:enumeration value="31"/>      
+					<xsd:enumeration value="32"/>      
+					<xsd:enumeration value="33"/>      
+					<xsd:enumeration value="34"/>      
+					<xsd:enumeration value="36"/>      
+					<xsd:enumeration value="39"/>      
+					<xsd:enumeration value="40"/>      
+					<xsd:enumeration value="41"/>      
+					<xsd:enumeration value="42"/>      
+					<xsd:enumeration value="60"/>      
+					<xsd:enumeration value="61"/>      
+					<xsd:enumeration value="62"/>      
+					<xsd:enumeration value="71"/>      
+					<xsd:enumeration value="72"/>      
+					<xsd:enumeration value="75"/>      
+					<xsd:enumeration value="80"/>      
+					<xsd:enumeration value="92"/>      
+					<xsd:enumeration value="93"/>      
+					<xsd:enumeration value="99"/>      
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="categoriaType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="001"/>        
+					<xsd:enumeration value="002"/>        
+					<xsd:enumeration value="003"/>        
+					<xsd:enumeration value="004"/>        
+					<xsd:enumeration value="005"/>        
+					<xsd:enumeration value="006"/>        
+					<xsd:enumeration value="007"/>        
+					<xsd:enumeration value="009"/>        
+					<xsd:enumeration value="010"/>        
+					<xsd:enumeration value="011"/>        
+					<xsd:enumeration value="012"/>        
+					<xsd:enumeration value="013"/>        
+					<xsd:enumeration value="014"/>        
+					<xsd:enumeration value="015"/>        
+					<xsd:enumeration value="020"/>        
+					<xsd:enumeration value="021"/>        
+					<xsd:enumeration value="022"/>        
+					<xsd:enumeration value="027"/>        
+					<xsd:enumeration value="030"/>        
+					<xsd:enumeration value="031"/>        
+					<xsd:enumeration value="032"/>        
+					<xsd:enumeration value="033"/>        
+					<xsd:enumeration value="035"/>        
+					<xsd:enumeration value="036"/>        
+					<xsd:enumeration value="041"/>        
+					<xsd:enumeration value="042"/>        
+					<xsd:enumeration value="043"/>        
+					<xsd:enumeration value="044"/>        
+					<xsd:enumeration value="045"/>        
+					<xsd:enumeration value="051"/>        
+					<xsd:enumeration value="060"/>        
+					<xsd:enumeration value="061"/>        
+					<xsd:enumeration value="062"/>        
+					<xsd:enumeration value="065"/>        
+					<xsd:enumeration value="066"/>        
+					<xsd:enumeration value="068"/>        
+					<xsd:enumeration value="069"/>        
+					<xsd:enumeration value="071"/>        
+					<xsd:enumeration value="072"/>        
+					<xsd:enumeration value="081"/>        
+					<xsd:enumeration value="082"/>        
+					<xsd:enumeration value="083"/>        
+					<xsd:enumeration value="085"/>        
+					<xsd:enumeration value="086"/>        
+					<xsd:enumeration value="090"/>        
+					<xsd:enumeration value="092"/>        
+					<xsd:enumeration value="093"/>        
+					<xsd:enumeration value="094"/>        
+					<xsd:enumeration value="095"/>        
+					<xsd:enumeration value="096"/>        
+					<xsd:enumeration value="097"/>        
+					<xsd:enumeration value="098"/>        
+					<xsd:enumeration value="100"/>        
+					<xsd:enumeration value="101"/>        
+					<xsd:enumeration value="103"/>        
+					<xsd:enumeration value="104"/>        
+					<xsd:enumeration value="105"/>        
+					<xsd:enumeration value="106"/>        
+					<xsd:enumeration value="109"/>        
+					<xsd:enumeration value="110"/>        
+					<xsd:enumeration value="111"/>        
+					<xsd:enumeration value="112"/>        
+					<xsd:enumeration value="113"/>        
+					<xsd:enumeration value="115"/>        
+					<xsd:enumeration value="116"/>        
+					<xsd:enumeration value="117"/>        
+					<xsd:enumeration value="118"/>        
+					<xsd:enumeration value="119"/>        
+					<xsd:enumeration value="120"/>        
+					<xsd:enumeration value="121"/>        
+					<xsd:enumeration value="122"/>        
+					<xsd:enumeration value="123"/>        
+					<xsd:enumeration value="124"/>        
+					<xsd:enumeration value="129"/>        
+					<xsd:enumeration value="130"/>        
+					<xsd:enumeration value="131"/>        
+					<xsd:enumeration value="133"/>        
+					<xsd:enumeration value="134"/>        
+					<xsd:enumeration value="137"/>        
+					<xsd:enumeration value="138"/>        
+					<xsd:enumeration value="139"/>        
+					<xsd:enumeration value="141"/>        
+					<xsd:enumeration value="142"/>        
+					<xsd:enumeration value="143"/>        
+					<xsd:enumeration value="144"/>        
+					<xsd:enumeration value="145"/>        
+					<xsd:enumeration value="146"/>        
+					<xsd:enumeration value="147"/>        
+					<xsd:enumeration value="149"/>        
+					<xsd:enumeration value="150"/>        
+					<xsd:enumeration value="151"/>        
+					<xsd:enumeration value="152"/>        
+					<xsd:enumeration value="153"/>        
+					<xsd:enumeration value="155"/>        
+					<xsd:enumeration value="156"/>        
+					<xsd:enumeration value="157"/>        
+					<xsd:enumeration value="158"/>        
+					<xsd:enumeration value="160"/>        
+					<xsd:enumeration value="170"/>        
+					<xsd:enumeration value="171"/>        
+					<xsd:enumeration value="172"/>        
+					<xsd:enumeration value="173"/>        
+					<xsd:enumeration value="174"/>        
+					<xsd:enumeration value="175"/>        
+					<xsd:enumeration value="176"/>        
+					<xsd:enumeration value="181"/>        
+					<xsd:enumeration value="182"/>        
+					<xsd:enumeration value="191"/>        
+					<xsd:enumeration value="192"/>        
+					<xsd:enumeration value="193"/>        
+					<xsd:enumeration value="201"/>        
+					<xsd:enumeration value="202"/>        
+					<xsd:enumeration value="203"/>        
+					<xsd:enumeration value="204"/>        
+					<xsd:enumeration value="205"/>        
+					<xsd:enumeration value="206"/>        
+					<xsd:enumeration value="208"/>        
+					<xsd:enumeration value="209"/>        
+					<xsd:enumeration value="210"/>        
+					<xsd:enumeration value="211"/>        
+					<xsd:enumeration value="212"/>        
+					<xsd:enumeration value="213"/>        
+					<xsd:enumeration value="214"/>        
+					<xsd:enumeration value="215"/>        
+					<xsd:enumeration value="216"/>        
+					<xsd:enumeration value="218"/>        
+					<xsd:enumeration value="219"/>        
+					<xsd:enumeration value="220"/>        
+					<xsd:enumeration value="221"/>        
+					<xsd:enumeration value="222"/>        
+					<xsd:enumeration value="229"/>        
+					<xsd:enumeration value="231"/>        
+					<xsd:enumeration value="232"/>        
+					<xsd:enumeration value="239"/>        
+					<xsd:enumeration value="403"/>        
+					<xsd:enumeration value="410"/>        
+					<xsd:enumeration value="411"/>        
+					<xsd:enumeration value="412"/>        
+					<xsd:enumeration value="413"/>        
+					<xsd:enumeration value="414"/>        
+					<xsd:enumeration value="415"/>        
+					<xsd:enumeration value="416"/>        
+					<xsd:enumeration value="417"/>        
+					<xsd:enumeration value="499"/>        
+					<xsd:enumeration value="601"/>        
+					<xsd:enumeration value="602"/>        
+					<xsd:enumeration value="603"/>        
+					<xsd:enumeration value="604"/>        
+					<xsd:enumeration value="605"/>        
+					<xsd:enumeration value="606"/>        
+					<xsd:enumeration value="607"/>        
+					<xsd:enumeration value="608"/>        
+					<xsd:enumeration value="609"/>        
+					<xsd:enumeration value="610"/>        
+					<xsd:enumeration value="611"/>        
+					<xsd:enumeration value="612"/>        
+					<xsd:enumeration value="613"/>        
+					<xsd:enumeration value="614"/>        
+					<xsd:enumeration value="615"/>        
+					<xsd:enumeration value="616"/>        
+					<xsd:enumeration value="617"/>        
+					<xsd:enumeration value="618"/>        
+					<xsd:enumeration value="619"/>        
+					<xsd:enumeration value="620"/>        
+					<xsd:enumeration value="621"/>        
+					<xsd:enumeration value="622"/>        
+					<xsd:enumeration value="623"/>        
+					<xsd:enumeration value="624"/>        
+					<xsd:enumeration value="625"/>        
+					<xsd:enumeration value="626"/>        
+					<xsd:enumeration value="627"/>        
+					<xsd:enumeration value="628"/>        
+					<xsd:enumeration value="629"/>        
+					<xsd:enumeration value="708"/>        
+					<xsd:enumeration value="709"/>        
+					<xsd:enumeration value="710"/>        
+					<xsd:enumeration value="800"/>        
+					<xsd:enumeration value="802"/>        
+					<xsd:enumeration value="804"/>        
+					<xsd:enumeration value="805"/>        
+					<xsd:enumeration value="806"/>        
+					<xsd:enumeration value="807"/>        
+					<xsd:enumeration value="808"/>        
+					<xsd:enumeration value="809"/>        
+					<xsd:enumeration value="810"/>        
+					<xsd:enumeration value="811"/>        
+					<xsd:enumeration value="812"/>        
+					<xsd:enumeration value="813"/>        
+					<xsd:enumeration value="814"/>        
+					<xsd:enumeration value="815"/>        
+					<xsd:enumeration value="816"/>        
+					<xsd:enumeration value="817"/>        
+					<xsd:enumeration value="818"/>        
+					<xsd:enumeration value="819"/>        
+					<xsd:enumeration value="821"/>        
+					<xsd:enumeration value="899"/>        
+					<xsd:enumeration value="911"/>        
+					<xsd:enumeration value="998"/>        
+					<xsd:enumeration value="999"/>  
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+			<xsd:simpleType name="sponsorizzazioneType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="N">
+						<xsd:annotation>
+							<xsd:documentation>No</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="P">
+						<xsd:annotation>
+							<xsd:documentation>Parziale</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="T">
+						<xsd:annotation>
+							<xsd:documentation>Totale</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="finanza_progettoType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A">
+						<xsd:annotation>
+							<xsd:documentation>Assistita</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="N">
+						<xsd:annotation>
+							<xsd:documentation>No</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="P">
+						<xsd:annotation>
+							<xsd:documentation>Pura</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="stazioneAppaltanteType">
+				<xsd:sequence>
+					<xsd:element name="codein" type="impl:_16stringType"/>
+					<xsd:element name="nomein" type="impl:_254stringType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="inserisciCUPRequest">
+		<wsdl:part element="impl:inserisciCUP" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="inserisciCUPResponse">
+		<wsdl:part element="impl:inserisciCUPResponse" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="consultaCUPRequest">
+		<wsdl:part element="impl:consultaCUP" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultaCUPResponse">
+		<wsdl:part element="impl:consultaCUPResponse" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="listaStazioniAppaltantiRequest">
+		<wsdl:part element="impl:listaStazioniAppaltanti" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="listaStazioniAppaltantiResponse">
+		<wsdl:part element="impl:listaStazioniAppaltantiResponse" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="CUPWS">
+		<wsdl:operation name="inserisciCUP">
+			<wsdl:input message="impl:inserisciCUPRequest"/>
+			<wsdl:output message="impl:inserisciCUPResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultaCUP">
+			<wsdl:input message="impl:consultaCUPRequest"/>
+			<wsdl:output message="impl:consultaCUPResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="listaStazioniAppaltanti">
+			<wsdl:input message="impl:listaStazioniAppaltantiRequest"/>
+			<wsdl:output message="impl:listaStazioniAppaltantiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="CUPWSBinding" type="impl:CUPWS">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="inserisciCUP">
+			<soap:operation soapAction="http://ws.cup.eldasoft.it/inserisciCUP"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultaCUP">
+			<soap:operation soapAction="http://ws.cup.eldasoft.it/consultaCUP"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="listaStazioniAppaltanti">
+			<soap:operation soapAction="http://ws.cup.eldasoft.it/listaStazioneAppaltanti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="CUPWSService">
+		<wsdl:port binding="impl:CUPWSBinding" name="CUPWS">
+			<soap:address location="http://localhost:13873/AliceProgrammi/services/CUPWS"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

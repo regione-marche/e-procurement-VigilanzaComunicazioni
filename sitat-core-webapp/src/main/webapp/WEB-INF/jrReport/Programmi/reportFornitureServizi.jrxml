@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFornitureServizi" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontSize="14" isBold="true">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Detail" mode="Transparent" pattern="">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\MyProject\\Eldasoft\\Programmi\\src\\main\\webapp\\WEB-INF\\jrReport\\Programmi\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="COD_PIANOTRIEN" class="java.lang.String">
+		<parameterDescription><![CDATA[PIATRI_ID]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     u.CODEIN AS UFFINT_CODEIN,
+     u.NOMEIN AS UFFINT_NOMEIN,
+     p.CONTRI AS PIATRI_CONTRI,
+     p.ID AS PIATRI_ID,
+     p.ANNTRI AS PIATRI_ANNTRI,
+     p.BI1TRI AS PIATRI_BI1TRI,
+     p.RG1TRI AS PIATRI_RG1TRI,
+     p.IMPRFS AS PIATRI_IMPRFS,
+     p.MU1TRI AS PIATRI_MU1TRI,
+     p.PR1TRI AS PIATRI_PR1TRI,
+     p.TO1TRI AS PIATRI_TO1TRI,
+     p.AL1TRI AS PIATRI_AL1TRI,
+     p.CENINT AS PIATRI_CENINT,
+     p.RESPRO AS PIATRI_RESPRO,
+     p.NOTSCHE1 AS PIATRI_NOTSCHE1,
+     p.NOTSCHE4 AS PIATRI_NOTSCHE4,
+     te.NOMTEC AS TECNI_NOMTEC,
+     u.CODEIN AS UFFINT_CODEIN,
+     u.NOMEIN AS UFFINT_NOMEIN
+FROM
+     PIATRI p INNER JOIN TECNI te ON p.RESPRO = te.CODTEC
+     INNER JOIN UFFINT u ON p.CENINT = u.CODEIN
+WHERE
+     p.ID = $P{COD_PIANOTRIEN}]]>
+	</queryString>
+	<field name="UFFINT_CODEIN" class="java.lang.String"/>
+	<field name="UFFINT_NOMEIN" class="java.lang.String"/>
+	<field name="PIATRI_CONTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_ID" class="java.lang.String"/>
+	<field name="PIATRI_ANNTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_RG1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IMPRFS" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_CENINT" class="java.lang.String"/>
+	<field name="PIATRI_RESPRO" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE1" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE4" class="java.lang.String"/>
+	<field name="TECNI_NOMTEC" class="java.lang.String"/>
+	<title>
+		<band height="76">
+			<staticText>
+				<reportElement x="0" y="34" width="802" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Programma annuale dei contratti di forniture e servizi]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="802" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UFFINT_NOMEIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="54" width="802" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new String("Anno ").concat("" + $F{PIATRI_ANNTRI}.intValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="298" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quadro delle risorse disponibili]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="16" width="540" height="43" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipologia risorse finanziarie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="540" y="16" width="262" height="43" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importo risorse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="131" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Risorse proprie (stanziamenti in bilancio)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="77" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Risorse regionali]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="59" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Risorse Stato/UE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="149" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Altre risorse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="167" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Totale]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement style="Detail" x="540" y="131" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_BI1TRI}!=null?$F{PIATRI_BI1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="77" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_RG1TRI}!=null?$F{PIATRI_RG1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="59" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_IMPRFS}!=null?$F{PIATRI_IMPRFS}:0)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="149" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_AL1TRI}!=null?$F{PIATRI_AL1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="167" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_TO1TRI}!=null?$F{PIATRI_TO1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="540" y="201" width="166" height="20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Il Responsabile del Programma]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="512" y="221" width="209" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TECNI_NOMTEC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="95" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contrazioni di mutuo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="113" width="540" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Capitali privati]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="95" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_MU1TRI}!=null?$F{PIATRI_MU1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement style="Detail" x="540" y="113" width="262" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{PIATRI_PR1TRI}!=null?$F{PIATRI_PR1TRI}:0)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="240" width="27" height="19"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="259" width="721" height="36"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PIATRI_NOTSCHE1}!=null?$F{PIATRI_NOTSCHE1}:""]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="1"/>
+				<subreportParameter name="PIATRI_ANNTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_ANNTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_CONTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_CONTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_NOTSCHE4">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_NOTSCHE4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TECNI_NOMTEC">
+					<subreportParameterExpression><![CDATA[$F{TECNI_NOMTEC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="UFFINT_NOMEIN">
+					<subreportParameterExpression><![CDATA[$F{UFFINT_NOMEIN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportFornitureServizi_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

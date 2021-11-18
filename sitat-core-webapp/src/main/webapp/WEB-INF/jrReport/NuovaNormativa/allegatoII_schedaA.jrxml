@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="schedaA" pageWidth="802" pageHeight="552" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontSize="14" isBold="true">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Detail" mode="Transparent" pattern="">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="COD_PIANOTRIEN" class="java.lang.String">
+		<parameterDescription><![CDATA[Indicare il codice del piano triennali (valore del campo PIATRI.ID):]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     coalesce(PIATRI.CONTRI,0) AS PIATRI_CONTRI,
+     coalesce(PIATRI.ID,' ') AS PIATRI_ID,
+     coalesce(PIATRI.ANNTRI,0.00) AS PIATRI_ANNTRI,
+     coalesce(PIATRI.DV1TRI,0.00) AS PIATRI_DV1TRI,
+     coalesce(PIATRI.DV2TRI,0.00) AS PIATRI_DV2TRI,
+     coalesce(PIATRI.DV3TRI,0.00) AS PIATRI_DV3TRI,
+     coalesce(PIATRI.MU1TRI,0.00) AS PIATRI_MU1TRI,
+     coalesce(PIATRI.MU2TRI,0.00) AS PIATRI_MU2TRI,
+     coalesce(PIATRI.MU3TRI,0.00) AS PIATRI_MU3TRI,
+     coalesce(PIATRI.PR1TRI,0.00) AS PIATRI_PR1TRI,
+     coalesce(PIATRI.PR2TRI,0.00) AS PIATRI_PR2TRI,
+     coalesce(PIATRI.PR3TRI,0.00) AS PIATRI_PR3TRI,
+     coalesce(PIATRI.IM1TRI,0.00) AS PIATRI_IM1TRI,
+     coalesce(PIATRI.IM2TRI,0.00) AS PIATRI_IM2TRI,
+     coalesce(PIATRI.IM3TRI,0.00) AS PIATRI_IM3TRI,
+     coalesce(PIATRI.BI1TRI,0.00) AS PIATRI_BI1TRI,
+     coalesce(PIATRI.BI2TRI,0.00) AS PIATRI_BI2TRI,
+     coalesce(PIATRI.BI3TRI,0.00) AS PIATRI_BI3TRI,
+     coalesce(PIATRI.AP1TRI,0.00) AS PIATRI_AP1TRI,
+     coalesce(PIATRI.AP2TRI,0.00) AS PIATRI_AP2TRI,
+     coalesce(PIATRI.AP3TRI,0.00) AS PIATRI_AP3TRI,
+     coalesce(PIATRI.AL1TRI,0.00) AS PIATRI_AL1TRI,
+     coalesce(PIATRI.AL2TRI,0.00) AS PIATRI_AL2TRI,
+     coalesce(PIATRI.AL3TRI,0.00) AS PIATRI_AL3TRI,
+     (coalesce(PIATRI.TO1TRI,0.00) + coalesce(PIATRI.PR1TRI,0.00)) AS PIATRI_TO1TRI,
+     (coalesce(PIATRI.TO2TRI,0.00) + coalesce(PIATRI.PR2TRI,0.00)) AS PIATRI_TO2TRI,
+     (coalesce(PIATRI.TO3TRI,0.00) + coalesce(PIATRI.PR3TRI,0.00)) AS PIATRI_TO3TRI,
+	 coalesce(PIATRI.RESPRO,' ') AS PIATRI_RESPRO,
+     coalesce(PIATRI.IMPACC,0) AS PIATRI_IMPACC,
+	 coalesce(PIATRI.NOTSCHE1,' ') AS PIATRI_NOTSCHE1,
+	 coalesce(PIATRI.NOTSCHE2,' ') AS PIATRI_NOTSCHE2,
+	 coalesce(PIATRI.NOTSCHE3,' ') AS PIATRI_NOTSCHE3,
+	 coalesce(PIATRI.NOTSCHE2B,' ') AS PIATRI_NOTSCHE2B,
+	 coalesce(PIATRI.NOTSCHE4,' ') AS PIATRI_NOTSCHE4,
+	 coalesce(PIATRI.TIPROG,0) AS PIATRI_TIPROG,
+	 coalesce(UFFINT.NOMEIN,' ') AS UFFINT_NOMEIN,
+     UFFICI.DENOM AS UFFICIO,
+	 coalesce(TECNI.NOMTEC,' ') AS TECNI_NOMTEC,
+	 coalesce(UFFINT.CODEIN,' ') AS UFFINT_CODEIN,
+     coalesce(I.INTERVENTI,0) AS INTERVENTI
+FROM
+     PIATRI LEFT JOIN TECNI ON PIATRI.RESPRO = TECNI.CODTEC
+     LEFT JOIN UFFINT ON UFFINT.CODEIN = PIATRI.CENINT
+     LEFT JOIN UFFICI ON UFFICI.CODEIN = PIATRI.CENINT AND UFFICI.ID = PIATRI.IDUFFICIO
+     LEFT JOIN (SELECT COUNT(*) AS INTERVENTI, CONTRI FROM INTTRI GROUP BY CONTRI) I ON PIATRI.CONTRI = I.CONTRI
+WHERE
+     PIATRI.ID = $P{COD_PIANOTRIEN}]]>
+	</queryString>
+	<field name="PIATRI_CONTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_ID" class="java.lang.String"/>
+	<field name="PIATRI_ANNTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_RESPRO" class="java.lang.String"/>
+	<field name="PIATRI_IMPACC" class="java.math.BigDecimal"/>
+	<field name="PIATRI_NOTSCHE1" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE2" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE3" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE2B" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE4" class="java.lang.String"/>
+	<field name="PIATRI_TIPROG" class="java.math.BigDecimal"/>
+	<field name="UFFINT_NOMEIN" class="java.lang.String"/>
+	<field name="UFFICIO" class="java.lang.String"/>
+	<field name="TECNI_NOMTEC" class="java.lang.String"/>
+	<field name="UFFINT_CODEIN" class="java.lang.String"/>
+	<field name="INTERVENTI" class="java.math.BigDecimal"/>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals(new Integer("1"))]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="802" height="70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PROGRAMMA BIENNALE DEGLI ACQUISTI DI FORNITURE E SERVIZI " + $F{PIATRI_ANNTRI}.intValue() + "/" + ($F{PIATRI_ANNTRI}.intValue()+1) + " DELL'AMMINISTRAZIONE " + $F{UFFINT_NOMEIN} + ($F{UFFICIO} != null ? " - " + $F{UFFICIO} : "")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="341" splitType="Stretch">
+			<staticText>
+				<reportElement style="Detail" positionType="Float" x="382" y="30" width="420" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ARCO TEMPORALE DI VALIDITÀ DEL PROGRAMMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="30" width="382" height="42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPOLOGIA RISORSE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="487" y="58" width="105" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[Secondo anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="592" y="44" width="210" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importo Totale (2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="72" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[risorse derivate da entrate aventi destinazione vincolata per legge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="114" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[stanziamenti di bilancio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="156" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[risorse derivanti da trasferimento di immobili]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="170" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[altro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="86" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[risorse derivate da entrate acquisite mediante contrazione di mutuo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="100" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[risorse acquisite mediante apporti di capitali privati]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="382" y="58" width="105" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[Primo anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="229" width="166" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Il referente del programma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="288" width="591" height="30"/>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[(1) La disponibilità finanziaria di ciascuna annualità è calcolata come somma delle informazioni elementari relative ai costi annuali di ciascun acquisto intervento di cui alla scheda B.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="802" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SCHEDA A: QUADRO DELLE RISORSE NECESSARIE ALLA REALIZZAZIONE DEL PROGRAMMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="269" width="71" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="128" width="382" height="28"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[finanziamenti acquisibili ai sensi dell'articolo 3 del decreto-legge 31 ottobre 1990, n. 310, convertito con modificazioni dalla legge 22 dicembre 1990, n. 403]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="382" y="44" width="210" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disponibilità finanziaria (1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Detail" x="0" y="184" width="382" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[totale]]></text>
+			</staticText>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="72" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_DV1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="72" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_DV2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="72" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_DV1TRI}.add($F{PIATRI_DV2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="86" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_MU1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="86" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_MU2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="86" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_MU1TRI}.add($F{PIATRI_MU2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="100" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_PR1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="100" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_PR2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="100" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_PR1TRI}.add($F{PIATRI_PR2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="114" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_BI1TRI}.add($F{PIATRI_BI2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="114" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_BI1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="114" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_BI2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="156" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_IM1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="156" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_IM2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="156" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_IM1TRI}.add($F{PIATRI_IM2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="170" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AL1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="170" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AL2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="170" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AL1TRI}.add($F{PIATRI_AL2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="249" width="243" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TECNI_NOMTEC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="219" width="486" height="30" forecolor="#FF0000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INTERVENTI}!=null && $F{INTERVENTI}.compareTo( new BigDecimal(0) )> 0?"":"* L'amministrazione non ha interventi da pubblicare per l'anno "]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="128" width="105" height="28"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AP1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="128" width="210" height="28"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AP1TRI}.add($F{PIATRI_AP2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="128" width="105" height="28"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_AP2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="382" y="184" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_TO1TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="592" y="184" width="210" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_TO1TRI}.add($F{PIATRI_TO2TRI}).setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#.##0,00;-#.##0,00" isBlankWhenNull="true">
+				<reportElement style="Detail" x="487" y="184" width="105" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{PIATRI_TO2TRI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="318" width="591" height="18"/>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<text><![CDATA[(2) L'importo totale delle risorse necessarie alla realizzazione del programma biennale è calcolato come somma  delle due annualità]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

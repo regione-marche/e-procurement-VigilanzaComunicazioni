@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!--
+		========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS =========================
+	-->
+
+	<bean id="w9FileDao"
+		class="it.eldasoft.w9.dao.ibatis.SqlMapW9FileDao">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!--
+		========================= DAO DEFINITIONS: JDBC IMPLEMENTATIONS =========================
+	-->
+
+	<!--
+		========================= BEAN DEFINITIONS =========================
+	-->
+		
+	<bean id="w9ManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="downloadFile">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="aggiorna*">PROPAGATION_REQUIRED,-java.sql.SQLException,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+				<prop key="gestione*">PROPAGATION_REQUIRED,-java.sql.SQLException,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="w9Manager" parent="w9ManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.W9Manager" >
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="geneManager" ref="geneManager" />
+				<property name="genChiaviManager" ref="genChiaviManager" />
+				<property name="w9FileDao" ref="w9FileDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="controlliValidazioneManager" class="it.eldasoft.w9.bl.ControlliValidazioneManager">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="geneManager" ref="geneManager" />
+		<property name="tabControlliManager" ref="tabControlliManager" />
+	</bean>
+
+	<bean id="w9ImpreseManager" parent="defaultManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.W9ImpreseManager" >
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="w9AggiudicatarieManager" parent="defaultManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.W9AggiudicatarieManager" >
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="XMLRLOManager" class="it.eldasoft.w9.bl.XMLRLOManager">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+
+	<bean id="ExportSitarManager" class="it.eldasoft.w9.bl.ExportSitarManager">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="w9FileDao" ref="w9FileDao" />
+	</bean>
+
+	<bean name="sqlMapTabControlliDao" class="it.eldasoft.w9.dao.ibatis.SqlMapTabControlliDao">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="tabControlliManagerTransactionProxy" 
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="esegui*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="tabControlliManager" parent="tabControlliManagerTransactionProxy">
+		<property name="target">	
+			<bean class="it.eldasoft.commons.TabControlliManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="sqlMapTabControlliDao" ref="sqlMapTabControlliDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="scpManager" class="it.eldasoft.w9.bl.rest.ScpManager">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="genChiaviManager" ref="genChiaviManager" />
+		<property name="w9FileDao" ref="w9FileDao" />
+		<property name="geneManager" ref="geneManager" />
+	</bean>
+
+  <bean id="indicatoriLottoManager" class="it.eldasoft.w9.bl.IndicatoriLottoManager">
+  	<property name="sqlManager" ref="sqlManager" />
+  </bean>
+
+	<bean id="allineaIndiciSimogManagerTransactionProxy" 
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="riallineaIndiciSimog*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="allineaIndiciSimogManager" parent="allineaIndiciSimogManagerTransactionProxy">
+		<property name="target">
+	  	<bean class="it.eldasoft.w9.bl.AllineaIndiciSimogManager">
+	  		<property name="sqlManager" ref="sqlManager" />
+	  		<property name="ticketSimogManager" ref="ticketSimogManager" />
+	  	</bean>
+  	</property>
+  </bean>
+
+	<bean id="ExportORtoSCPManagerJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="scpManager" />
+		<property name="targetMethod" value="exportORtoSCP" />
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="inviaORtoSCPSchedulerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="ExportORtoSCPManagerJob" />
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ? 2099</value>
+		</property>
+	</bean>
+	
+	<bean id="accessoSimogManager" class="it.eldasoft.w9.bl.simog.AccessoSimogManager" ></bean>
+	
+	<bean id="garaDelegataManager" class="it.eldasoft.w9.bl.GaraDelegataManager">
+		<property name="accessoSimogManager" ref="accessoSimogManager" />
+	</bean>
+	
+	<!--
+		========================= STRUTS ACTION DEFINITIONS	=========================
+	-->
+
+	<bean name="/w9/CopiaValoriProgramma"
+		class="it.eldasoft.w9.web.struts.CopiaValoriProgrammaAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/SelezionaNuovaFase"
+		class="it.eldasoft.w9.web.struts.SelezionaNuovaFaseAction">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/RedirectNuovaFase"
+		class="it.eldasoft.w9.web.struts.RedirectNuovaFaseAction">
+	</bean>
+	
+	<bean name="/w9/VisualizzaAllegato"
+		class="it.eldasoft.w9.web.struts.VisualizzaAllegatoAction">
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/GetDescrizioneEnte"	class="it.eldasoft.w9.web.struts.GetDescrizioneEnteAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/IsLoginEsistente" class="it.eldasoft.w9.web.struts.IsLoginEsistenteAction" >
+		<property name="accountManager" ref="accountManager" />
+	</bean>
+	
+	<bean name="/w9/IsCodiceControlloCorretto" class="it.eldasoft.w9.web.struts.IsCodiceControlloCorrettoAction" >
+	</bean>
+	
+	<bean name="/w9/GetListaComuni"	class="it.eldasoft.w9.web.struts.GetListaComuniAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+
+	<bean name="/w9/GetListaCIGPubblicati"	class="it.eldasoft.w9.web.struts.GetListaCIGPubblicatiAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/ListaW9Imprese" class="it.eldasoft.w9.web.struts.ListaW9ImpreseAction" >
+		<property name="w9ImpreseManager" ref="w9ImpreseManager" />
+	</bean>
+
+	<bean name="/w9/ListaW9SelezionePartecipanti" class="it.eldasoft.w9.web.struts.ListaW9SelezionePartecipantiAction" >
+		<property name="w9ImpreseManager" ref="w9ImpreseManager" />
+		<property name="w9AggiudicatarieManager" ref="w9AggiudicatarieManager" />
+	</bean>
+	
+	<bean name="/w9/AttribuisciModello"
+		class="it.eldasoft.w9.web.struts.AttribuisciModelloAction">
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/CancellaModello"
+		class="it.eldasoft.w9.web.struts.CancellazioneModelloAction">
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/IdmRasLoginResponseAction" class="it.eldasoft.w9.web.struts.IdmRasLoginResponseAction" >
+		<property name="loginManager" ref="loginManager" />
+	</bean>
+	
+	<bean name="/w9/GetDeleghe" class="it.eldasoft.w9.web.struts.GetDelegheAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/SchedaANAS" class="it.eldasoft.w9.web.struts.SchedaANASAction" >
+		<property name="geneManager" ref="geneManager" />
+		<property name="profiliManager" ref="profiliManager" />
+	</bean>
+	
+	<bean name="/w9/GetScadenzeFasiGare" class="it.eldasoft.w9.web.struts.GetScadenzeFasiGareJSONAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/LeggiNotifica"
+		class="it.eldasoft.w9.web.struts.LeggiNotificaAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/ImportXMLRLO" class="it.eldasoft.w9.web.struts.ImportXMLRLOAction"> 
+		<property name="XMLRLOManager" ref="XMLRLOManager" />
+	</bean>
+	
+	<bean name="/w9/CancellaPubblicazione" 
+		class="it.eldasoft.w9.web.struts.CancellazionePubblicazioneAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/GetListaCIGEsiti"	class="it.eldasoft.w9.web.struts.GetListaCIGEsitiAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/PubblicaServiziRest" class="it.eldasoft.w9.web.struts.rest.PubblicaServiziRestAction">
+		<property name="scpManager" ref="scpManager" />
+	</bean>
+	
+	<bean name="/w9/TrasferisciAppalti" class="it.eldasoft.w9.web.struts.TrasferisciAppaltiAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/GetCig" class="it.eldasoft.w9.web.struts.GetCigFromSimogAction">
+		<property name="ticketSimogManager" ref="ticketSimogManager" />		
+	</bean>
+	
+	<bean name="/w9/GetIndicatori" class="it.eldasoft.w9.web.struts.GetIndicatoriLottoAction">
+		<property name="indicatoriLottoManager" ref="indicatoriLottoManager" />
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/AllineaIndici" class="it.eldasoft.w9.web.struts.AllineaIndiciSimogAction">
+		<property name="allineaIndiciSimogManager" ref="allineaIndiciSimogManager" />
+		<property name="esportazioneXMLSIMOGManager" ref="esportazioneXMLSIMOGManager" />
+	</bean>
+	
+	<bean name="/w9/TrasferisciDatiSubentro" class="it.eldasoft.w9.web.struts.TrasferisciDatiSubentroAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/GestioneAlberoNUTS" class="it.eldasoft.w9.web.struts.GestioneAlberoNUTSAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/w9/Multilotto" class="it.eldasoft.w9.web.struts.MultilottoAction" >
+		<property name="geneManager" ref="geneManager" />
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="w9Manager" ref="w9Manager" />
+		<property name="controlliValidazioneManager" ref="controlliValidazioneManager" />
+	</bean>
+	
+	<bean name="/w9/GestioneRichiesteCredenziali" class="it.eldasoft.w9.web.struts.GestioneRichiesteCredenzialiAction">
+		<property name="sqlManager" ref="sqlManager" />	
+		<property name="accountManager" ref="accountManager" />
+		<property name="profiliManager" ref="profiliManager" />
+		<property name="mailManager" ref="mailManager" />
+	</bean>
+	
+</beans>

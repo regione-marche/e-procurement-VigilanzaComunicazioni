@@ -1,0 +1,395 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.toscana.regione.sitat</groupId>
+		<artifactId>sitat-pom</artifactId>
+		<version>5.6.4</version>
+	</parent>
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<artifactId>sitat-core-webapp</artifactId>
+	<!-- CONFIGURA QUA IL TIPO DI PACKAGING-->
+	<packaging>war</packaging>
+
+	<!-- CONFIGURA QUA IL NOME DEL PROGETTO -->
+	<name>Web application di base Sitat</name>
+	<url>http://oscat.rete.toscana.it/projects/sitat</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>it.toscana.regione.sitat</groupId>
+			<artifactId>sitat-core-engine</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>it.maggioli.eldasoft.commons</groupId>
+			<artifactId>geneweb-webapp</artifactId>
+			<version>${geneweb.version}</version>
+			<type>war</type>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-lang</groupId>
+					<artifactId>commons-lang</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>	
+
+	<build>
+		<resources>
+			<resource>
+				<!-- si escludono i file di resources in quanto vengono concatenati e presi da un'altra cartella -->
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>*Resources.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<!-- espande in una cartella di appoggio alcuni file presenti nelle dipendenze per le successive elaborazioni -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>unpack-geneweb-dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies-unpacked/geneweb-webapp</outputDirectory>
+							<verbose>true</verbose>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<appendOutput>true</appendOutput>
+							<includeGroupIds>it.maggioli.eldasoft.commons</includeGroupIds>
+							<includeArtifactIds>geneweb-webapp</includeArtifactIds>
+							<includes>configuration/*.xml,WEB-INF/classes/*Resources.properties,WEB-INF/xml/ibatis/*.xml,WEB-INF/xml/struts/gene-forward.xml,WEB-INF/xml/struts/struts-config-gene-common.xml</includes>
+						</configuration>
+					</execution>
+					<!--execution>
+						<id>unpack-axis2</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+						</configuration>
+					</execution-->
+					<execution>
+						<id>unpack-axis2-kernel</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-kernel</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-axis2-xmlbeans</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-xmlbeans</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+							<overWrite>true</overWrite>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-axis2--transport-local</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-transport-local</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+							<overWrite>true</overWrite>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-axis2-transport-http</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-transport-http</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+							<overWrite>true</overWrite>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-axis2-adb</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-adb</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+							<overWrite>true</overWrite>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-axis2-codegen</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>org.apache.axis2</includeGroupIds>
+							<includeArtifactIds>axis2-codegen</includeArtifactIds>
+							<outputDirectory>
+								${project.build.directory}/dependencies-unpacked/axis2/
+							</outputDirectory>
+							<overWrite>true</overWrite>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>                   	   
+					<!-- task per la copia di un file per il merge in modo da collocarlo nel posto previsto dalla configurazione-->
+					<execution>
+						<id>process-sources-antrun</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+								<echo>Copying sources</echo>
+								<copy file="${project.build.directory}/dependencies-unpacked/geneweb-webapp/WEB-INF/xml/struts/gene-forward.xml" tofile="${project.build.directory}/war/work/xml-struts/gene-forward.xml"/>
+							</target>
+						</configuration>
+					</execution>                    
+					<execution>
+						<!-- task di fusione dei file di resources -->
+						<id>process-resources-antrun</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+								<echo>Merging resources</echo>
+								<concat destfile="target/war/work/resources/AliceResources.properties" append="true">
+									<fileset dir="target/dependencies-unpacked/geneweb-webapp/WEB-INF/classes" includes="*Resources.properties" />
+									<fileset dir="src/main/resources" includes="*Resources.properties" />
+								</concat>
+							</target>
+						</configuration>
+					</execution>                
+					<execution>
+						<!-- task di fusione dei file di axis2 scompresso -->
+						<id>process-resources-axis2</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>                        
+						<configuration>
+							<target>
+								<echo>Copia librerie axis2 scompresse</echo>
+								<copy todir="${project.build.directory}/war/work/WEB-INF/classes">
+									<fileset dir="${project.build.directory}/dependencies-unpacked">
+										<include name="**/*.*"/>
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+					</execution>  
+					
+					
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- effettua l'iniezione dei global forward nei file di struts -->
+				<groupId>com.google.code.maven-config-processor-plugin</groupId>
+				<artifactId>maven-config-processor-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<id>xml-struts-task</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>target/war/work/xml-struts</outputDirectory>
+							<transformations>
+								<transformation>
+									<input>src/main/webapp/WEB-INF/xml/struts/struts-config-w9.xml</input>
+									<output>struts-config-w9.xml</output>
+									<config>${project.build.directory}/dependencies-unpacked/geneweb-webapp/configuration/struts-transformation.xml</config>
+								</transformation>
+								<transformation>
+									<input>src/main/webapp/WEB-INF/xml/struts/struts-config-pt.xml</input>
+									<output>struts-config-pt.xml</output>
+									<config>${project.build.directory}/dependencies-unpacked/geneweb-webapp/configuration/struts-transformation.xml</config>
+								</transformation>
+							</transformations>
+						</configuration>
+					</execution>
+					<execution>
+						<id>xml-ibatis-task</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>target/war/work/xml-ibatis</outputDirectory>
+							<transformations>
+								<transformation>
+									<input>${project.build.directory}/dependencies-unpacked/geneweb-webapp/WEB-INF/xml/ibatis/sql-map-config.xml</input>
+									<output>sql-map-config.xml</output>
+									<config>${project.build.directory}/dependencies-unpacked/geneweb-webapp/configuration/ibatis-transformation.xml</config>
+								</transformation>
+								<transformation>
+									<input>${project.build.directory}/dependencies-unpacked/geneweb-webapp/WEB-INF/xml/ibatis/sql-map-config.xml</input>
+									<output>sql-map-config-pos.xml</output>
+									<config>src/main/webapp/configuration/ibatis-transformation-pos.xml</config>
+								</transformation>
+							</transformations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<!-- build con i file di struts corretti ed un unico file di resources -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<overlays>
+						<overlay>
+							<groupId>it.maggioli.eldasoft.commons</groupId>
+							<artifactId>geneweb-webapp</artifactId>
+							<excludes>
+								<exclude>WEB-INF/classes/gene_sprotetto.properties</exclude>
+								<exclude>WEB-INF/classes/global.properties</exclude>
+								<exclude>WEB-INF/xml/ibatis/add*.xml</exclude>
+								<exclude>WEB-INF/xml/struts/gene-forward.xml</exclude>
+								<exclude>WEB-INF/xml/spring/task-add.xml</exclude>
+								
+								<!--exclude>WEB-INF/lib/activation*.jar</exclude-->
+								<!--exclude>WEB-INF/lib/mail*.jar</exclude-->
+								<!--exclude>WEB-INF/lib/javax.mail*.jar</exclude-->
+								<exclude>WEB-INF/lib/ojdbc*.jar</exclude>
+								<exclude>WEB-INF/lib/postgresql*.jar</exclude>
+								<exclude>WEB-INF/lib/sqljdbc*.jar</exclude>
+								<exclude>WEB-INF/lib/aopalliance-repackaged*.jar</exclude>
+								<exclude>WEB-INF/lib/hk2-api*.jar</exclude>
+								<exclude>WEB-INF/lib/hk2-locator*.jar</exclude>
+								<exclude>WEB-INF/lib/hk2-utils*.jar</exclude>
+								<exclude>WEB-INF/lib/httpcore*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-annotations*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-core*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-databind*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-jaxrs-base*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-jaxrs-json-provider*.jar</exclude>
+								<exclude>WEB-INF/lib/jackson-module-jaxb-annotations*.jar</exclude>
+								<exclude>WEB-INF/lib/javassist-3.18.1-GA*.jar</exclude>
+								<exclude>WEB-INF/lib/javax.inject*.jar</exclude>
+								<exclude>WEB-INF/lib/javax.ws.rs-api*.jar</exclude>
+								<exclude>WEB-INF/lib/jersey-client*.jar</exclude>
+								<exclude>WEB-INF/lib/jersey-common*.jar</exclude>
+								<exclude>WEB-INF/lib/jersey-guava*.jar</exclude>
+								<exclude>WEB-INF/lib/jersey-media-multipart*.jar</exclude>
+								<exclude>WEB-INF/lib/mimepull*.jar</exclude>
+								<exclude>WEB-INF/lib/jersey-server*.jar</exclude>
+								<exclude>WEB-INF/lib/javax.annotation-api*.jar</exclude>
+								<exclude>WEB-INF/lib/jaxb-api*.jar</exclude>
+							</excludes>
+						</overlay>
+					</overlays>
+					<warSourceExcludes>WEB-INF/xml/ibatis/add*.xml,WEB-INF/xml/spring/tasks-add.xml</warSourceExcludes>
+					<webResources>
+						<resource>
+							<directory>target/war/work/xml-struts</directory>
+							<targetPath>WEB-INF/xml/struts</targetPath>
+							<includes>
+								<include>struts*.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<!-- risorse filtrate derivate dalla webapp geneweb-webapp -->
+							<!-- NOTA BENE: MAI METTERE QUESTA RISORSA PER ULTIMA NELLA SEZIONE, ALTRIMENTI PER UN BACO DI MAVEN NON SI COPIANO I FILE! -->
+							<directory>${project.build.directory}/war/work/resources</directory>
+							<targetPath>WEB-INF</targetPath>
+							<excludes>
+								<exclude>**/application*.properties</exclude>
+								<exclude>**/AliceResources.properties</exclude>
+								<!-- rispetto al profilo sviluppo si toglie il file di properties -->
+								<exclude>**/global.properties</exclude>
+							</excludes>
+						</resource>
+						
+						<resource>
+							<directory>target/war/work/xml-ibatis</directory>
+							<targetPath>WEB-INF/xml/ibatis</targetPath>
+							<includes>
+								<include>*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>target/war/work/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>*</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>target/war/work/WEB-INF/classes/axis2</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	
+	</build>
+</project>

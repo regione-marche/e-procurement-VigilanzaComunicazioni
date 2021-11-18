@@ -1,0 +1,10 @@
+Gent.le #if ($NOME)$NOME#end,
+la richiesta per l'abilitazione al servizio di cooperazione applicativa e interoperatibilita' a #if ($NOMEMITT)$NOMEMITT#end e' stata inoltrata con successo,
+il suo numero richiesta e' #if ($ID_RICHIESTA)$ID_RICHIESTA#end.
+All'atto dell'attivazione le verra' inviata una mail di conferma contenente le credenziali.
+
+#if ($NOMEMITT)$NOMEMITT#end
+
+
+-------
+La presente comunicazione e' inviata da un sistema automatico, si prega di non rispondere.

@@ -1,0 +1,36 @@
+body {BACKGROUND:#F5F6F8; margin:0;}
+
+.calOuterTable {
+	BORDER-RIGHT: #808080 1px solid; BORDER-TOP: #808080 1px solid; BORDER-LEFT: #808080 1px solid; WIDTH: 150px; BORDER-BOTTOM: #808080 1px solid
+}
+.calSelectTable {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; MARGIN: 0px; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+.calDaysTable {
+	FONT-SIZE: 11px; BORDER-RIGHT: medium none; BORDER-TOP: medium none; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 150px; BORDER-BOTTOM: medium none
+}
+.calMonCtrl {
+	FONT-SIZE: 11px; WIDTH: 85px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.calYearCtrl {
+	FONT-SIZE: 11px; WIDTH: 60px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.calWTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #00563F; WIDTH: 18px; COLOR: #FFFFFF; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.calDayCurrent {
+	BORDER-RIGHT: #FE7409 2px solid; BORDER-TOP: #FE7409 2px solid; BACKGROUND: #FFFFFF; BORDER-LEFT: #FE7409 2px solid; BORDER-BOTTOM: #FE7409 2px solid
+}
+.calDayWeekend {
+	BACKGROUND: #A1BAA9
+}
+.calDayWorking {
+	BACKGROUND: #FFFFFF
+}
+.calThisMonth {
+	FONT-SIZE: 10px; COLOR: #121353; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.calOtherMonth {
+	FONT-SIZE: 10px; COLOR: #808080; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+

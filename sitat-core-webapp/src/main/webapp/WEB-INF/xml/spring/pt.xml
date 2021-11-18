@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- ========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS ========================= -->
+	
+	<bean id="ptFileDao"
+		class="it.eldasoft.sil.pt.db.dao.ibatis.SqlMapPtFileDao">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- ========================= DAO DEFINITIONS: JDBC IMPLEMENTATIONS ========================= -->
+
+	<!-- ========================= BEAN DEFINITIONS ========================= -->
+
+	<bean id="ptManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="downloadFile">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="ptManager" parent="ptManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.PtManager" >
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="geneManager" ref="geneManager" />
+				<property name="ptFileDao" ref="ptFileDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="importExportXMLManager"
+		class="it.eldasoft.sil.pt.bl.ImportExportXMLManager">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="geneManager" ref="geneManager" />
+	</bean>
+	
+	<bean id="webServiceProgrammiTriennaliManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="rispostaListaProgrammi*">PROPAGATION_REQUIRED</prop>
+				<prop key="rispostaListaInterventi*">PROPAGATION_REQUIRED</prop>
+				<prop key="rispostaSchedaIntervento*">PROPAGATION_REQUIRED</prop>
+				<prop key="inserisciSchedaIntervento*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="webServiceProgrammiTriennaliManager" parent="webServiceProgrammiTriennaliManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.WebServiceProgrammiTriennaliManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="loginManager" ref="loginManager" />
+				<property name="importExportXMLManager" ref="importExportXMLManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="exportSoggettiAggregatoriManager" parent="defaultManagerTransactionProxy" >
+		<property name="target">
+			<bean class="it.eldasoft.sil.pt.bl.ExportSoggettiAggregatoriManager" >
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="importaAcquistiInterventiManager"
+		class="it.eldasoft.sil.pt.bl.ImportaAcquistiInterventiManager">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="geneManager" ref="geneManager" />
+	</bean>
+	
+	
+	<!-- ========================= STRUTS ACTION DEFINITIONS ========================= -->
+	<bean name="/piani/CopiaIntervento"
+		class="it.eldasoft.sil.pt.web.struts.CopiaInterventoAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/IncollaIntervento"
+		class="it.eldasoft.sil.pt.web.struts.IncollaInterventoAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/ErrorGenerator"
+		class="it.eldasoft.sil.pt.web.struts.ErrorGeneratorAction">
+	</bean>
+	
+	<bean name="/piani/AggiornaImportiProgramma"
+		class="it.eldasoft.sil.pt.web.struts.AggiornaImportiProgrammaAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/VisualizzaAllegato"
+		class="it.eldasoft.sil.pt.web.struts.VisualizzaAllegatoAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/VisualizzaAllegatoNuovaNormativa"
+		class="it.eldasoft.sil.pt.web.struts.VisualizzaAllegatoNuovaNormativaAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/CreateXMLProgrammiTriennali"
+		class="it.eldasoft.sil.pt.web.struts.CreateXMLProgrammiTriennaliAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/CambiaRUP"
+		class="it.eldasoft.sil.pt.web.struts.CambiaRUPAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/ImportHiProg3"
+		class="it.eldasoft.sil.pt.web.struts.ImportHiProg3Action">
+		<property name="ptManager" ref="ptManager" />
+		<property name="importExportXMLManager" ref="importExportXMLManager" />
+	</bean>
+	
+	<bean name="/piani/AggiornaSequenzaInterventi"
+		class="it.eldasoft.sil.pt.web.struts.AggiornaSequenzaInterventiAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/VerificaAnnualitaRiferimento"
+		class="it.eldasoft.sil.pt.web.struts.VerificaAnnualitaRiferimentoAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/CalcolaCUIIMM"
+		class="it.eldasoft.sil.pt.web.struts.CalcolaCUIIMMAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/GetDatiInterventi"
+			class="it.eldasoft.sil.pt.web.struts.GetDatiInterventiJSONAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/IsCodiceInterventoUnico"
+			class="it.eldasoft.sil.pt.web.struts.IsCodiceInterventoUnicoJSONAction">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/GetListaInterventiDaProgrammaPrecedente" 
+			class="it.eldasoft.sil.pt.web.struts.GetInterventiProgrammaPrecedenteAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+
+	<bean name="/piani/RiportaInterventi" class="it.eldasoft.sil.pt.web.struts.RiportaInterventiAction" >
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/GetReportAcquistiSoggettoAggregatore" 
+			class="it.eldasoft.sil.pt.web.struts.GetReportAcquistiSoggettoAggregatoreAction" >
+		<property name="exportSoggettiAggregatoriManager" ref="exportSoggettiAggregatoriManager" />
+	</bean>
+	
+	<bean name="/piani/ContrassegnaFabbisogno"
+		class="it.eldasoft.sil.pt.web.struts.ContrassegnaFabbisognoAction">
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+
+	<bean name="/piani/GetListaFabbisogni" 
+			class="it.eldasoft.sil.pt.web.struts.GetListaFabbisogniAction" >
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="ptManager" ref="ptManager" />
+	</bean>
+	
+	<bean name="/piani/GetILFSListaLavori" class="it.eldasoft.sil.pt.web.struts.GetILFSListaLavoriAction" >
+	</bean>	
+	
+	<bean name="/piani/SetILFSCodlav" class="it.eldasoft.sil.pt.web.struts.SetILFSCodlavAction" >
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="geneManager" ref="geneManager" />
+	</bean>
+	
+	<bean name="/piani/ImportaAcquistiInterventi" class="it.eldasoft.sil.pt.web.struts.ImportaAcquistiInterventiAction">
+		<property name="importaAcquistiInterventiManager" ref="importaAcquistiInterventiManager" />
+	</bean>
+	
+	<bean name="/piani/GetListaOpereDaProgrammaPrecedente" 
+			class="it.eldasoft.sil.pt.web.struts.GetOpereProgrammaPrecedenteAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+	<bean name="/piani/RiportaOpere" class="it.eldasoft.sil.pt.web.struts.RiportaOpereAction" >
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+	
+</beans>

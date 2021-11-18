@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+                               "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+    <action-mappings>
+        <action path="/AvviaRichiestaCUP" scope="request"
+            type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+            <forward module="/" name="generacupcontrollo" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-validazione.jsp"/>
+            <forward module="/" name="generacuprichiesta" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-richiesta.jsp"/>
+        </action>
+        <action path="/RichiestaGenerazioneCUP" scope="request"
+            type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+            <forward module="/" name="generacupsuccess" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-success.jsp"/>
+            <forward module="/" name="generacuperror" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-richiesta.jsp"/>
+        </action>
+        <action path="/RichiestaListaCUP" scope="request"
+            type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+            <forward module="/" name="listacupsuccess" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-success-lista.jsp"/>
+            <forward module="/" name="listacuperror" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-richiesta-lista.jsp"/>
+        </action>
+        <action path="/RedirectCUP" scope="request"
+            type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+            <forward module="/" name="nuovoCUP" path="/ApriPagina.do?href=piani/cupdati/cupdati-scheda.jsp?modo=NUOVO"/>
+            <forward module="/" name="visualizzaCUP" path="/ApriPagina.do?href=piani/cupdati/cupdati-scheda.jsp?modo=VISUALIZZA"/>
+        </action>
+        <action path="/RichiestaChiusuraRevocaCUP" scope="request"
+            type="org.springframework.web.struts.DelegatingActionProxy" validate="false">
+            <forward module="/" name="chiusurarevocacupsuccess" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-success-chiusura-revoca.jsp"/>
+            <forward module="/" name="chiusurarevocacuperror" path="/WEB-INF/pages/piani/cupdati/cupdati-popup-richiesta-chiusura-revoca.jsp"/>
+        </action>
+    </action-mappings>
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config" value="/WEB-INF/xml/tiles/tiles-defs-gene-common.xml"/>
+        <set-property property="moduleAware" value="true"/>
+    </plug-in>
+</struts-config>

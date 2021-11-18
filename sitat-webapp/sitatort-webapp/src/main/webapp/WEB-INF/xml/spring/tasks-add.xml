@@ -1,0 +1,11 @@
+<list>
+	<!-- Template per trigger specifici dell'applicazione -->
+	<!--<ref bean="exampleTrigger"/>-->
+	
+	<ref bean="cartMessageReaderTrigger" />
+	<ref bean="esportazioneXMLSIMOGManagerTrigger" />
+	<ref bean="AVCPManagerTrigger"/>
+	<ref bean="inviaORtoSCPSchedulerTrigger"/>
+
+</list>
+

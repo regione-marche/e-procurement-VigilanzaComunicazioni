@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!--
+		========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS =========================
+	-->
+
+	<!--
+		========================= DAO DEFINITIONS: JDBC IMPLEMENTATIONS =========================
+	-->
+
+	<!--
+		========================= BEAN DEFINITIONS =========================
+	-->
+	<bean id="requestHandler" class="it.eldasoft.w9.bl.delegateImport.AbstractRequestHandler" abstract="true">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="genChiaviManager" ref="genChiaviManager" />
+		<property name="geneManager" ref="geneManager" />
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+
+	<bean id="chainRequestHandler" class="it.eldasoft.w9.bl.delegateImport.ChainRequestHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="approvazioneProgrammaLavoriHandler" />
+	</bean>
+    
+  <bean id="approvazioneProgrammaLavoriHandler" class="it.eldasoft.w9.bl.delegateImport.ApprovazioneProgrammaLavoriHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="approvazioneProgrammaFornitureServiziHandler" />
+	</bean>
+
+	<bean id="approvazioneProgrammaFornitureServiziHandler" class="it.eldasoft.w9.bl.delegateImport.ApprovazioneProgrammaFornitureServiziHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="anagraficaLottoGaraHandler" />
+	</bean>
+	
+	<bean id="anagraficaLottoGaraHandler" class="it.eldasoft.w9.bl.delegateImport.AnagraficaLottoGaraHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="anagraficaSemplificataeBandoHandler" />
+	</bean>
+
+	<bean id="anagraficaSemplificataeBandoHandler" class="it.eldasoft.w9.bl.delegateImport.AnagraficaSemplificataeBandoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="pubblicazioneAvvisoHandler" />
+	</bean>
+
+	<bean id="pubblicazioneAvvisoHandler" class="it.eldasoft.w9.bl.delegateImport.PubblicazioneAvvisoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aggiudicazioneAppaltoSotto150000Handler" />
+	</bean>
+
+	<bean id="aggiudicazioneAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegateImport.AggiudicazioneAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="inizioContrattoAppaltoSotto150000Handler" />
+	</bean>
+	
+	<bean id="inizioContrattoAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegateImport.InizioContrattoAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="conclusioneContrattoAppaltoSotto150000Handler" />
+	</bean>
+	
+	<bean id="conclusioneContrattoAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegateImport.ConclusioneContrattoAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="esitoNegCheckIdoneitaHandler" />
+	</bean>
+
+	<bean id="esitoNegCheckIdoneitaHandler" class="it.eldasoft.w9.bl.delegateImport.EsitoNegCheckIdoneitaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="esitoNegCheckRegolaritaHandler" />
+	</bean>
+
+	<bean id="esitoNegCheckRegolaritaHandler" class="it.eldasoft.w9.bl.delegateImport.EsitoNegCheckRegolaritaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="inadempienzeSicurezzaHandler" />
+	</bean>
+
+	<bean id="inadempienzeSicurezzaHandler" class="it.eldasoft.w9.bl.delegateImport.InadempienzeSicurezzaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="infortunioHandler" />
+	</bean>
+
+	<bean id="infortunioHandler" class="it.eldasoft.w9.bl.delegateImport.InfortunioHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aperturaCantiereHandler" />
+	</bean>
+
+	<bean id="aperturaCantiereHandler" class="it.eldasoft.w9.bl.delegateImport.AperturaCantiereHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aggiudicazioneAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="aggiudicazioneAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.AggiudicazioneAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="inizioContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="inizioContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.InizioContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="avanzamentoContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="avanzamentoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.AvanzamentoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="conclusioneContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="conclusioneContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.ConclusioneContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="collaudoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="collaudoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.CollaudoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="sospensioneContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="sospensioneContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.SospensioneContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="varianteContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="varianteContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.VarianteContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="accordoBonarioContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="accordoBonarioContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.AccordoBonarioContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="subappaltoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="subappaltoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.SubappaltoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="recessoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="recessoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegateImport.RecessoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="stipulaAccordoQuadroHandler" />
+	</bean>
+
+	<bean id="stipulaAccordoQuadroHandler" class="it.eldasoft.w9.bl.delegateImport.StipulaAccordoQuadroHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="adesioneAccordoQuadroHandler" />
+	</bean>
+
+	<bean id="adesioneAccordoQuadroHandler" class="it.eldasoft.w9.bl.delegateImport.AdesioneAccordoQuadroHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="comunicazioneEsitoHandler" />
+	</bean>
+
+	<bean id="comunicazioneEsitoHandler" class="it.eldasoft.w9.bl.delegateImport.ComunicazioneEsitoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="garaEnteNazionaleSotto40000Handler" />
+	</bean>
+
+	<bean id="garaEnteNazionaleSotto40000Handler" class="it.eldasoft.w9.bl.delegateImport.GaraEnteNazionaleSotto40000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="avanzamentoContrattoAppaltoSemplificatoHandler" />
+	</bean>
+
+	<bean id="avanzamentoContrattoAppaltoSemplificatoHandler" class="it.eldasoft.w9.bl.delegateImport.AvanzamentoContrattoSemplificatoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="elencoImpreseInvitatePartecipantiHandler" />
+	</bean>
+
+	<bean id="elencoImpreseInvitatePartecipantiHandler" class="it.eldasoft.w9.bl.delegateImport.ElencoImpreseInvitatePartecipantiHandler" parent="requestHandler" >
+			<property name="nextHandler" ref="pubblicazioneDocumentiHandler" />
+	</bean>
+	
+	<bean id="pubblicazioneDocumentiHandler" class="it.eldasoft.w9.bl.delegateImport.PubblicazioneDocumentiHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="eliminazioneSchedaHandler" />
+	</bean>
+
+	<bean id="eliminazioneSchedaHandler" class="it.eldasoft.w9.bl.delegateImport.EliminazioneSchedaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="unknownMessageHandler" />
+	</bean>
+	
+	<bean id="unknownMessageHandler" class="it.eldasoft.w9.bl.delegateImport.UnknownMessageHandler" parent="requestHandler" >
+	</bean>
+	
+	<bean id="richiestaIdGaraCigManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="is*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="consultaGara">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="riallineaDatiSimog*">PROPAGATION_REQUIRED,-java.sql.SQLException</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="richiestaIdGaraCigManager" parent="richiestaIdGaraCigManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.RichiestaIdGaraCigManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="ticketSimogManager" ref="ticketSimogManager" />
+				<property name="consultaGaraUnificatoManager" ref="consultaGaraUnificatoManager" />
+				<property name="accessoSimogManager" ref="accessoSimogManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="consultaGaraUnificatoManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="is*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="update*">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="consultaGara*">PROPAGATION_REQUIRES_NEW,-java.sql.SQLException,-java.text.ParseException,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="consultaGaraUnificatoManager" parent="consultaGaraUnificatoManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.ConsultaGaraUnificatoManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="w9Manager" ref="w9Manager" />
+				<property name="geneManager" ref="geneManager" />
+				<property name="genChiaviManager" ref="genChiaviManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="importExportExcelManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="is*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="import*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="importExportT2Manager" parent="importExportExcelManagerTransactionProxy" > 
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.ImportExportT2Manager" >
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="ticketSimogManager" class="it.eldasoft.w9.bl.simog.TicketSimogManager" ></bean>
+
+	<bean id="generaIdGaraCigManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="generaIdGaraCigManager" parent="generaIdGaraCigManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.GeneraIdGaraCigManager">
+				<property name="ticketSimogManager" ref="ticketSimogManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="inviaBandoAvvisoSimapManager"
+		class="it.eldasoft.w9.bl.InviaBandoAvvisoSimapManager">
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+
+	<bean id="saManager" parent="defaultManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.sa.SaManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="w9Manager" ref="w9Manager" />
+				<property name="genChiaviManager" ref="genChiaviManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="allineamentoRichiesteCancellazioneJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="saManager" />
+		<property name="targetMethod" value="allineamentoRichiesteEliminazione" />
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="allineamentoRichiesteCancellazioneTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="allineamentoRichiesteCancellazioneJob" />
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ? 2099</value>
+		</property>
+	</bean>
+	
+	<bean id="migrazioneSaManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED,-it.eldasoft.gene.web.struts.tags.gestori.GestoreException</prop>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="migrazioneSaManager" parent="migrazioneSaManagerTransactionProxy">
+		<property name="target">	
+			<bean class="it.eldasoft.w9.bl.sa.MigrazioneSaManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="w9Manager" ref="w9Manager" />
+				<property name="richiestaIdGaraCigManager" ref="richiestaIdGaraCigManager" />
+				<property name="geneManager" ref="geneManager" />
+				<property name="genChiaviManager" ref="genChiaviManager" />
+				<property name="garaDelegataManager" ref="garaDelegataManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="sqlMapTabControlliDao" class="it.eldasoft.w9.dao.ibatis.SqlMapTabControlliDao">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="tabControlliManagerTransactionProxy" 
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="esegui*">PROPAGATION_NOT_SUPPORTED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="tabControlliManager" parent="tabControlliManagerTransactionProxy">
+		<property name="target">	
+			<bean class="it.eldasoft.commons.TabControlliManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="sqlMapTabControlliDao" ref="sqlMapTabControlliDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="exportLiguriaDigitaleManagerTransactionProxy" 
+			class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="exportXml">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="exportLiguriaDigitaleManager" parent="exportLiguriaDigitaleManagerTransactionProxy" >
+		<property name="target">	
+			<bean class="it.eldasoft.w9.bl.sa.ExportLiguriaDigitaleManager">
+				<property name="genChiaviManager" ref="genChiaviManager" />
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+
+	<!--
+		========================= STRUTS ACTION DEFINITIONS	=========================
+	-->
+
+	<bean name="/w9/ConsultaGara" class="it.eldasoft.w9.web.struts.ConsultaGaraAction">
+		<property name="richiestaIdGaraCigManager" ref="richiestaIdGaraCigManager" />
+		<property name="esportazioneXMLSIMOGManager" ref="esportazioneXMLSIMOGManager" />
+		<property name="w9Manager" ref="w9Manager" />
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="migrazioneSaManager" ref="migrazioneSaManager" />
+		<property name="accessoSimogManager" ref="accessoSimogManager" />
+	</bean>
+
+	<bean name="/w9/InviaBandoAvvisoSimap" class="it.eldasoft.w9.web.struts.InviaBandoAvvisoSimapAction">
+		<property name="inviaBandoAvvisoSimapManager" ref="inviaBandoAvvisoSimapManager" />
+	</bean>
+
+	<bean name="/w9/SceltaTipoScheda" class="it.eldasoft.w9.web.struts.SceltaTipoSchedaAction" />
+
+	<bean name="/w9/ImportFileT2" class="it.eldasoft.w9.web.struts.ImportFileT2Action">
+		<property name="importExportT2Manager" ref="importExportT2Manager" />
+	</bean>
+	
+	<bean name="/w9/ImportaDatiDaOR" class="it.eldasoft.w9.web.struts.sa.ImportaDatiDaOrAction">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="saManager" ref="saManager" />
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/MigraSA" class="it.eldasoft.w9.web.struts.sa.MigrazioneStazioniAppaltantiAction">
+		<property name="migrazioneSaManager" ref="migrazioneSaManager" />
+	</bean>
+	
+	<bean name="/w9/ImportGara"
+		class="it.eldasoft.w9.web.struts.ImportaGaraAction">
+		<property name="requestHandler" ref="chainRequestHandler" />
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="genChiaviManager" ref="genChiaviManager" />
+	</bean>
+	
+	<bean name="/w9/ExportGara"
+		class="it.eldasoft.w9.web.struts.EsportaGaraAction">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+	
+	<bean name="/w9/InviaDatiLottoAL" class="it.eldasoft.w9.web.struts.sa.InviaDatiLottoOsservatorioLiguriaAction">
+		<property name="tabControlliManager" ref="tabControlliManager" />
+		<property name="exportLiguriaDigitaleManager" ref="exportLiguriaDigitaleManager" />
+	</bean>
+	
+</beans>

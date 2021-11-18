@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AllegatoII" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="804" leftMargin="19" rightMargin="19" topMargin="19" bottomMargin="19" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="2.853116706110003"/>
+	<property name="ireport.x" value="733"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="COD_PIANOTRIEN" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     coalesce(PIATRI.CONTRI,0) AS PIATRI_CONTRI,
+     coalesce(PIATRI.ID,' ') AS PIATRI_ID,
+     coalesce(PIATRI.ANNTRI,0.00000) AS PIATRI_ANNTRI,
+     coalesce(PIATRI.DV1TRI,0.00000) AS PIATRI_DV1TRI,
+     coalesce(PIATRI.DV2TRI,0.00000) AS PIATRI_DV2TRI,
+     coalesce(PIATRI.DV3TRI,0.00000) AS PIATRI_DV3TRI,
+     coalesce(PIATRI.MU1TRI,0.00000) AS PIATRI_MU1TRI,
+     coalesce(PIATRI.MU2TRI,0.00000) AS PIATRI_MU2TRI,
+     coalesce(PIATRI.MU3TRI,0.00000) AS PIATRI_MU3TRI,
+     coalesce(PIATRI.PR1TRI,0.00000) AS PIATRI_PR1TRI,
+     coalesce(PIATRI.PR2TRI,0.00000) AS PIATRI_PR2TRI,
+     coalesce(PIATRI.PR3TRI,0.00000) AS PIATRI_PR3TRI,
+     coalesce(PIATRI.IM1TRI,0.00000) AS PIATRI_IM1TRI,
+     coalesce(PIATRI.IM2TRI,0.00000) AS PIATRI_IM2TRI,
+     coalesce(PIATRI.IM3TRI,0.00000) AS PIATRI_IM3TRI,
+     coalesce(PIATRI.BI1TRI,0.00000) AS PIATRI_BI1TRI,
+     coalesce(PIATRI.BI2TRI,0.00000) AS PIATRI_BI2TRI,
+     coalesce(PIATRI.BI3TRI,0.00000) AS PIATRI_BI3TRI,
+     coalesce(PIATRI.AP1TRI,0.00000) AS PIATRI_AP1TRI,
+     coalesce(PIATRI.AP2TRI,0.00000) AS PIATRI_AP2TRI,
+     coalesce(PIATRI.AP3TRI,0.00000) AS PIATRI_AP3TRI,
+     coalesce(PIATRI.AL1TRI,0.00000) AS PIATRI_AL1TRI,
+     coalesce(PIATRI.AL2TRI,0.00000) AS PIATRI_AL2TRI,
+     coalesce(PIATRI.AL3TRI,0.00000) AS PIATRI_AL3TRI,
+     coalesce(PIATRI.TO1TRI,0.00000) AS PIATRI_TO1TRI,
+     coalesce(PIATRI.TO2TRI,0.00000) AS PIATRI_TO2TRI,
+     coalesce(PIATRI.TO3TRI,0.00000) AS PIATRI_TO3TRI,
+	 coalesce(PIATRI.RESPRO,' ') AS PIATRI_RESPRO,
+     coalesce(PIATRI.IMPACC,0) AS PIATRI_IMPACC,
+	 coalesce(PIATRI.NOTSCHE1,' ') AS PIATRI_NOTSCHE1,
+	 coalesce(PIATRI.NOTSCHE2,' ') AS PIATRI_NOTSCHE2,
+	 coalesce(PIATRI.NOTSCHE3,' ') AS PIATRI_NOTSCHE3,
+	 coalesce(PIATRI.NOTSCHE2B,' ') AS PIATRI_NOTSCHE2B,
+	 coalesce(PIATRI.NOTSCHE4,' ') AS PIATRI_NOTSCHE4,
+	 coalesce(PIATRI.TIPROG,0) AS PIATRI_TIPROG,
+	 coalesce(UFFINT.NOMEIN,' ') AS UFFINT_NOMEIN,
+     UFFICI.DENOM AS UFFICIO,
+	 coalesce(TECNI.NOMTEC,' ') AS TECNI_NOMTEC,
+	 coalesce(UFFINT.CODEIN,' ') AS UFFINT_CODEIN,
+     coalesce(I.INTERVENTI,0) AS INTERVENTI
+FROM
+     PIATRI LEFT JOIN TECNI ON PIATRI.RESPRO = TECNI.CODTEC
+     LEFT JOIN UFFINT ON UFFINT.CODEIN = PIATRI.CENINT
+     LEFT JOIN UFFICI ON UFFICI.CODEIN = PIATRI.CENINT AND UFFICI.ID = PIATRI.IDUFFICIO
+     LEFT JOIN (SELECT COUNT(*) AS INTERVENTI, CONTRI FROM INTTRI GROUP BY CONTRI) I ON PIATRI.CONTRI = I.CONTRI
+WHERE
+     PIATRI.ID = $P{COD_PIANOTRIEN}]]>
+	</queryString>
+	<field name="PIATRI_CONTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_ID" class="java.lang.String"/>
+	<field name="PIATRI_ANNTRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_DV3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_MU3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_PR3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_IM3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_BI3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AP3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_AL3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO1TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO2TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_TO3TRI" class="java.math.BigDecimal"/>
+	<field name="PIATRI_RESPRO" class="java.lang.String"/>
+	<field name="PIATRI_IMPACC" class="java.math.BigDecimal"/>
+	<field name="PIATRI_NOTSCHE1" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE2" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE3" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE2B" class="java.lang.String"/>
+	<field name="PIATRI_NOTSCHE4" class="java.lang.String"/>
+	<field name="PIATRI_TIPROG" class="java.math.BigDecimal"/>
+	<field name="UFFINT_NOMEIN" class="java.lang.String"/>
+    <field name="UFFICIO" class="java.lang.String"/>
+	<field name="TECNI_NOMTEC" class="java.lang.String"/>
+	<field name="UFFINT_CODEIN" class="java.lang.String"/>
+	<field name="INTERVENTI" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="1" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="804" height="1"/>
+				<subreportParameter name="COD_PIANOTRIEN">
+					<subreportParameterExpression><![CDATA[$P{COD_PIANOTRIEN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "allegatoII_schedaA.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+        <band height="1">
+			<break>
+				<reportElement x="0" y="0" width="804" height="1"/>
+			</break>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="0" y="0" width="804" height="1"/>
+				<subreportParameter name="PIATRI_ANNTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_ANNTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_NOTSCHE3">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_NOTSCHE3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="UFFINT_NOMEIN">
+					<subreportParameterExpression><![CDATA[$F{UFFINT_NOMEIN} + ($F{UFFICIO} != null ? " - " + $F{UFFICIO} : "")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_CONTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_CONTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TECNI_NOMTEC">
+					<subreportParameterExpression><![CDATA[$F{TECNI_NOMTEC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "allegatoII_schedaB.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+        <band height="1">
+			<break>
+				<reportElement x="0" y="0" width="804" height="1"/>
+			</break>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="0" y="0" width="804" height="1"/>
+				<subreportParameter name="PIATRI_ANNTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_ANNTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_NOTSCHE3">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_NOTSCHE3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="UFFINT_NOMEIN">
+					<subreportParameterExpression><![CDATA[$F{UFFINT_NOMEIN} + ($F{UFFICIO} != null ? " - " + $F{UFFICIO} : "")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PIATRI_CONTRI">
+					<subreportParameterExpression><![CDATA[$F{PIATRI_CONTRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TECNI_NOMTEC">
+					<subreportParameterExpression><![CDATA[$F{TECNI_NOMTEC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "allegatoII_schedaC.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_subreport5" pageWidth="802" pageHeight="552" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="262"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontSize="14" isBold="true">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Detail" mode="Transparent" pattern="">
+		<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="PIATRI_ANNTRI" class="java.math.BigDecimal"/>
+	<parameter name="PIATRI_NOTSCHE3" class="java.lang.String"/>
+	<parameter name="UFFINT_NOMEIN" class="java.lang.String"/>
+	<parameter name="PIATRI_CONTRI" class="java.math.BigDecimal"/>
+	<parameter name="TECNI_NOMTEC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+        coalesce(IT.CONTRI,0) as CONTRI,
+		coalesce(IT.CUIINT,'') AS CUI,
+		coalesce(IT.CODINT,'') AS COD_INT,
+		coalesce(IT.CUPPRG,'') AS COD_CUP,
+        coalesce(PI.ANNTRI,0)  AS PRIMA_ANN,
+		coalesce(IT.ANNRIF,0)  AS ANN_RIF,
+		coalesce(TE.NOMTEC,'') AS RESPONSABILE,
+		coalesce(IT.LOTFUNZ,'') AS LOTTO_F,
+		coalesce(IT.LAVCOMPL,'') AS LAVORO_C,
+		coalesce(IT.COMINT,'') AS COD_ISTAT,
+		coalesce(IT.NUTS,'') AS COD_NUTS,
+		coalesce(TAB3.tab3desc,'') AS TIPOLOGIA,
+		coalesce(TAB5.tab5desc,'') AS CATEGORIA,
+		coalesce(IT.DESINT,'') AS DESCRIZIONE,
+		coalesce(IT.PRGINT,0)  AS PRIORITA,
+		(coalesce(IT.DI1INT,0.00) + coalesce(IT.PR1TRI,0.00)) AS COSTI_1ANNO,
+		(coalesce(IT.DI2INT,0.00) + coalesce(IT.PR2TRI,0.00)) AS COSTI_2ANNO,
+        (coalesce(IT.DI3INT,0.00) + coalesce(IT.PR3TRI,0.00)) AS COSTI_3ANNO,
+		(coalesce(IT.DI9INT,0.00) + coalesce(IT.PR9TRI,0.00)) AS COSTI_ALANNO,
+		coalesce(IT.TOTINT,0.00) AS COSTI_TOTALE,
+		(coalesce(IT.IM1TRI,0.00) + coalesce(IT.IM2TRI,0.00) + coalesce(IT.IM3TRI,0.00) + coalesce(IT.IM9TRI,0.00)) AS IMMOBILI,
+		IT.SCAMUT AS SCADENZA,
+		coalesce(IT.ICPINT,0.00) AS CAP_PRIV_IMP,
+		coalesce(IT.TCPINT,'') AS TIPO_IMP,
+		IT.VARIATO AS VARIATO
+	FROM PIATRI PI LEFT JOIN INTTRI IT ON PI.CONTRI=IT.CONTRI
+    LEFT JOIN TECNI TE ON IT.CODRUP = TE.CODTEC
+    LEFT JOIN TAB3 ON IT.SEZINT = TAB3.tab3tip AND tab3cod='PTx01'
+    LEFT JOIN TAB5 ON IT.INTERV = TAB5.tab5tip AND tab5cod='PTj01'
+    WHERE PI.CONTRI = $P{PIATRI_CONTRI}
+    ORDER BY IT.ANNRIF, IT.NPROGINT]]>
+	</queryString>
+	<field name="CONTRI" class="java.math.BigDecimal"/>
+	<field name="CUI" class="java.lang.String"/>
+	<field name="COD_INT" class="java.lang.String"/>
+	<field name="COD_CUP" class="java.lang.String"/>
+	<field name="PRIMA_ANN" class="java.math.BigDecimal"/>
+	<field name="ANN_RIF" class="java.math.BigDecimal"/>
+	<field name="RESPONSABILE" class="java.lang.String"/>
+	<field name="LOTTO_F" class="java.lang.String"/>
+	<field name="LAVORO_C" class="java.lang.String"/>
+	<field name="COD_ISTAT" class="java.lang.String"/>
+	<field name="COD_NUTS" class="java.lang.String"/>
+	<field name="TIPOLOGIA" class="java.lang.String"/>
+	<field name="CATEGORIA" class="java.lang.String"/>
+	<field name="DESCRIZIONE" class="java.lang.String"/>
+	<field name="PRIORITA" class="java.lang.String"/>
+	<field name="COSTI_1ANNO" class="java.math.BigDecimal"/>
+	<field name="COSTI_2ANNO" class="java.math.BigDecimal"/>
+	<field name="COSTI_3ANNO" class="java.math.BigDecimal"/>
+	<field name="COSTI_ALANNO" class="java.math.BigDecimal"/>
+	<field name="COSTI_TOTALE" class="java.math.BigDecimal"/>
+	<field name="IMMOBILI" class="java.math.BigDecimal"/>
+	<field name="SCADENZA" class="java.util.Date"/>
+	<field name="CAP_PRIV_IMP" class="java.math.BigDecimal"/>
+	<field name="TIPO_IMP" class="java.lang.String"/>
+	<field name="VARIATO" class="java.lang.Long"/>
+	<variable name="totCOSTI1ANNO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COSTI_1ANNO}]]></variableExpression>
+	</variable>
+	<variable name="totCOSTI2ANNO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COSTI_2ANNO}]]></variableExpression>
+	</variable>
+	<variable name="totCOSTI3ANNO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COSTI_3ANNO}]]></variableExpression>
+	</variable>
+	<variable name="totCOSTIALANNO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COSTI_ALANNO}]]></variableExpression>
+	</variable>
+	<variable name="totCOSTITOTANNO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COSTI_TOTALE}]]></variableExpression>
+	</variable>
+	<variable name="totIMMOBILI" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMMOBILI}]]></variableExpression>
+	</variable>
+	<variable name="totCAPPRIV" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CAP_PRIV_IMP}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="85" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="1" width="786" height="60"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PROGRAMMA TRIENNALE DEI LAVORI PUBBLICI " + $P{PIATRI_ANNTRI}.intValue() + "/" + ($P{PIATRI_ANNTRI}.intValue()+2) + " DELL'AMMINISTRAZIONE " + $P{UFFINT_NOMEIN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="60" width="786" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SCHEDA D: ELENCO DEGLI INTERVENTI DEL PROGRAMMA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="50" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Codice Unico Intervento - CUI (1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="83" y="0" width="33" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Codice CUP (3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="238" y="19" width="16" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="254" y="19" width="16" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prov]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="303" y="0" width="36" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Localizzazione -
+codice NUTS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" mode="Opaque" x="414" y="0" width="42" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Descrizione
+dell'intervento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="456" y="0" width="30" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Livello di
+priorità  (7)
+(Tabella D.3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="594" y="19" width="30" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Importo
+complessivo
+(9)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="666" y="19" width="42" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Scadenza temporale
+ultima per l'utilizzo
+dell'eventuale
+finanziamento
+derivante da
+contrazione di mutuo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="270" y="19" width="33" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="339" y="0" width="33" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tipologia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="372" y="0" width="42" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Settore e
+sottosettore
+intervento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="238" y="0" width="65" height="19" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codice Istat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="116" y="0" width="36" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Annualità nella
+quale si prevede di
+dare avvio alla
+procedura di
+affidamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="152" y="0" width="36" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Responsabile
+del
+procedimento (4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="188" y="0" width="25" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Lotto
+funzionale
+(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="513" y="19" width="27" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Secondo anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="540" y="19" width="27" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Terzo anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="486" y="19" width="27" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Primo anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="567" y="19" width="27" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Costi su annualità successiva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="738" y="31" width="30" height="16" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tipologia
+(Tabella D.4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="768" y="0" width="33" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Intervento
+aggiunto o variato
+a seguito di
+modifica
+programma (12)
+(Tabella D.5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="486" y="0" width="282" height="19" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STIMA DEI COSTI DELL'INTERVENTO (8)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="708" y="19" width="60" height="12" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Apporto di capitale privato (11)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="213" y="0" width="25" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Lavoro
+complesso
+(6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="708" y="31" width="30" height="16" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Importo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="624" y="19" width="42" height="28" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Valore degli eventuali
+immobili di cui alla
+scheda C collegati
+all'intervento (10)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="50" y="0" width="33" height="47" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Int.
+Amm.ne (2)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CUI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="83" y="0" width="33" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COD_CUP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="238" y="0" width="16" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{COD_ISTAT}.length() == 9)?$F{COD_ISTAT}.substring( 0, 3 ):"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="270" y="0" width="33" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{COD_ISTAT}.length() == 9)?$F{COD_ISTAT}.substring( 6, 9 ):"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="339" y="0" width="33" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPOLOGIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="414" y="0" width="42" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIZIONE}.trim()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="456" y="0" width="30" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRIORITA}.equals("0")?"":$F{PRIORITA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="666" y="0" width="42" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SCADENZA}!= null? new SimpleDateFormat("dd/MM/yyyy").format($F{SCADENZA}) + "" : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="213" y="0" width="25" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LAVORO_C}.equals("2")?"No":$F{LAVORO_C}.equals("1")?"Si":" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="50" y="0" width="33" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COD_INT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="303" y="0" width="36" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COD_NUTS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="372" y="0" width="42" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CATEGORIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="254" y="0" width="16" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{COD_ISTAT}.length() == 9)?$F{COD_ISTAT}.substring( 3, 6 ):"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="116" y="0" width="36" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{ANN_RIF}.intValue() > 0) && ($F{PRIMA_ANN}.intValue() > 0)?($F{ANN_RIF}.intValue() + $F{PRIMA_ANN}.intValue() -1) + "":""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="152" y="0" width="36" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RESPONSABILE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="188" y="0" width="25" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOTTO_F}.equals("2")?"No":$F{LOTTO_F}.equals("1")?"Si":" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="540" y="0" width="27" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{COSTI_3ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="486" y="0" width="27" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{COSTI_1ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="567" y="0" width="27" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{COSTI_ALANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="513" y="0" width="27" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{COSTI_2ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="738" y="0" width="30" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO_IMP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="768" y="0" width="33" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{VARIATO} != null)?$F{VARIATO}.toString(): " "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="708" y="0" width="30" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{CAP_PRIV_IMP}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="594" y="0" width="30" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{COSTI_TOTALE}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="624" y="0" width="42" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{CONTRI}.intValue() == 0)?"":new java.text.DecimalFormat("#,##0.00").format($F{IMMOBILI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="175">
+			<staticText>
+				<reportElement x="0" y="12" width="339" height="48"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[(1) Numero intervento = "I" + cf amministrazione + prima annualità del primo programma nel quale l'intervento è stato inserito + progressivo di 5 cifre della prima annualità del primo proramma
+(2) Numero interno liberamente indicato dall'amministrazione in base a proprio sistema di codifica
+(3) Indica il CUP (cfr. articolo 3 comma 5)
+(4) Riportare nome e cognome del responsabile del procedimento
+(5) Indica se lotto funzionale secondo la definizione di cui all’art.3 comma 1 lettera qq) del D.Lgs.50/2016
+(6) Indica se lavoro complesso secondo la definizione di cui all’art.3 comma 1 lettera oo) del D.Lgs.50/2016
+(7) Indica il livello di priorità di cui all'articolo 3 commi 11 e 12
+(8) Ai sensi dell'art.4 comma 6, in caso di demolizione di opera incompiuta l'importo comprende gli oneri per lo smantellamento dell'opera e per la rinaturalizzazione, riqualificazione ed eventuale bonifica del sito.
+(9) Importo complessivo ai sensi dell'articolo 3, comma 6, ivi incluse le spese eventualmente già sostenute e con competenza di bilancio antecedente alla prima annualità
+(10) Riportare il valore dell'eventuale immobile trasferito di cui al corrispondente immobile indicato nella scheda C
+(11) Riportare l’importo del capitale privato come quota parte del costo totale
+(12) Indica se l'intervento è stato aggiunto o è stato modificato a seguito di modifica in corso d'anno ai sensi dell'art.5 commi 8 e 10. Tale campo, come la relativa nota e tabella, compaiono solo in caso di modifica del programma
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="5" width="40" height="8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="15" width="166" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="5"/>
+				</textElement>
+				<text><![CDATA[Il referente del programma]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="378" y="29" width="243" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TECNI_NOMTEC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="594" y="0" width="30" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCOSTITOTANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="624" y="0" width="42" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totIMMOBILI}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="513" y="0" width="27" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCOSTI2ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="567" y="0" width="27" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCOSTIALANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="708" y="0" width="30" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCAPPRIV}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="540" y="0" width="27" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCOSTI3ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="486" y="0" width="27" height="10" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($V{totCOSTI1ANNO}.setScale(2, BigDecimal.ROUND_CEILING)) + ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="73" width="40" height="6" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabella D.2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="105" width="40" height="6" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabella D.4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="143" width="40" height="6" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabella D.5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="149" width="152" height="23"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[1. modifica ex art.5 comma 9 lettera b)
+2. modifica ex art.5 comma 9 lettera c)
+3. modifica ex art.5 comma 9 lettera d)
+4. modifica ex art.5 comma 9 lettera e)
+5. modifica ex art.5 comma 11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="85" width="40" height="6" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabella D.3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="67" width="238" height="6"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[Cfr. Classificazione Sistema CUP: codice tipologia intervento per natura intervento 03= realizzazione di lavori pubblici (opere e impiantistica) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="152" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[1. priorità massima
+2. priorità media
+3. priorità minima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="152" height="32"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[1. finanza di progetto
+2. concessione di costruzione e gestione
+3. sponsorizzazione
+4. società partecipate o di scopo
+5. locazione finananziaria
+6. contratto di disponibilità
+9. altro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="61" width="40" height="6" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="3" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabella D.1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="79" width="152" height="6"/>
+				<textElement>
+					<font fontName="SansSerif" size="3"/>
+				</textElement>
+				<text><![CDATA[Cfr. Classificazione Sistema CUP: codice settore e sottosettore intervento]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

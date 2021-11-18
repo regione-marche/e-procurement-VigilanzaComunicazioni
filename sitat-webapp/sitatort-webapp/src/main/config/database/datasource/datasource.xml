@@ -1,0 +1,11 @@
+	<Resource name="jdbc/SitatORT" 
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.ibm.db2.jcc.DB2Driver"
+		url="jdbc:db2://localhost:50000/DEV"
+		autocommit="false"
+		username="myuser-ort"
+		password="mypassword-ort"
+		maxActive="20"
+		maxIdle="10"
+		maxWait="-1"/> 

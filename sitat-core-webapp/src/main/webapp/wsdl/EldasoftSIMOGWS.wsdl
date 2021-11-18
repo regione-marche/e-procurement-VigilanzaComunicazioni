@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:impl="http://ws.simog.eldasoft.it/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	name="EldasoftSimogWS"
+	targetNamespace="http://ws.simog.eldasoft.it/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ws.simog.eldasoft.it/">
+		
+			<xsd:element name="inserisciGaraLotto">
+				<xsd:complexType>
+					<xsd:sequence>
+					    <xsd:element maxOccurs="1" minOccurs="1" name="login" type="xsd:string"/>
+      					<xsd:element maxOccurs="1" minOccurs="1" name="password" type="xsd:string"/>
+						<xsd:element maxOccurs="1" minOccurs="1" name="datiGaraLotto" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultaIDGARA">
+				<xsd:complexType>
+					<xsd:sequence>						<xsd:element maxOccurs="1" minOccurs="1" name="uuid" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultaCIG">
+				<xsd:complexType>
+					<xsd:sequence>						<xsd:element maxOccurs="1" minOccurs="1" name="uuid" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			 <xsd:element name="verificaCIG">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element maxOccurs="1" minOccurs="1" name="cig" type="xsd:string"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            
+			<xsd:element name="inserisciGaraLottoResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+     					<xsd:element name="esito" type="impl:esitoInserisciGaraLotto"/>					
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>		
+			<xsd:complexType name="esitoInserisciGaraLotto">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1"
+						name="esito" type="xsd:boolean" />
+					<xsd:element maxOccurs="1" minOccurs="0"
+						name="messaggio" type="xsd:string" />
+					<xsd:element name="operazioniDML"
+						type="impl:operazioneDMLType" maxOccurs="unbounded" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="consultaIDGARAResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+     					<xsd:element name="esito" type="impl:esitoConsultaIDGARA"/>					
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>		
+			<xsd:complexType name="esitoConsultaIDGARA">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="esito" type="xsd:boolean"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="messaggio" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="idgara" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="consultaCIGResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+     					<xsd:element name="esito" type="impl:esitoConsultaCIG"/>					
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="esitoConsultaCIG">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="esito" type="xsd:boolean"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="messaggio" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="cig" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>			
+				
+			<xsd:element name="verificaCIGResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="esito" type="impl:esitoVerificaCIG"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+			<xsd:complexType name="esitoVerificaCIG">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="esito" type="xsd:boolean"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="oggettogara" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="numerogara" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importogara" type="impl:importoType"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="denominazionerup" type="xsd:string"/>
+					<xsd:element maxOccurs="1" minOccurs="0" name="codicefiscalerup" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>	
+			<xsd:simpleType name="importoType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="999999999999.999"/>
+					<xsd:totalDigits value="15"/>
+					<xsd:fractionDigits value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="operazioneDMLType">
+				<xsd:sequence>
+					<xsd:element name="tipoInformazione"
+						type="impl:informazioneType">
+					</xsd:element>
+					<xsd:element name="tipoOperazione"
+						type="impl:operazioneType">
+					</xsd:element>
+					<xsd:element name="uuid" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="_UUIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0"></xsd:minLength>
+					<xsd:maxLength value="40"></xsd:maxLength>
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+            <xsd:simpleType name="informazioneType">
+				<xsd:annotation>
+		        	<xsd:documentation>Informazione gestita</xsd:documentation>
+		        </xsd:annotation>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="GARA">
+						<xsd:annotation>
+							<xsd:documentation>
+								Gara
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="LOTTO">
+						<xsd:annotation>
+							<xsd:documentation>
+								Lotto
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+            <xsd:simpleType name="operazioneType">
+				<xsd:annotation>
+		        	<xsd:documentation>Tipo di operazione effettuata</xsd:documentation>
+		        </xsd:annotation>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="INS">
+						<xsd:annotation>
+							<xsd:documentation>
+								Inserimento
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="UPD">
+						<xsd:annotation>
+							<xsd:documentation>
+								Aggiornamento
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="DEL">
+						<xsd:annotation>
+							<xsd:documentation>
+								Cancellazione
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+           
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="inserisciGaraLottoRequest">
+		<wsdl:part element="impl:inserisciGaraLotto" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="inserisciGaraLottoResponse">
+		<wsdl:part element="impl:inserisciGaraLottoResponse" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="consultaIDGARARequest">
+		<wsdl:part element="impl:consultaIDGARA" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultaIDGARAResponse">
+		<wsdl:part element="impl:consultaIDGARAResponse" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message name="consultaCIGRequest">
+		<wsdl:part element="impl:consultaCIG" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultaCIGResponse">
+		<wsdl:part element="impl:consultaCIGResponse" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="verificaCIGRequest">
+		<wsdl:part name="parameters" element="impl:verificaCIG"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="verificaCIGResponse">
+		<wsdl:part name="parameters" element="impl:verificaCIGResponse"></wsdl:part>
+	</wsdl:message>
+	
+	<wsdl:portType name="EldasoftSimogWS">
+		<wsdl:operation name="inserisciGaraLotto">
+			<wsdl:input message="impl:inserisciGaraLottoRequest"/>
+			<wsdl:output message="impl:inserisciGaraLottoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultaIDGARA">
+			<wsdl:input message="impl:consultaIDGARARequest"/>
+			<wsdl:output message="impl:consultaIDGARAResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultaCIG">
+			<wsdl:input message="impl:consultaCIGRequest"/>
+			<wsdl:output message="impl:consultaCIGResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="verificaCIG">
+			<wsdl:input message="impl:verificaCIGRequest"></wsdl:input>
+			<wsdl:output message="impl:verificaCIGResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="EldasoftSimogWSBinding" type="impl:EldasoftSimogWS">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="inserisciGaraLotto">
+			<soap:operation soapAction="http://ws.simap.eldasoft.it/inserisciGaraLotto"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultaIDGARA">
+			<soap:operation soapAction="http://ws.simap.eldasoft.it/consultaIDGARA"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultaCIG">
+			<soap:operation soapAction="http://ws.simap.eldasoft.it/consultaCIG"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="verificaCIG">
+			<soap:operation soapAction="http://ws.simap.eldasoft.it/verificaCIG"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="EldasoftSimogWSService">
+		<wsdl:port binding="impl:EldasoftSimogWSBinding" name="EldasoftSimogWS">
+			<soap:address location="http://localhost:8080/AliceComunicazioni/services/EldasoftSimogWS"/>
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

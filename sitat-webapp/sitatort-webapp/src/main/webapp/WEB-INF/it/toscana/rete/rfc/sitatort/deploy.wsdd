@@ -1,0 +1,122 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WsOsservatorio WSDL service -->
+
+  <service name="WsOsservatorio" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://rete.toscana.it/rfc/sitatort/"/>
+      <parameter name="wsdlServiceElement" value="WsOsservatorio"/>
+      <parameter name="schemaUnqualified" value="http://rete.toscana.it/rfc/sitatort/"/>
+      <parameter name="wsdlServicePort" value="WsOsservatorio"/>
+      <parameter name="className" value="it.toscana.rete.rfc.sitatort.SitatSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="WsOsservatorio"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:FaseEsecuzioneType"
+        type="java:it.toscana.rete.rfc.sitatort.FaseEsecuzioneType"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponseSchedaType"
+        type="java:it.toscana.rete.rfc.sitatort.ResponseSchedaType"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponseConsultaGara"
+        type="java:it.toscana.rete.rfc.sitatort.ResponseConsultaGara"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:>FaseEsecuzioneType>Num"
+        type="java:int"
+        serializer="org.apache.axis.encoding.ser.SimpleSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.SimpleDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponseLoginRPNT"
+        type="java:it.toscana.rete.rfc.sitatort.ResponseLoginRPNT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:TipoFeedbackType"
+        type="java:it.toscana.rete.rfc.sitatort.TipoFeedbackType"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:FeedbackType"
+        type="java:it.toscana.rete.rfc.sitatort.FeedbackType"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponseElencoSchedeType"
+        type="java:it.toscana.rete.rfc.sitatort.ResponseElencoSchedeType"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:FaseType"
+        type="java:it.toscana.rete.rfc.sitatort.FaseType"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:EsitoType"
+        type="java:it.toscana.rete.rfc.sitatort.EsitoType"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponseElencoFeedback"
+        type="java:it.toscana.rete.rfc.sitatort.ResponseElencoFeedback"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://rete.toscana.it/rfc/sitatort/"
+        qname="ns:ResponsePresaInCaricoGaraDelegata"
+        type="java:it.toscana.rete.rfc.sitatort.ResponsePresaInCaricoGaraDelegata"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

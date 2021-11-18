@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!--
+		====================== RESOURCE DEFINITIONS ========================
+	-->
+
+	<bean id="springAppContext" class="it.eldasoft.utils.spring.SpringAppContext" />
+
+	<!--
+		========================= BEAN DEFINITIONS =========================
+	-->
+
+	<bean id="requestHandler" class="it.eldasoft.w9.bl.delegate.AbstractRequestHandler" abstract="true">
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="genChiaviManager" ref="genChiaviManager" />
+		<property name="geneManager" ref="geneManager" />
+		<property name="w9Manager" ref="w9Manager" />
+	</bean>
+
+	<bean id="chainRequestHandler" class="it.eldasoft.w9.bl.delegate.ChainRequestHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aggiudicazioneAppaltoSotto150000Handler" />
+		<!-- property name="nextHandler" ref="approvazioneProgrammaLavoriHandler" /-->
+	</bean>
+
+	<!-- bean id="approvazioneProgrammaLavoriHandler" class="it.eldasoft.w9.bl.delegate.ApprovazioneProgrammaLavoriHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="approvazioneProgrammaFornitureServiziHandler" />
+	</bean-->
+
+	<!-- bean id="approvazioneProgrammaFornitureServiziHandler" class="it.eldasoft.w9.bl.delegate.ApprovazioneProgrammaFornitureServiziHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="approvazioneProgrammaTriennaleOperePubblicheHandler" />		
+	</bean-->
+	
+	<!-- bean id="approvazioneProgrammaTriennaleOperePubblicheHandler" class="it.eldasoft.w9.bl.delegate.ApprovazioneProgrammaTriennaleOperePubblicheHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="approvazioneProgrammaBiennaleAcquistiHandler" />
+	</bean-->
+
+	<!-- bean id="approvazioneProgrammaBiennaleAcquistiHandler" class="it.eldasoft.w9.bl.delegate.ApprovazioneProgrammaBiennaleAcquistiHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="anagraficaLottoGaraHandler" />
+	</bean-->
+	
+	<!-- bean id="anagraficaLottoGaraHandler" class="it.eldasoft.w9.bl.delegate.AnagraficaLottoGaraHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="anagraficaSemplificataeBandoHandler" />
+	</bean-->
+
+	<!-- bean id="anagraficaSemplificataeBandoHandler" class="it.eldasoft.w9.bl.delegate.AnagraficaSemplificataeBandoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="pubblicazioneAvvisoHandler" />
+	</bean-->
+
+	<!-- bean id="pubblicazioneAvvisoHandler" class="it.eldasoft.w9.bl.delegate.PubblicazioneAvvisoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aggiudicazioneAppaltoSotto150000Handler" />
+	</bean-->
+
+	<bean id="aggiudicazioneAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegate.AggiudicazioneAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="inizioContrattoAppaltoSotto150000Handler" />
+	</bean>
+	
+	<bean id="inizioContrattoAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegate.InizioContrattoAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="conclusioneContrattoAppaltoSotto150000Handler" />
+	</bean>
+	
+	<bean id="conclusioneContrattoAppaltoSotto150000Handler" class="it.eldasoft.w9.bl.delegate.ConclusioneContrattoAppaltoSotto150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="esitoNegCheckIdoneitaHandler" />
+	</bean>
+
+	<bean id="esitoNegCheckIdoneitaHandler" class="it.eldasoft.w9.bl.delegate.EsitoNegCheckIdoneitaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="esitoNegCheckRegolaritaHandler" />
+	</bean>
+
+	<bean id="esitoNegCheckRegolaritaHandler" class="it.eldasoft.w9.bl.delegate.EsitoNegCheckRegolaritaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="inadempienzeSicurezzaHandler" />
+	</bean>
+
+	<!-- bean id="checkMisureSicurezzaHandler" class="it.eldasoft.w9.bl.delegate.CheckMisureSicurezzaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="inadempienzeSicurezzaHandler" />
+	</bean-->
+
+	<bean id="inadempienzeSicurezzaHandler" class="it.eldasoft.w9.bl.delegate.InadempienzeSicurezzaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="infortunioHandler" />
+	</bean>
+
+	<bean id="infortunioHandler" class="it.eldasoft.w9.bl.delegate.InfortunioHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aperturaCantiereHandler" />
+	</bean>
+
+	<bean id="aperturaCantiereHandler" class="it.eldasoft.w9.bl.delegate.AperturaCantiereHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="aggiudicazioneAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="aggiudicazioneAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.AggiudicazioneAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="inizioContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="inizioContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.InizioContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="avanzamentoContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="avanzamentoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.AvanzamentoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="conclusioneContrattoAppaltoSopra150000Handler" />
+	</bean>
+	
+	<bean id="conclusioneContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.ConclusioneContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="collaudoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="collaudoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.CollaudoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="sospensioneContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="sospensioneContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.SospensioneContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="varianteContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="varianteContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.VarianteContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="accordoBonarioContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="accordoBonarioContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.AccordoBonarioContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="subappaltoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="subappaltoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.SubappaltoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="recessoContrattoAppaltoSopra150000Handler" />
+	</bean>
+
+	<bean id="recessoContrattoAppaltoSopra150000Handler" class="it.eldasoft.w9.bl.delegate.RecessoContrattoAppaltoSopra150000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="stipulaAccordoQuadroHandler" />
+	</bean>
+
+	<bean id="stipulaAccordoQuadroHandler" class="it.eldasoft.w9.bl.delegate.StipulaAccordoQuadroHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="adesioneAccordoQuadroHandler" />
+	</bean>
+
+	<bean id="adesioneAccordoQuadroHandler" class="it.eldasoft.w9.bl.delegate.AdesioneAccordoQuadroHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="comunicazioneEsitoHandler" />
+	</bean>
+
+	<bean id="comunicazioneEsitoHandler" class="it.eldasoft.w9.bl.delegate.ComunicazioneEsitoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="avanzamentoContrattoAppaltoSemplificatoHandler" />
+	</bean>
+
+	<!-- bean id="garaEnteNazionaleSotto40000Handler" class="it.eldasoft.w9.bl.delegate.GaraEnteNazionaleSotto40000Handler" parent="requestHandler" >
+		<property name="nextHandler" ref="avanzamentoContrattoAppaltoSemplificatoHandler" />
+	</bean-->
+
+	<bean id="avanzamentoContrattoAppaltoSemplificatoHandler" class="it.eldasoft.w9.bl.delegate.AvanzamentoContrattoSemplificatoHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="elencoImpreseInvitatePartecipantiHandler" />
+	</bean>
+
+	<bean id="elencoImpreseInvitatePartecipantiHandler" class="it.eldasoft.w9.bl.delegate.ElencoImpreseInvitatePartecipantiHandler" parent="requestHandler" >
+			<property name="nextHandler" ref="eliminazioneSchedaHandler" />
+			<!-- property name="nextHandler" ref="pubblicazioneDocumentiHandler" /-->
+	</bean>
+	
+	<!-- bean id="pubblicazioneDocumentiHandler" class="it.eldasoft.w9.bl.delegate.PubblicazioneDocumentiHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="eliminazioneSchedaHandler" />
+	</bean-->
+
+	<bean id="eliminazioneSchedaHandler" class="it.eldasoft.w9.bl.delegate.EliminazioneSchedaHandler" parent="requestHandler" >
+		<property name="nextHandler" ref="unknownMessageHandler" />
+	</bean>
+	
+	<bean id="unknownMessageHandler" class="it.eldasoft.w9.bl.delegate.UnknownMessageHandler" parent="requestHandler" >
+	</bean>
+
+	<bean id="sitatRequestProcessorFacade" class="it.eldasoft.w9.bl.delegate.SitatRequestProcessorFacade">
+		<property name="requestHandler" ref="chainRequestHandler" />
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="genChiaviManager" ref="genChiaviManager" />
+	</bean>
+
+	<bean id="cartMessageReader" class="it.eldasoft.w9.bl.CARTMessageReadManager">
+		<property name="sitatRequestProcessorFacade" ref="sitatRequestProcessorFacade" />
+		<property name="sqlManager" ref="sqlManager" />
+	</bean>
+
+	<bean id="cartMessageReaderJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cartMessageReader" />
+		<property name="targetMethod" value="getMessages" />
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="cartMessageReaderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="cartMessageReaderJob" />
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ? 2099</value>
+		</property>
+	</bean>
+	
+	<bean id="ticketSimogManager" class="it.eldasoft.w9.bl.simog.TicketSimogManager" ></bean>
+	
+	<bean id="generaIdGaraCigManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="get*">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="generaIdGaraCig*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="generaIdGaraCigManager" parent="generaIdGaraCigManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.GeneraIdGaraCigManager">
+				<property name="ticketSimogManager" ref="ticketSimogManager" />
+				<property name="accessoSimogManager" ref="accessoSimogManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="AVCPManagerTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true" >
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes" >
+			<props>
+				<prop key="inviaXML">PROPAGATION_REQUIRED</prop>
+				<prop key="importFeedback">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="AVCPManager" parent="AVCPManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.AVCPManager">
+				<property name="sqlManager" ref="sqlManager" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="AVCPManagerJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="AVCPManager" />
+		<property name="targetMethod" value="importFeedback" />
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="AVCPManagerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="AVCPManagerJob" />
+		<property name="cronExpression">
+			<value>0 0 0 1 1 ? 2099</value>
+		</property>
+	</bean>
+	
+	<bean id="osservatorioManager" parent="defaultManagerTransactionProxy">
+		<property name="target">
+			<bean class="it.eldasoft.w9.bl.ort.OsservatorioManager">
+				<property name="sqlManager" ref="sqlManager" />
+				<property name="w9Manager" ref="w9Manager" />
+			</bean>
+		</property>
+	</bean>
+
+	<!--
+		========================= STRUTS ACTION DEFINITIONS	=========================
+	-->
+
+	<bean name="/w9/EseguiImportazioneOrt" class="it.eldasoft.w9.web.struts.EseguiImportazioneOrtAction">
+		<property name="requestHandler" ref="chainRequestHandler" />
+		<property name="sqlManager" ref="sqlManager" />
+		<property name="esportazioneXMLSIMOGManager" ref="esportazioneXMLSIMOGManager" />
+	</bean>
+
+	<bean name="/w9/EseguiInvioSchedaSimog" class="it.eldasoft.w9.web.struts.EseguiInvioSchedaSimogAction">
+		<property name="esportazioneXMLSIMOGManager" ref="esportazioneXMLSIMOGManager" />	
+		<property name="sqlManager" ref="sqlManager" />	
+	</bean>
+
+	<bean name="/w9/InvioXMLAVCP" class="it.eldasoft.w9.web.struts.InvioXMLAVCPAction" >
+		<property name="AVCPManager" ref="AVCPManager" />
+	</bean>
+
+	<bean name="/w9/ResetTicket" class="it.eldasoft.w9.web.struts.ort.ResetTicketSimogAction" >
+		<property name="ticketSimogManager" ref="ticketSimogManager" />
+	</bean>
+
+	<bean name="/w9/EseguiReinvioComunicazioneSCP" class="it.eldasoft.w9.web.struts.EseguiReinvioComunicazioneSCPAction">
+		<property name="sqlManager" ref="sqlManager" />	
+	</bean>
+	
+</beans>

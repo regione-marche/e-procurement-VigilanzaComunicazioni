@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="indicatoriLotto" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="823"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="dataset1">
+		<field name="descrizione" class="java.lang.String"/>
+		<field name="unitaDiMisura" class="java.lang.String"/>
+		<field name="affidabilitaStima" class="java.lang.String"/>
+		<field name="contrattiSimiliStima" class="java.lang.String"/>
+		<field name="sogliaInferiore" class="java.lang.String"/>
+		<field name="percentile25" class="java.lang.String"/>
+		<field name="percentile50" class="java.lang.String"/>
+		<field name="percentile75" class="java.lang.String"/>
+		<field name="sogliaSuperiore" class="java.lang.String"/>
+		<field name="media" class="java.lang.String"/>
+		<field name="stessoComune" class="java.lang.String"/>
+		<field name="stessaProvincia" class="java.lang.String"/>
+		<field name="stessaRegione" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Utenti\\Luca\\RegioneToscana\\OSCAT\\sitat\\trunk\\Sitat\\sitat-core-webapp\\src\\main\\webapp\\WEB-INF\\jrReport\\IndicatoriLotto\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realPath" class="java.lang.String"/>
+	<parameter name="denominazioneEnte" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Regione Toscana"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="denominazioneRUP" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Cipollini Mario"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="codiceCIG" class="java.lang.String">
+		<parameterDescription><![CDATA[CodiceCIGlotto]]></parameterDescription>
+		<defaultValueExpression><![CDATA["0123456789"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="oggettoLotto" class="java.lang.String">
+		<parameterDescription><![CDATA[Oggetto del lotto]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Oggetto del lotto"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="codiceCPV" class="java.lang.String">
+		<parameterDescription><![CDATA[Codice CPV]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Codice CPV"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoAppalto" class="java.lang.String">
+		<parameterDescription><![CDATA[Tipo di appalto]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Tipo di appalto"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoContratto" class="java.lang.String">
+		<parameterDescription><![CDATA[Tipo di contratto]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Tipo contratto"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idSceltaContraente" class="java.lang.String">
+		<parameterDescription><![CDATA[Scelta contraente]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Id scelta contraente"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idCategoriaPrevalente" class="java.lang.String">
+		<parameterDescription><![CDATA[Categoria prevalente]]></parameterDescription>
+		<defaultValueExpression><![CDATA["idCateg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="classeImporto" class="java.lang.String">
+		<parameterDescription><![CDATA[Classe di importo]]></parameterDescription>
+		<defaultValueExpression><![CDATA["ClasseImporto"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="criterioAggiudicazione" class="java.lang.String">
+		<parameterDescription><![CDATA[Criterio di aggiudicazione]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Criterio aggiudicazione"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipologiaLavori" class="java.lang.String">
+		<parameterDescription><![CDATA[Tipologia lavori]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="messaggioValoriNonCongrui01" class="java.lang.String">
+		<parameterDescription><![CDATA[Msg valori non congrui]]></parameterDescription>
+		<defaultValueExpression><![CDATA["---CPV > 45 e != 48 e tipoContratto non servizi | Scelta contraente non compatibile con modalità di realizzazione"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="indicatoriAffidamento" class="java.util.List" isForPrompting="false"/>
+	<parameter name="indicatoriEsecuzione" class="java.util.List" isForPrompting="false"/>
+	<parameter name="importoTotaleLotto" class="java.lang.String">
+		<parameterDescription><![CDATA[Importo lotto]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="importoAggiudicazione" class="java.lang.String">
+		<parameterDescription><![CDATA[Importo aggiudicazione]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="descTipoContratto" class="java.lang.String">
+		<parameterDescription><![CDATA["Tipo di contratto"]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Tipo contratto"]]></defaultValueExpression>
+	</parameter>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Prevent">
+			<staticText>
+				<reportElement x="2" y="3" width="30" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Ente: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="26" width="30" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ RUP: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="49" width="30" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ CIG: 	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="118" width="45" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Oggetto:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="32" y="3" width="288" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{denominazioneEnte}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="32" y="26" width="288" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{denominazioneRUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="49" width="110" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{codiceCIG}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="47" y="121" width="753" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{oggettoLotto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="3" width="98" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Modo realizzazione: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="425" y="3" width="210" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{tipoAppalto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="72" width="262" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{idSceltaContraente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="713" y="26" width="88" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{descTipoContratto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="72" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Procedura scelta contraente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="718" y="49" width="83" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{classeImporto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="26" width="91" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Categ. prevalente: 	]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="26" width="217" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{idCategoriaPrevalente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="639" y="49" width="79" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Classe importo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="639" y="26" width="74" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Tipo contratto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="72" width="103" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Crit. aggiudicazione:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="49" width="57" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Tipo lavori:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="513" y="72" width="288" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{criterioAggiudicazione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="49" width="251" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{tipologiaLavori}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="3" width="99" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{codiceCPV}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="802" height="146"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="639" y="3" width="63" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Classe CPV: 	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="95" width="68" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Importo lotto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="95" width="335" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{importoTotaleLotto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="95" width="118" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importo aggiudicazione:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="529" y="95" width="273" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{importoAggiudicazione}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{messaggioValoriNonCongrui01} != null]]></printWhenExpression>
+			<frame>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="1" y="1" width="799" height="38" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{messaggioValoriNonCongrui01}.length() >= 0]]></printWhenExpression>
+				</reportElement>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="21" width="798" height="14" isRemoveLineWhenBlank="true" forecolor="#FF0033">
+						<printWhenExpression><![CDATA[$P{messaggioValoriNonCongrui01}.length() > 0]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{messaggioValoriNonCongrui01}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="4" width="529" height="14" forecolor="#FF0033">
+						<printWhenExpression><![CDATA[$P{messaggioValoriNonCongrui01}.length() >= 0]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Attenzione! Alcune delle informazioni relative all’anagrafica del contratto non risultano congruenti fra loro:]]></text>
+				</staticText>
+			</frame>
+		</band>
+		<band height="119">
+			<componentElement>
+				<reportElement key="TabellaEsecuzione" positionType="Float" x="0" y="83" width="802" height="27">
+					<printWhenExpression><![CDATA[$P{indicatoriEsecuzione} != null]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{indicatoriEsecuzione})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="204">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="204" height="68"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Descrizione Indicatore]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="204" height="37"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{descrizione}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="75" height="68"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Unità di misura]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="75" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{unitaDiMisura}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="66">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="66" height="68"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Affidabilità della stima]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="66" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{affidabilitaStima} != null ? $F{affidabilitaStima} : "" )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="83">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="83" height="68"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Contratti simili utilizzati per la stima]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="83" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{contrattiSimiliStima} != null ? $F{contrattiSimiliStima} : "" )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="242">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="35" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="72" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="129" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="165" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="205" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="0" y="42" width="242" height="1"/>
+							</line>
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[10% (I Decile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="0" width="241" height="42"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Distribuzione del valore della variabile-indicatore tra contratti simili]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="36" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[25% (I Quartile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="72" y="42" width="57" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[50% (valore mediano)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="129" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[75% (II Quartile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="165" y="42" width="40" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[90% (IX Decile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="205" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Media]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="35" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="72" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="129" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="165" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="205" y="0" width="1" height="37"/>
+							</line>
+							<textField isBlankWhenNull="false">
+								<reportElement x="1" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{sogliaInferiore} != null ? $F{sogliaInferiore} : "" )]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="205" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{media}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="166" y="0" width="39" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{sogliaSuperiore} != null ? $F{sogliaSuperiore} : "" )]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="130" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile75}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="37" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile25}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="73" y="0" width="57" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile50}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="131">
+						<jr:columnHeader height="68" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="43" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="86" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="0" y="42" width="131" height="1"/>
+							</line>
+							<staticText>
+								<reportElement x="1" y="1" width="129" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Incidenza effettiva dei casi di anomalia (%)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="1" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stesso Comune]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="44" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stessa Provincia]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="87" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stessa Regione]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="43" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="86" y="0" width="1" height="37"/>
+							</line>
+							<textField>
+								<reportElement x="1" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessoComune}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="44" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessaProvincia}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="87" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessaRegione}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="61" width="144" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase di esecuzione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="0" width="144" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase di affidamento]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="tabellaAffidamento" mode="Transparent" x="0" y="22" width="802" height="25">
+					<printWhenExpression><![CDATA[$P{indicatoriAffidamento} != null]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{indicatoriAffidamento})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="204">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="204" height="69"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Descrizione Indicatore]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="204" height="37"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{descrizione}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="75" height="69"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Unità di misura]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="75" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{unitaDiMisura}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="66">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="66" height="69"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Affidabilità della stima]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="66" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{affidabilitaStima} != null ? $F{affidabilitaStima} : "" )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="83">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="83" height="69"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Contratti simili utilizzati per la stima]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="83" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{contrattiSimiliStima} != null ? $F{contrattiSimiliStima} : "" )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="242">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="35" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="72" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="129" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="165" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="205" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="0" y="42" width="242" height="1"/>
+							</line>
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[10% (I Decile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="0" width="241" height="42"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Distribuzione del valore della variabile-indicatore tra contratti simili]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="36" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[25% (I Quartile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="72" y="42" width="57" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[50% (valore mediano)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="129" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[75% (II Quartile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="165" y="42" width="40" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[90% (IX Decile)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="205" y="42" width="36" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Media]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="35" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="72" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="129" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="165" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="205" y="0" width="1" height="37"/>
+							</line>
+							<textField isBlankWhenNull="false">
+								<reportElement x="1" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{sogliaInferiore} != null ? $F{sogliaInferiore} : "" )]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="205" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{media}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="166" y="0" width="39" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[( $F{sogliaSuperiore} != null ? $F{sogliaSuperiore} : "" )]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="130" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile75}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="37" y="0" width="36" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile25}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="73" y="0" width="57" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{percentile50}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="131">
+						<jr:columnHeader height="69" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="43" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="86" y="42" width="1" height="26"/>
+							</line>
+							<line>
+								<reportElement x="0" y="42" width="131" height="1"/>
+							</line>
+							<staticText>
+								<reportElement x="1" y="1" width="129" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Incidenza effettiva dei casi di anomalia (%)]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="1" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stesso Comune]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="44" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stessa Provincia]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="87" y="42" width="43" height="26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<text><![CDATA[Stessa Regione]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="37" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<line>
+								<reportElement x="43" y="0" width="1" height="37"/>
+							</line>
+							<line>
+								<reportElement x="86" y="0" width="1" height="37"/>
+							</line>
+							<textField>
+								<reportElement x="1" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessoComune}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="44" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessaProvincia}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="87" y="0" width="43" height="37"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stessaRegione}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="2" y="22" width="261" height="20">
+					<printWhenExpression><![CDATA[$P{indicatoriAffidamento} == null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Non sono previsiti indicatori per questo tipo di  contratto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="83" width="261" height="20">
+					<printWhenExpression><![CDATA[$P{indicatoriEsecuzione} == null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Non sono previsiti indicatori per questo tipo di  contratto]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="4" width="307" height="16"/>
+				<textElement/>
+				<text><![CDATA[Si rimanda al documento Istruzioni per la lettura e nota metodologica]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
