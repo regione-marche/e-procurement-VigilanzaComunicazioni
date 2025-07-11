@@ -13,3 +13,5 @@ Principali funzionalità:
 - Gestione controllo coerenza dati
 - Invio dati a SIMOG
 - Gestione feedback invio dati
+
+ATTENZIONE: sistema abbandonato e sostituito dal 1 gennaio 2024 dai servizi PCP di ANAC.
